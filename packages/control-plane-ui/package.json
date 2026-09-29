@@ -1,5 +1,5 @@
 {
-  "name": "@humaapi/control-plane-ui",
+  "name": "@funcd-dev/control-plane-ui",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,8 +13,8 @@
     "@apollo/client": "^3.11.5",
     "@ebay/nice-modal-react": "^1.2.13",
     "@emotion/react": "^11.10.5",
-    "@humaapi/lib": "*",
-    "@humaapi/ui": "*",
+    "@funcd-dev/lib": "*",
+    "@funcd-dev/ui": "*",
     "@mantine/core": "^9.4.1",
     "@mantine/dates": "^9.4.1",
     "@mantine/hooks": "^9.4.1",

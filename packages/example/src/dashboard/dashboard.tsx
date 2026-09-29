@@ -6,7 +6,11 @@
 /* eslint-disable prettier/prettier */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable no-console */
-import { IReactiveChartMeta, ReactiveDashboard, StatsRing } from '@humaapi/ui';
+import {
+  IReactiveChartMeta,
+  ReactiveDashboard,
+  StatsRing
+} from '@funcd-dev/ui';
 import { Box, SimpleGrid } from '@mantine/core';
 import { FC } from 'react';
 

@@ -1,4 +1,4 @@
-import { HmFlowJsonObject, IPyNode } from '@humaapi/ui';
+import { HmFlowJsonObject, IPyNode } from '@funcd-dev/ui';
 import { v4 as uuid } from 'uuid';
 
 export interface INodeParameter {

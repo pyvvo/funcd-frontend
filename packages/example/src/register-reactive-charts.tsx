@@ -3,7 +3,7 @@ import {
   ReactiveBarChart,
   ReactiveLineChart,
   ReactivePieChart
-} from '@humaapi/ui';
+} from '@funcd-dev/ui';
 
 ChartBuilder.defineWidget({ name: 'bar', component: ReactiveBarChart });
 ChartBuilder.defineWidget({ name: 'line', component: ReactiveLineChart });

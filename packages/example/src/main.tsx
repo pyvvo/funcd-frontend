@@ -5,7 +5,7 @@ import App from './App';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 import '@mantine/spotlight/styles.css';
-import '@humaapi/ui/dist/ui.css';
+import '@funcd-dev/ui/dist/ui.css';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

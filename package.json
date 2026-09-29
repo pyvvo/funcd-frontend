@@ -5,10 +5,10 @@
     "packages/*"
   ],
   "scripts": {
-    "ex": "yarn workspace @humaapi/example",
-    "ui": "yarn workspace @humaapi/ui",
-    "lib": "yarn workspace @humaapi/lib",
-    "cpui": "yarn workspace @humaapi/control-plane-ui",
+    "ex": "yarn workspace @funcd-dev/example",
+    "ui": "yarn workspace @funcd-dev/ui",
+    "lib": "yarn workspace @funcd-dev/lib",
+    "cpui": "yarn workspace @funcd-dev/control-plane-ui",
     "dev:ui": "yarn ui dev",
     "dev:ex": "yarn ex dev",
     "dev:cpui": "yarn cpui dev",

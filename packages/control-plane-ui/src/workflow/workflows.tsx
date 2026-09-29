@@ -1,4 +1,4 @@
-import { FlowCard } from '@humaapi/ui';
+import { FlowCard } from '@funcd-dev/ui';
 import { Box, Group, Stack } from '@mantine/core';
 import { IconJumpRope, IconPencil } from '@tabler/icons-react';
 import { observer } from 'mobx-react-lite';

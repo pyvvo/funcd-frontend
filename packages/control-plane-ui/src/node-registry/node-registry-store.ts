@@ -1,5 +1,10 @@
-import { CreateNodeInputSchema, NodeDef, NodeModels, sdk } from '@humaapi/lib';
-import { IFormValues, IParameter } from '@humaapi/ui';
+import {
+  CreateNodeInputSchema,
+  NodeDef,
+  NodeModels,
+  sdk
+} from '@funcd-dev/lib';
+import { IFormValues, IParameter } from '@funcd-dev/ui';
 import { notifications } from '@mantine/notifications';
 import { makeAutoObservable } from 'mobx';
 

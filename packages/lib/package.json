@@ -1,5 +1,5 @@
 {
-  "name": "@humaapi/lib",
+  "name": "@funcd-dev/lib",
   "type": "module",
   "description": "sdk, utils and helpers functions",
   "version": "0.1.0",
@@ -23,7 +23,7 @@
     "test:coverage": "vp test run --coverage",
     "lint": "vp lint src --max-warnings=0",
     "typecheck": "vp test typecheck",
-    "gen:sdk": "yarn workspace @humaapi/codegen openapi-ts && vp fmt src/client"
+    "gen:sdk": "yarn workspace @funcd-dev/codegen openapi-ts && vp fmt src/client"
   },
   "peerDependencies": {
     "dayjs": ">=1.11.7"
