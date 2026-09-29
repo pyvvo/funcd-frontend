@@ -1,10 +1,10 @@
-import { HMDataGrid, IColumn } from '@humaapi/ui';
+import { HMDataGrid, IColumn } from '@funcd-dev/ui';
 import { Box, Button } from '@mantine/core';
 import { FC, useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { WorkflowStoreType } from './workflow.store';
-import { WorkflowModel } from '@humaapi/lib';
+import { WorkflowModel } from '@funcd-dev/lib';
 
 interface IWorfklowsProps {
   store: WorkflowStoreType;

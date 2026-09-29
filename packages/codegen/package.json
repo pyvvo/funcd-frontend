@@ -1,5 +1,5 @@
 {
-  "name": "@humaapi/codegen",
+  "name": "@funcd-dev/codegen",
   "private": true,
   "version": "0.0.0",
   "type": "module",

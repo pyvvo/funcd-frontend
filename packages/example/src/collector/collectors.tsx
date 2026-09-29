@@ -6,7 +6,7 @@
 /* eslint-disable prettier/prettier */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable no-console */
-import { HMDataGrid, IColumn } from '@humaapi/ui';
+import { HMDataGrid, IColumn } from '@funcd-dev/ui';
 import { Box, Button } from '@mantine/core';
 import { FC, useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';

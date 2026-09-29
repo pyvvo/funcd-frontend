@@ -1,4 +1,4 @@
-import { CreateNodeForm, FlowCard } from '@humaapi/ui';
+import { CreateNodeForm, FlowCard } from '@funcd-dev/ui';
 import { Box, Drawer, Group, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconCube, IconPencil } from '@tabler/icons-react';

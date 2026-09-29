@@ -1,5 +1,5 @@
-import { NodeModel, NodeModels, sdk } from '@humaapi/lib';
-import { IPyNode } from '@humaapi/ui';
+import { NodeModel, NodeModels, sdk } from '@funcd-dev/lib';
+import { IPyNode } from '@funcd-dev/ui';
 import { notifications } from '@mantine/notifications';
 import { makeAutoObservable } from 'mobx';
 

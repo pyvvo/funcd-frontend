@@ -1,4 +1,4 @@
-import { HmFlow, IHmFlow, IHmFlowData } from '@humaapi/ui';
+import { HmFlow, IHmFlow, IHmFlowData } from '@funcd-dev/ui';
 import { observer } from 'mobx-react-lite';
 import { FC, use, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

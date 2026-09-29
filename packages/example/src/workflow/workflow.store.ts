@@ -1,5 +1,5 @@
 import { makeAutoObservable, toJS } from 'mobx';
-import { sdk, WorkflowModels } from '@humaapi/lib';
+import { sdk, WorkflowModels } from '@funcd-dev/lib';
 
 const _store = {
   data: [] as WorkflowModels,

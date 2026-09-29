@@ -6,13 +6,13 @@ import {
   WorkflowModel,
   WorkflowModels,
   WorkflowStep
-} from '@humaapi/lib';
+} from '@funcd-dev/lib';
 import {
   HmFlowJsonObject,
   IHmFlowData,
   IHmFlowMetadata,
   PyNodeDataWithActionType
-} from '@humaapi/ui';
+} from '@funcd-dev/ui';
 import { notifications } from '@mantine/notifications';
 import { Edge, Node } from '@xyflow/react';
 import { makeAutoObservable, toJS } from 'mobx';

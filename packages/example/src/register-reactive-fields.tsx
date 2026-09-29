@@ -11,7 +11,7 @@ import {
   ReactiveSwitch,
   ReactiveTextareaField,
   ReactiveTextField
-} from '@humaapi/ui';
+} from '@funcd-dev/ui';
 
 FormBuilder.defineWidget({ name: 'text', component: ReactiveTextField });
 FormBuilder.defineWidget({

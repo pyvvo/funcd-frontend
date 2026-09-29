@@ -1,4 +1,4 @@
-import { AppLayout } from '@humaapi/ui';
+import { AppLayout } from '@funcd-dev/ui';
 import { Spotlight, SpotlightProps } from '@mantine/spotlight';
 import {
   IconCell,

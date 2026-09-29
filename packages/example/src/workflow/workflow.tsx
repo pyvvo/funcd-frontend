@@ -1,4 +1,4 @@
-import { HmFlow, IHmFlow, IHmFlowData, IPyNode } from '@humaapi/ui';
+import { HmFlow, IHmFlow, IHmFlowData, IPyNode } from '@funcd-dev/ui';
 import { FC } from 'react';
 import { nodeModels, parseFlowToWorkflow, parseNodes } from './utils';
 
