@@ -1,0 +1,52 @@
+.rdgCell {
+  :global {
+    .react-flow__controls {
+      background-color: white;
+      border-radius: 9999px;
+      padding: 6px;
+      display: flex;
+      box-shadow: 0 -1px 10px -2px var(--mantine-color-gray-3);
+    }
+
+    .react-flow__controls-button {
+      border-radius: 9999px;
+      padding: 6px;
+      border: none;
+    }
+
+    .react-flow__minimap {
+      border-radius: 22px;
+      padding: 8px;
+      box-shadow: 0 -1px 10px -2px var(--mantine-color-gray-3);
+    }
+
+    .react-flow__minimap-svg {
+      border-radius: 20px;
+    }
+  }
+  /* .rdg-cell {
+    background-color: #9370db;
+    color: white;
+
+    &:hover {
+      background-color: #800080;
+    }
+  } */
+}
+
+/* .rdg-cell {
+  display: flex;
+  align-items: center;
+  border-right: none;
+  border-bottom: 1px solid lighten(var(--mantine-primary-color-1), 0.7);
+}
+
+.rdg-header-sort-cell {
+  align-items: center;
+}
+
+.rdg .rdg-header-row:nth-of-type(1) {
+  & .rdg-cell {
+    border-style: none;
+  }
+} */

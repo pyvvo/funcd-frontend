@@ -1,0 +1,57 @@
+/* Header.module.css */
+.header {
+  display: flex;
+  height: 60px;
+  width: 100%;
+  padding-inline: 12px;
+  @mixin larger-than $mantine-breakpoint-sm {
+    width: calc(100% - (var(--mantine-header-offset) + 45px));
+    right: 12px;
+  }
+  border-radius: 18px;
+  position: fixed;
+  align-items: center;
+  justify-content: space-between;
+  top: 5px;
+  z-index: 100;
+  -webkit-backdrop-filter: blur(rem(10px));
+  backdrop-filter: blur(rem(10px));
+  @mixin larger-than $mantine-breakpoint-sm {
+    justify-content: space-evenly;
+  }
+}
+
+.featureBar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 22px;
+  background-color: transparent;
+  padding: 0px;
+
+  @mixin larger-than $mantine-breakpoint-xs {
+    box-shadow: 0 0 21px 0 #5f5f5f1a;
+    padding: 6px;
+    @mixin dark {
+      background-color: var(--mantine-color-gray-9);
+    }
+    @mixin light {
+      background-color: white;
+    }
+  }
+}
+
+.title {
+  color: var(--mantine-primary-color-filled);
+  font-size: 24px;
+  @mixin larger-than $mantine-breakpoint-xs {
+    font-size: 30px;
+  }
+}
+
+.searchBar {
+  display: none;
+  @mixin larger-than $mantine-breakpoint-xs {
+    display: block;
+  }
+}

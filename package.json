@@ -1,0 +1,46 @@
+{
+  "name": "hm",
+  "packageManager": "yarn@4.17.1",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "ex": "yarn workspace @humaapi/example",
+    "ui": "yarn workspace @humaapi/ui",
+    "lib": "yarn workspace @humaapi/lib",
+    "cpui": "yarn workspace @humaapi/control-plane-ui",
+    "dev:ui": "yarn ui dev",
+    "dev:ex": "yarn ex dev",
+    "dev:cpui": "yarn cpui dev",
+    "build:rf": "yarn ui build",
+    "codegen:schema": "tsx scripts/generate_schema.ts openapi ts-schema"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.1",
+    "axios": "^1.8.3",
+    "change-case": "^5.4.4",
+    "commander": "^11.1.0",
+    "cross-env": "^7.0.3",
+    "globals": "^16.0.0",
+    "lefthook": "^1.11.3",
+    "openapi-typescript": "^7.3.3",
+    "ora": "^8.1.0",
+    "tsx": "^4.19.3",
+    "typescript": "7.0.2",
+    "vite-plus": "catalog:",
+    "zod": "^3.24.2"
+  },
+  "engines": {
+    "node": ">=18",
+    "npm": "please-use-yarn",
+    "yarn": ">=3.2.4"
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.3.6",
+    "uuid": "^11.0.3"
+  },
+  "resolutions": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.2.5",
+    "vitest": "4.1.10"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  // Declaration-only build. TypeScript 7 removed the programmatic compiler
+  // API that vite-plugin-dts / api-extractor rely on, but the tsc CLI still
+  // emits declarations, so types are generated here instead of during the
+  // Vite build. This is what keeps the repo able to run TypeScript 7.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationDir": "dist",
+    "rootDir": "src",
+    "composite": false,
+    "incremental": false
+  },
+  "include": ["src"],
+  "exclude": ["**/node_modules", "**/*.test-d.ts", "dist/**/*"]
+}

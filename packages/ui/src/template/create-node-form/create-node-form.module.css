@@ -1,0 +1,11 @@
+.parameterRoot {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldset {
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+}

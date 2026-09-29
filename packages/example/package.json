@@ -1,0 +1,51 @@
+{
+  "name": "@humaapi/example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev",
+    "build": "tsc && vp build",
+    "preview": "vp preview",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.11.5",
+    "@ebay/nice-modal-react": "^1.2.13",
+    "@emotion/react": "^11.10.5",
+    "@humaapi/lib": "*",
+    "@humaapi/ui": "*",
+    "@mantine/core": "^9.4.1",
+    "@mantine/dates": "^9.4.1",
+    "@mantine/hooks": "^9.4.1",
+    "@mantine/notifications": "^9.4.1",
+    "@mantine/spotlight": "^9.4.1",
+    "@tabler/icons-react": "^3.14.0",
+    "chance": "^1.1.12",
+    "echarts": "^6.1.0",
+    "graphql": "^16.9.0",
+    "mobx": "^6.13.6",
+    "mobx-react-lite": "^4.1.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-hook-form": "^7.53.0",
+    "react-router-dom": "^7.18.1",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@playwright/test": "^1.46.1",
+    "@tailwindcss/vite": "^4.3.2",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.1",
+    "dayjs": "^1.11.13",
+    "postcss": "^8.5.3",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
+    "tailwindcss": "^4.0.8",
+    "typescript": "7.0.2",
+    "vite": "catalog:",
+    "vite-tsconfig-paths": "^5.0.1"
+  }
+}

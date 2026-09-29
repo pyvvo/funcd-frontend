@@ -1,0 +1,23 @@
+.table {
+  border-collapse: separate; /* Ensure borders are rounded properly */
+  border-radius: 8px; /* Rounds the corners of the table */
+  /* overflow: hidden;  // Ensures the rounded corners are maintained */
+  thead {
+    th {
+      border-bottom: inherit;
+    }
+  }
+
+  tbody {
+    tr {
+      border-width: 2px;
+    }
+  }
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}

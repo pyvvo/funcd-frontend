@@ -1,0 +1,23 @@
+#env
+.env*
+
+# Logs
+yarn-debug.log*
+yarn-error.log*
+
+# Binaries
+node_modules/
+
+# Builds
+dist/
+**/public/script.js
+
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Claude Code personal instructions
+CLAUDE.local.md

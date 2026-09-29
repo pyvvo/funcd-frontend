@@ -1,0 +1,10 @@
+/* The same surface as the chart cards, the sidebar and the bottom bar. */
+.root {
+  background-color: white;
+  border-radius: var(--mantine-card-border-radius);
+  box-shadow: -1px 1px 10px -1px rgba(0, 0, 0, 0.103);
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-9);
+  }
+}

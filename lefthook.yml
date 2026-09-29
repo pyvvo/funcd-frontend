@@ -1,0 +1,17 @@
+pre-commit:
+  piped: true
+  jobs:
+    - name: lint staged files
+      glob: '*.{ts,tsx,js,jsx}'
+      # Lint ignores generated files and fails when it gets only those.
+      exclude:
+        - '**/*.gen.ts'
+      run: 'just lint-all {staged_files}'
+      stage_fixed: true
+
+    - name: fmt staged files
+      glob:
+        - '*.{ts,tsx,js,jsx}'
+        - '*.{json,css,md}'
+      run: 'just fmt-all {staged_files}'
+      stage_fixed: true

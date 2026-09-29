@@ -1,0 +1,76 @@
+.root {
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  width: auto;
+  padding: 10px;
+  background-color: none;
+}
+
+.navbar {
+  position: relative;
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  width: var(--mantine-sidebar-width);
+  height: 100%;
+  border-radius: var(--mantine-sidebar-border-radius);
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  box-shadow: -1px 1px 10px -1px rgba(0, 0, 0, 0.103);
+
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  @mixin dark {
+    background-color: var(--mantine-color-gray-9);
+  }
+}
+
+.bottomMenu {
+  margin-top: auto;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+}
+
+/* Link.module.css */
+.link {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--mantine-radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--mantine-color-gray-6);
+
+  &:hover {
+    background-color: var(--mantine-color-gray-1);
+    @mixin dark {
+      background-color: var(--mantine-color-dark-5);
+    }
+  }
+  @mixin dark {
+    color: var(--mantine-color-dark-0);
+  }
+
+  &[data-active] {
+    background-color: alpha(var(--mantine-primary-color-1), 0.4);
+    color: var(--mantine-primary-color-9);
+    &:hover {
+      background-color: alpha(var(--mantine-primary-color-1), 0.6);
+    }
+
+    @mixin dark {
+      color: white;
+      background-color: alpha(var(--mantine-primary-color-9), 0.4);
+      &:hover {
+        background-color: alpha(var(--mantine-primary-color-9), 0.5);
+      }
+    }
+  }
+}

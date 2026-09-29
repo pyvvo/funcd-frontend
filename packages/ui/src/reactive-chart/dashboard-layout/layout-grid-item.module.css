@@ -1,0 +1,21 @@
+/* Grid stretches the columns of a row to the tallest one. */
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+/* A variable left unset drops its rule: no fixed height, minimum or maximum. */
+.chart {
+  width: 100%;
+  height: calc(var(--layout-row-height) * var(--chart-rows));
+  min-height: calc(var(--layout-row-height) * var(--chart-min-rows));
+  max-height: calc(var(--layout-row-height) * var(--chart-max-rows));
+  max-width: var(--chart-max-width);
+
+  /* Without `h`, the height follows the width, the way an autosize Textarea
+     grows between its rows, and the chart fills the row's height. */
+  &[data-auto-height] {
+    flex: 1;
+    aspect-ratio: 5 / 3;
+  }
+}

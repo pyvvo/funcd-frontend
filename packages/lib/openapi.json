@@ -1,0 +1,1632 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "api_server",
+    "description": "",
+    "contact": { "name": "The pyvvo Team" },
+    "license": { "name": "Apache-2.0", "identifier": "Apache-2.0" },
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/deployments": {
+      "get": {
+        "tags": ["deployments"],
+        "operationId": "list_deployments",
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Deployments" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/deployments/{id}": {
+      "get": {
+        "tags": ["deployments"],
+        "operationId": "get_deployment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Deployment ID",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Deployment" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["deployments"],
+        "operationId": "delete_deployment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Deployment ID",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions": {
+      "get": {
+        "tags": ["executions"],
+        "operationId": "list_executions",
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Executions" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions/{id}": {
+      "get": {
+        "tags": ["executions"],
+        "operationId": "get_execution",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Execution ID",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Model" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["executions"],
+        "operationId": "delete_executions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Execution ID",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/nodes": {
+      "get": {
+        "tags": ["nodes"],
+        "operationId": "list_nodes",
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NodeModels" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["nodes"],
+        "operationId": "create_node",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": { "$ref": "#/components/schemas/CreateNodeInputSchema" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NodeModel" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/nodes/{id}": {
+      "get": {
+        "tags": ["nodes"],
+        "operationId": "get_node_by_id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Node ID",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NodeModel" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflows": {
+      "get": {
+        "tags": ["workflows"],
+        "operationId": "list_workflows",
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WorkflowModels" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["workflows"],
+        "operationId": "create_workflow",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateWorkflow" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WorkflowModel" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflows/{id}": {
+      "get": {
+        "tags": ["workflows"],
+        "operationId": "get_workflow_by_id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Workflow id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WorkflowModel" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["workflows"],
+        "operationId": "update_workflow",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateWorkflow" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WorkflowModel" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["workflows"],
+        "operationId": "delete_workflow",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflows/{id}/deploy": {
+      "post": {
+        "tags": ["workflows"],
+        "operationId": "deploy_workflow",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflows/{id}/run": {
+      "post": {
+        "tags": ["workflows"],
+        "operationId": "run_workflow",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": [{ "a": "This field is required" }],
+                  "message": "Invalid data",
+                  "type": "BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource not found",
+                  "type": "NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "Resource already exists",
+                  "type": "Conflict"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenApiError" },
+                "example": {
+                  "details": null,
+                  "message": "An unexpected error occurred",
+                  "type": "InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Annotation": {
+        "type": "object",
+        "required": ["description", "version"],
+        "properties": {
+          "description": { "type": "string" },
+          "version": { "type": "string" }
+        }
+      },
+      "ComponentProperties": {
+        "type": "object",
+        "required": ["image", "metadata"],
+        "properties": {
+          "image": { "type": "string" },
+          "metadata": { "$ref": "#/components/schemas/WorkflowStepMetadata" },
+          "parameters": {
+            "type": ["object", "null"],
+            "additionalProperties": {},
+            "propertyNames": { "type": "string" }
+          }
+        }
+      },
+      "CreateNodeInputSchema": {
+        "type": "object",
+        "required": ["node_def", "wasm_file", "icon"],
+        "properties": {
+          "icon": { "type": "string", "format": "binary" },
+          "node_def": { "$ref": "#/components/schemas/NodeDef" },
+          "wasm_file": { "type": "string", "format": "binary" }
+        }
+      },
+      "CreateWorkflow": {
+        "type": "object",
+        "required": ["workflow_def"],
+        "properties": {
+          "workflow_def": { "$ref": "#/components/schemas/WorkflowDef" }
+        }
+      },
+      "Deployment": {
+        "type": "object",
+        "required": ["deployment_id", "workflow_id", "status"],
+        "properties": {
+          "deployment_id": { "type": "string" },
+          "manifest_name": { "type": ["string", "null"] },
+          "manifest_version": { "type": ["string", "null"] },
+          "status": {
+            "type": "string",
+            "enum": [
+              "Created",
+              "Submitted",
+              "Validated",
+              "Processed",
+              "Deployed",
+              "Cancelled"
+            ]
+          },
+          "workflow_id": { "type": "string" }
+        }
+      },
+      "Deployments": {
+        "type": "array",
+        "items": { "$ref": "#/components/schemas/Deployment" }
+      },
+      "ErrorType": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": ["type"],
+            "properties": { "type": { "type": "string", "enum": ["NotFound"] } }
+          },
+          {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+              "type": { "type": "string", "enum": ["BadRequest"] }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+              "type": { "type": "string", "enum": ["InternalServerError"] }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["type"],
+            "properties": { "type": { "type": "string", "enum": ["Conflict"] } }
+          },
+          {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+              "type": { "type": "string", "enum": ["Unauthorized"] }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+              "type": { "type": "string", "enum": ["WorkflowNotDeployed"] }
+            }
+          }
+        ]
+      },
+      "Executions": {
+        "type": "array",
+        "items": { "$ref": "#/components/schemas/Model" }
+      },
+      "HashMap": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "propertyNames": { "type": "string" }
+      },
+      "Metadata": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "annotations": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "#/components/schemas/Annotation" }
+            ]
+          },
+          "name": { "type": "string" }
+        }
+      },
+      "Model": {
+        "type": "object",
+        "required": [
+          "id",
+          "workflow_id",
+          "run_id",
+          "started",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "created_at": { "type": "string", "format": "date-time" },
+          "id": { "type": "string", "format": "uuid" },
+          "result": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "#/components/schemas/Value" }
+            ]
+          },
+          "run_id": { "type": "string" },
+          "started": { "type": "boolean" },
+          "status": { "type": "string" },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "workflow_id": { "type": "string", "format": "uuid" }
+        }
+      },
+      "NodeAnnotation": {
+        "type": "object",
+        "required": ["description", "version", "label", "icon", "color", "ui"],
+        "properties": {
+          "color": { "type": "string" },
+          "description": { "type": "string" },
+          "icon": { "type": "string" },
+          "label": { "type": "string" },
+          "ui": { "type": "string" },
+          "version": { "type": "string" }
+        }
+      },
+      "NodeDef": {
+        "type": "object",
+        "required": ["api_version", "metadata", "spec"],
+        "properties": {
+          "api_version": { "type": "string" },
+          "metadata": { "$ref": "#/components/schemas/NodeMetadata" },
+          "spec": { "$ref": "#/components/schemas/NodeSpec" }
+        }
+      },
+      "NodeMetadata": {
+        "type": "object",
+        "required": ["name", "annotations"],
+        "properties": {
+          "annotations": { "$ref": "#/components/schemas/NodeAnnotation" },
+          "name": { "type": "string" }
+        }
+      },
+      "NodeModel": {
+        "type": "object",
+        "required": ["id", "node_def", "image", "created_at", "updated_at"],
+        "properties": {
+          "created_at": { "type": "string", "format": "date-time" },
+          "id": { "type": "string", "format": "uuid" },
+          "image": { "type": "string" },
+          "node_def": { "$ref": "#/components/schemas/NodeDef" },
+          "updated_at": { "type": "string", "format": "date-time" }
+        }
+      },
+      "NodeModels": {
+        "type": "array",
+        "items": { "$ref": "#/components/schemas/NodeModel" }
+      },
+      "NodeParameter": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": ["description", "default", "type"],
+            "properties": {
+              "default": { "type": "string" },
+              "description": { "type": "string" },
+              "type": { "type": "string", "enum": ["string"] }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["description", "default", "type"],
+            "properties": {
+              "default": { "type": "number", "format": "float" },
+              "description": { "type": "string" },
+              "type": { "type": "string", "enum": ["number"] }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["description", "default", "type"],
+            "properties": {
+              "default": { "type": "integer", "format": "int32" },
+              "description": { "type": "string" },
+              "type": { "type": "string", "enum": ["integer"] }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["description", "default", "type"],
+            "properties": {
+              "default": { "type": "boolean" },
+              "description": { "type": "string" },
+              "type": { "type": "string", "enum": ["boolean"] }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["description", "default", "type"],
+            "properties": {
+              "default": {
+                "type": "object",
+                "additionalProperties": { "type": "string" },
+                "propertyNames": { "type": "string" }
+              },
+              "description": { "type": "string" },
+              "type": { "type": "string", "enum": ["object"] }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["description", "default", "type"],
+            "properties": {
+              "default": { "type": "array", "items": { "type": "string" } },
+              "description": { "type": "string" },
+              "type": { "type": "string", "enum": ["array"] }
+            }
+          }
+        ]
+      },
+      "NodeParameterDefinition": {
+        "type": "object",
+        "required": ["validation_schema"],
+        "properties": {
+          "validation_schema": {
+            "$ref": "#/components/schemas/ValidationSchema"
+          }
+        }
+      },
+      "NodeSpec": {
+        "type": "object",
+        "required": ["properties"],
+        "properties": {
+          "properties": { "$ref": "#/components/schemas/Properties" }
+        }
+      },
+      "OpenApiError": {
+        "allOf": [
+          { "$ref": "#/components/schemas/ErrorType" },
+          {
+            "type": "object",
+            "required": ["message"],
+            "properties": {
+              "details": {
+                "oneOf": [
+                  { "type": "null" },
+                  { "$ref": "#/components/schemas/HashMap" }
+                ]
+              },
+              "message": { "type": "string" }
+            }
+          }
+        ]
+      },
+      "Position": {
+        "type": "object",
+        "required": ["x", "y"],
+        "properties": {
+          "x": { "type": "number", "format": "float" },
+          "y": { "type": "number", "format": "float" }
+        }
+      },
+      "Properties": {
+        "type": "object",
+        "required": ["parameters"],
+        "properties": {
+          "parameters": {
+            "$ref": "#/components/schemas/NodeParameterDefinition"
+          }
+        }
+      },
+      "ProviderProperties": {
+        "type": "object",
+        "required": ["image"],
+        "properties": { "image": { "type": "string" } }
+      },
+      "SuccessResponse": {
+        "type": "object",
+        "required": ["success"],
+        "properties": { "success": { "type": "boolean" } }
+      },
+      "UpdateWorkflow": {
+        "type": "object",
+        "required": ["workflow_def"],
+        "properties": {
+          "workflow_def": { "$ref": "#/components/schemas/WorkflowDef" }
+        }
+      },
+      "ValidationSchema": {
+        "type": "object",
+        "required": ["properties", "required"],
+        "properties": {
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/NodeParameter"
+            },
+            "propertyNames": { "type": "string" }
+          },
+          "required": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "Value": {},
+      "WorkflowDef": {
+        "type": "object",
+        "required": ["api_version", "metadata", "spec"],
+        "properties": {
+          "api_version": { "type": "string" },
+          "metadata": { "$ref": "#/components/schemas/Metadata" },
+          "spec": { "$ref": "#/components/schemas/WorkflowSpec" }
+        }
+      },
+      "WorkflowModel": {
+        "type": "object",
+        "required": ["id", "workflow_def", "created_at", "updated_at"],
+        "properties": {
+          "created_at": { "type": "string", "format": "date-time" },
+          "deployment_id": { "type": ["string", "null"], "format": "uuid" },
+          "id": { "type": "string", "format": "uuid" },
+          "manifest_name": { "type": ["string", "null"] },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "workflow_def": { "$ref": "#/components/schemas/WorkflowDef" }
+        }
+      },
+      "WorkflowModels": {
+        "type": "array",
+        "items": { "$ref": "#/components/schemas/WorkflowModel" }
+      },
+      "WorkflowSpec": {
+        "type": "object",
+        "required": ["drafts", "steps"],
+        "properties": {
+          "drafts": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/WorkflowStep" }
+          },
+          "steps": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/WorkflowStep" }
+          }
+        }
+      },
+      "WorkflowStep": {
+        "allOf": [
+          { "$ref": "#/components/schemas/WorkflowStepProperties" },
+          {
+            "type": "object",
+            "required": ["name"],
+            "properties": { "name": { "type": "string" } }
+          }
+        ]
+      },
+      "WorkflowStepMetadata": {
+        "type": "object",
+        "required": ["position"],
+        "properties": {
+          "position": { "$ref": "#/components/schemas/Position" }
+        }
+      },
+      "WorkflowStepProperties": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": ["properties", "type"],
+            "properties": {
+              "properties": {
+                "$ref": "#/components/schemas/ComponentProperties"
+              },
+              "type": { "type": "string", "enum": ["component"] }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["properties", "type"],
+            "properties": {
+              "properties": {
+                "$ref": "#/components/schemas/ProviderProperties"
+              },
+              "type": { "type": "string", "enum": ["provider"] }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "tags": [
+    { "name": "workflows", "description": "Workflow management" },
+    { "name": "nodes", "description": "Node management" },
+    { "name": "deployments", "description": "Deployment management" }
+  ]
+}

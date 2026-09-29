@@ -1,0 +1,48 @@
+{
+  "name": "@humaapi/lib",
+  "type": "module",
+  "description": "sdk, utils and helpers functions",
+  "version": "0.1.0",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc && vp build && tsc -p tsconfig.build.json",
+    "serve": "vp preview",
+    "test": "vp test",
+    "test:coverage": "vp test run --coverage",
+    "lint": "vp lint src --max-warnings=0",
+    "typecheck": "vp test typecheck",
+    "gen:sdk": "yarn workspace @humaapi/codegen openapi-ts && vp fmt src/client"
+  },
+  "peerDependencies": {
+    "dayjs": ">=1.11.7"
+  },
+  "devDependencies": {
+    "@microsoft/api-extractor": "^7.50.0",
+    "@types/chance": "^1.1.6",
+    "chance": "^1.1.12",
+    "cross-env": "^7.0.3",
+    "dayjs": "^1.11.13",
+    "typescript": "7.0.2",
+    "vite": "catalog:",
+    "vite-aliases": "^0.11.7",
+    "vite-tsconfig-paths": "^5.0.1",
+    "vitest": "catalog:"
+  },
+  "dependencies": {
+    "@hey-api/client-axios": "^0.6.2",
+    "axios": "^1.8.3",
+    "uuid": "^11.0.5"
+  }
+}

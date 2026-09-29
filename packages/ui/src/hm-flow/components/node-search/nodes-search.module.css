@@ -1,0 +1,23 @@
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
+.inner {
+  height: 200px;
+}
+
+.nodeItem {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #fafaf9;
+  }
+}

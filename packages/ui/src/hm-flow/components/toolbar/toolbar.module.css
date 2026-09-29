@@ -1,0 +1,88 @@
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rightActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 16px;
+  background-color: white;
+  height: 4rem;
+  gap: 0.9rem;
+
+  padding: 0.75rem;
+  border-radius: 9999px;
+  animation: 0.5s ease-in-out;
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-8);
+  }
+}
+
+.leftActions {
+  display: flex;
+  gap: 0.9rem;
+}
+
+.mainAction {
+  width: 102px;
+  height: 102px;
+  background-color: #e2deff;
+  padding: 0.5rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  z-index: 888px;
+
+  transition:
+    background-color 0.1s ease,
+    color 0.1s ease,
+    outline-color 0.1s ease;
+  outline-offset: 2.4px;
+  outline: 3px solid transparent;
+
+  &:hover {
+    outline-color: var(--mantine-color-primary-9);
+    animation: execute 0.5s ease-in-out;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.mainInner {
+  width: 100%;
+  height: 100%;
+  background-color: var(--mantine-color-primary-9);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+@keyframes execute {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

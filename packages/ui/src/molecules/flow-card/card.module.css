@@ -1,0 +1,84 @@
+.root {
+  transition:
+    background-color 0.1s ease,
+    color 0.1s ease,
+    outline-color 0.1s ease;
+  outline-offset: 4px;
+  outline: 2px solid transparent;
+  background-color: white;
+
+  padding: 10px;
+
+  border-radius: 25px;
+  box-shadow: 0 0px 2px -1px var(--mantine-color-gray-3);
+
+  &:hover {
+    outline-color: var(--mantine-color-primary-7);
+  }
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-9);
+  }
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: var(--mantine-color-stone-cold-5);
+
+  @mixin dark {
+    color: var(--mantine-color-gray-7);
+  }
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  gap: 8px;
+}
+
+.subtitle {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.flowName {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--mantine-color-primary-9);
+}
+
+.leftIcon {
+  width: 36px;
+  height: 36px;
+  padding: 2px;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 30px;
+  color: white;
+
+  background-color: var(--mantine-color-primary-9);
+}
+
+.leftImageRoot {
+  width: 36px;
+  height: 36px;
+  padding: 4px;
+}
+
+.leftImage {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+}

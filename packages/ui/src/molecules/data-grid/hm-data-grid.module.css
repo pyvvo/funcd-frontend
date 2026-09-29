@@ -1,0 +1,50 @@
+/* react-data-grid 7 reads the `--rdg-*` variables; the grid blends into its card. */
+.root :global(.rdg) {
+  --rdg-background-color: transparent;
+  --rdg-header-background-color: var(--mantine-primary-color-0);
+  --rdg-row-hover-background-color: var(--mantine-color-gray-0);
+  --rdg-row-selected-background-color: var(--mantine-primary-color-0);
+  --rdg-row-selected-hover-background-color: var(--mantine-primary-color-1);
+  --rdg-selection-color: var(--mantine-primary-color-filled);
+  --rdg-border-color: var(--mantine-color-gray-2);
+  --rdg-cell-frozen-box-shadow: none;
+  border: none;
+  /* Fit the rows, up to the page's height, then scroll. */
+  block-size: auto;
+  max-block-size: calc(100vh - 310px);
+
+  @mixin dark {
+    --rdg-header-background-color: var(--mantine-color-dark-6);
+    --rdg-row-hover-background-color: var(--mantine-color-dark-6);
+    --rdg-row-selected-background-color: alpha(
+      var(--mantine-primary-color-9),
+      0.2
+    );
+    --rdg-row-selected-hover-background-color: alpha(
+      var(--mantine-primary-color-9),
+      0.3
+    );
+    --rdg-border-color: var(--mantine-color-dark-5);
+  }
+}
+
+.root :global(.rdg-cell) {
+  display: flex;
+  align-items: center;
+  padding-inline: var(--mantine-spacing-md);
+  border-right: none;
+  border-bottom: 1px solid var(--rdg-border-color);
+}
+
+.root :global(.rdg-header-row .rdg-cell) {
+  color: var(--mantine-color-dimmed);
+  font-weight: 600;
+}
+
+.root :global(.rdg-header-sort-cell) {
+  align-items: center;
+}
+
+.root :global(.rdg .rdg-header-row:nth-of-type(1) .rdg-cell) {
+  border-style: none;
+}

@@ -1,0 +1,14 @@
+/* Define layers for control over specificity */
+
+/* Import react-data-grid styles */
+/* @import 'react-data-grid/lib/styles.css'; */
+
+@layer base, components, utilities, overrides, rdg;
+@import 'tailwindcss';
+
+body {
+  background-color: darken(var(--mantine-primary-color-1), 0.9);
+  @mixin light {
+    background-color: lighten(var(--mantine-primary-color-1), 0.7);
+  }
+}

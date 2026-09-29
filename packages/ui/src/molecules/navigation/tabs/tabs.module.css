@@ -1,0 +1,134 @@
+.root {
+  transition:
+    background-color 0.1s ease,
+    color 0.1s ease,
+    outline-color 0.1s ease;
+
+  ::before {
+    content: none;
+  }
+
+  /* &[data-radius='xs'] {
+    .list {
+      &[data-variant='default'] {
+        border-radius: var(--mantine-radius-xs);
+      }
+    }
+  }
+ */
+}
+
+.list {
+  padding: 6px;
+  border-radius: var(--mantine-radius-xl);
+  &[data-variant='default'] {
+    background-color: light-dark(
+      alpha(var(--mantine-color-stone-cold-1), 0.4),
+      darken(var(--mantine-color-stone-cold-11), 0.1)
+    );
+  }
+  &[data-variant='outline'] {
+    background-color: none;
+    border: light-dark(
+      2px solid lighten(var(--mantine-color-gray-2), 0.1),
+      2px solid var(--mantine-color-stone-cold-13)
+    );
+  }
+  &[data-variant='pills'] {
+    background-color: white;
+    box-shadow: -4px 2px 15px -2px var(--mantine-color-gray-3);
+    @mixin dark {
+      background-color: var(--mantine-color-stone-cold-13);
+      box-shadow: -1px 0px 28px -12px var(--mantine-color-gray-9);
+    }
+  }
+}
+
+.tab {
+  border: 2px solid transparent;
+  border-radius: var(--mantine-radius-xl);
+  color: var(--mantine-color-gray-7);
+  padding: 8px 12px;
+
+  &[data-variant='default'] {
+    border: none;
+    &:hover {
+      background-color: alpha(var(--mantine-color-stone-cold-1), 0.2);
+    }
+
+    @mixin dark {
+      color: var(--mantine-color-stone-cold-6);
+      &:hover {
+        background-color: var(--mantine-color-stone-cold-12);
+      }
+    }
+
+    &[data-active] {
+      background-color: white;
+      color: var(--mantine-color-primary-9);
+      box-shadow: -4px 2px 28px -6px var(--mantine-color-gray-3);
+      &:hover {
+        background-color: lighten(var(--mantine-color-primary-2), 0.3);
+        color: var(--mantine-color-primary-10);
+      }
+
+      @mixin dark {
+        color: white;
+        background-color: var(--mantine-color-stone-cold-9);
+        box-shadow: -4px 2px 28px -6px var(--mantine-color-gray-9);
+        &:hover {
+          background-color: var(--mantine-color-stone-cold-10);
+        }
+      }
+    }
+  }
+
+  &[data-variant='outline'] {
+    @mixin dark {
+      color: var(--mantine-color-stone-cold-6);
+      &:hover {
+        background-color: var(--mantine-color-stone-cold-14);
+      }
+    }
+
+    &[data-active] {
+      background-color: lighten(var(--mantine-color-primary-1), 0.1);
+      color: var(--mantine-color-primary-9);
+      &:hover {
+        background-color: lighten(var(--mantine-color-primary-1), 0.2);
+        outline-color: var(--mantine-color-primary-9);
+      }
+
+      @mixin dark {
+        color: var(--mantine-color-primary-9);
+        background-color: alpha(var(--mantine-color-primary-4), 0.1);
+        &:hover {
+          background-color: alpha(var(--mantine-color-primary-10), 0.3);
+        }
+      }
+    }
+  }
+  &[data-variant='pills'] {
+    @mixin dark {
+      color: var(--mantine-color-stone-cold-6);
+      &:hover {
+        background-color: alpha(var(--mantine-color-stone-cold-11), 0.2);
+      }
+    }
+    &[data-active] {
+      background-color: lighten(var(--mantine-color-primary-1), 0.6);
+      color: var(--mantine-color-primary-9);
+      &:hover {
+        background-color: lighten(var(--mantine-color-primary-1), 0.4);
+      }
+
+      @mixin dark {
+        color: var(--mantine-color-primary-1);
+        background-color: var(--mantine-color-primary-9);
+        &:hover {
+          background-color: var(--mantine-color-primary-9);
+        }
+      }
+    }
+  }
+}

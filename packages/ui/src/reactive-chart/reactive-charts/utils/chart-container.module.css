@@ -1,0 +1,33 @@
+/* The same surface as the sidebar and the bottom bar. */
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: white;
+  border-radius: var(--mantine-card-border-radius);
+  box-shadow: -1px 1px 10px -1px rgba(0, 0, 0, 0.103);
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-9);
+  }
+
+  &[data-hidden] {
+    display: none;
+  }
+}
+
+.title {
+  margin-bottom: var(--mantine-spacing-sm);
+}
+
+.chart {
+  flex: 1;
+  min-height: 0;
+}
+
+.message {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

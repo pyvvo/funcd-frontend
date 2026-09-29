@@ -1,0 +1,11 @@
+{
+  "name": "@humaapi/codegen",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Runs the hey-api generator for the lib SDK, on TypeScript 5",
+  "devDependencies": {
+    "@hey-api/openapi-ts": "^0.64.12",
+    "typescript": "^5.9.3"
+  }
+}

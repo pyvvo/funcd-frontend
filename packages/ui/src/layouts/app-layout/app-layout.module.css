@@ -1,0 +1,20 @@
+.mainParent {
+  padding-top: 50px;
+  padding-left: 0px;
+
+  &[data-header] {
+    padding-top: 0px;
+    padding-left: 40px;
+  }
+
+  /* Leave the same gap after the sidebar as between the cards. */
+  @mixin larger-than $mantine-breakpoint-sm {
+    padding-left: calc(
+      var(--mantine-header-offset) + var(--mantine-spacing-md)
+    );
+  }
+}
+
+.main {
+  padding-inline: 18px;
+}
