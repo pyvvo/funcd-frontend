@@ -62,7 +62,7 @@ Run these from the repository root.
 - Before you finish a change in `packages/ui`, run `yarn ui tsc` and `yarn ui lint`. Both must pass.
 - `yarn ui typecheck` only checks type-test files, and there are none. Use `yarn ui tsc`.
 - There are no unit tests. Reactive-field stories have `play` interaction tests, which run in the Storybook UI.
-- The lefthook pre-commit hook runs `vp lint --fix` and `vp fmt` on staged files. It is the repository's only automatic enforcement; do not add Claude Code hooks for linting or formatting.
+- The lefthook pre-commit hook runs `vp lint --fix` and `vp fmt` on staged files, and its commit-msg hook runs `scripts/commit-msg-lint.sh`. CI (`.github/workflows/ci.yml`) runs `just ci` on every pull request: install, format check, lint and type check of `ui` and `lib`, then the builds. Do not add Claude Code hooks for linting or formatting.
 
 ## Formatting and lint
 
@@ -90,7 +90,8 @@ Run these from the repository root.
 
 ## Git
 
-- Commit messages: lowercase `type(scope): imperative summary` (`feat`, `fix`, `chore`, `refactor`). Add a scope only to name a package (`fix(ui): ...`). PRs are squash-merged, so the PR title becomes the commit subject, with `(#NN)` appended.
+- Commit messages and PR titles are Conventional Commits: lowercase `type(scope): imperative summary` (`feat`, `fix`, `docs`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`). Add a scope only to name a package (`fix(ui): ...`). PRs are squash-merged through a merge queue, so the PR title becomes the commit subject, with `(#NN)` appended; `pr-title.yml` checks it.
+- Releases: release-please (`.github/workflows/release-please.yml`) reads those subjects on `main` and keeps a release PR open with the next version and `CHANGELOG.md`. `feat` bumps the minor version and `fix` the patch while below 1.0; `!` marks a breaking change. Merging the release PR tags `vX.Y.Z` and publishes `@funcd-dev/ui` to npm through trusted publishing. The version lives in `.release-please-manifest.json`, `version.txt` and `packages/ui/package.json`; never edit it by hand.
 - Branches: `<type>/<kebab-case>` (`feat/...`, `fix/...`, `chore/...`).
 - Recent PR descriptions use `## Summary` and `## Verification` sections.
 - Commit or push only when the user asks.

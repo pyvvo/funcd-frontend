@@ -2,7 +2,17 @@
   "name": "@funcd-dev/ui",
   "type": "module",
   "description": "A react reactive form",
-  "version": "0.1.9",
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pyvvo/funcd-frontend.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://github.com/pyvvo/funcd-frontend#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist"
   ],

@@ -27,3 +27,18 @@ dev-ui:
 [group('build')]
 build-ui:
     yarn ui build
+
+# The CI gate: install, format check, lint and type check ui and lib, then
+# build them and the apps that use their dist
+[group('ci')]
+ci:
+    yarn install --immutable
+    yarn vp fmt --check .
+    yarn ui lint
+    yarn lib lint
+    yarn ui tsc
+    yarn lib tsc
+    yarn lib build
+    yarn ui build
+    yarn ex build
+    yarn cpui build

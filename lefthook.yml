@@ -15,3 +15,8 @@ pre-commit:
         - '*.{json,css,md}'
       run: 'just fmt-all {staged_files}'
       stage_fixed: true
+
+commit-msg:
+  jobs:
+    - name: conventional commit message
+      run: 'scripts/commit-msg-lint.sh {1}'
