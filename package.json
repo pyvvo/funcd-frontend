@@ -1,5 +1,5 @@
 {
-  "name": "hm",
+  "name": "funcd",
   "packageManager": "yarn@4.17.1",
   "workspaces": [
     "packages/*"

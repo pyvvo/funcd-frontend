@@ -6663,6 +6663,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"funcd@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "funcd@workspace:."
+  dependencies:
+    "@types/node": "npm:^22.5.1"
+    "@xyflow/react": "npm:^12.3.6"
+    axios: "npm:^1.8.3"
+    change-case: "npm:^5.4.4"
+    commander: "npm:^11.1.0"
+    cross-env: "npm:^7.0.3"
+    globals: "npm:^16.0.0"
+    lefthook: "npm:^1.11.3"
+    openapi-typescript: "npm:^7.3.3"
+    ora: "npm:^8.1.0"
+    tsx: "npm:^4.19.3"
+    typescript: "npm:7.0.2"
+    uuid: "npm:^11.0.3"
+    vite-plus: "catalog:"
+    zod: "npm:^3.24.2"
+  languageName: unknown
+  linkType: soft
+
 "function-bind@npm:^1.1.2":
   version: 1.1.2
   resolution: "function-bind@npm:1.1.2"
@@ -6897,28 +6919,6 @@ __metadata:
   checksum: 10/7898a9c1788b2862cf0f9c345a6bec77ba4a0c0983c7f19d610c382343d4f98fa260686b225dfb1f88393a66679d2ec58ee310c1d6868c081eda7918f32cc70a
   languageName: node
   linkType: hard
-
-"hm@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "hm@workspace:."
-  dependencies:
-    "@types/node": "npm:^22.5.1"
-    "@xyflow/react": "npm:^12.3.6"
-    axios: "npm:^1.8.3"
-    change-case: "npm:^5.4.4"
-    commander: "npm:^11.1.0"
-    cross-env: "npm:^7.0.3"
-    globals: "npm:^16.0.0"
-    lefthook: "npm:^1.11.3"
-    openapi-typescript: "npm:^7.3.3"
-    ora: "npm:^8.1.0"
-    tsx: "npm:^4.19.3"
-    typescript: "npm:7.0.2"
-    uuid: "npm:^11.0.3"
-    vite-plus: "catalog:"
-    zod: "npm:^3.24.2"
-  languageName: unknown
-  linkType: soft
 
 "hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
