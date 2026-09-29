@@ -161,6 +161,7 @@ export default defineConfig({
     bracketSameLine: true,
     printWidth: 80,
     sortPackageJson: false,
-    ignorePatterns: []
+    // release-please writes the changelog, in its own format.
+    ignorePatterns: ['CHANGELOG.md']
   }
 });
