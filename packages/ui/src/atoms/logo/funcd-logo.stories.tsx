@@ -1,5 +1,5 @@
+import { PyColorsType } from '@/mantine.theme';
 import type { Meta, StoryObj } from '@storybook/react';
-import type { PyColorsType } from '../../mantine.theme';
 import FuncdLogo from './funcd-logo';
 
 const paletteColors: PyColorsType[] = [
@@ -43,7 +43,7 @@ const meta: Meta<typeof FuncdLogo> = {
 export default meta;
 type Story = StoryObj<typeof FuncdLogo>;
 
-export const Primary: Story = {
+export const _FuncdLogo: Story = {
   args: { size: 320 }
 };
 

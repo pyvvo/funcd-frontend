@@ -1,14 +1,15 @@
-import React, { type FC, type SVGProps } from 'react';
+import { FC, SVGProps } from 'react';
 
-interface IFuncdLogo extends Omit<SVGProps<SVGSVGElement>, 'width' | 'height'> {
+export interface IFuncdLogo extends Omit<
+  SVGProps<SVGSVGElement>,
+  'width' | 'height'
+> {
   color?: string;
   /** Both dimensions, in pixels or a CSS length. Defaults to 48. */
   size?: number | string;
   /** The upper ribbon and input dot. Defaults to the theme's primary color. */
   accentColor?: string;
 }
-
-export type FuncdLogoProps = IFuncdLogo;
 
 /**
  * The interlocking Funcd mark, drawn with editable Bézier paths.
