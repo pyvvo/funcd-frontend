@@ -1,2 +1,4 @@
 /* oxlint-disable import/prefer-default-export */
 export { default as CNDIcon } from './cnd';
+export { default as FuncdLogo } from './funcd-logo';
+export type { FuncdLogoProps } from './funcd-logo';

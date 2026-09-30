@@ -33,6 +33,7 @@
   "scripts": {
     "dev": "storybook dev -p 3002",
     "build": "tsc && vp build && tsc -p tsconfig.build.json",
+    "generate:logo": "tsx scripts/generate-logo.tsx",
     "serve": "vp preview",
     "test": "vp test",
     "test:coverage": "vp test run --coverage",
