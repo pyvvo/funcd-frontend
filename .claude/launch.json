@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "storybook",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["dev:ui"],
+      "port": 3002
+    },
+    {
+      "name": "example",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["dev:ex"],
+      "port": 5173
+    }
+  ]
+}
