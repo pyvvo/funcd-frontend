@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/pyvvo/funcd-frontend/compare/v0.1.0...v0.2.0) (2026-09-30)
+
+
+### Features
+
+* **ui:** add the Funcd logo and wordmark ([#9](https://github.com/pyvvo/funcd-frontend/issues/9)) ([89ffb49](https://github.com/pyvvo/funcd-frontend/commit/89ffb4955fadcf86042330af4fd58837721d82bc))
+
 ## 0.1.0 (2026-09-29)
 
 
