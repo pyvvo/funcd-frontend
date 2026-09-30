@@ -62,7 +62,7 @@ Run these from the repository root.
 - Before you finish a change in `packages/ui`, run `yarn ui tsc` and `yarn ui lint`. Both must pass.
 - `yarn ui typecheck` only checks type-test files, and there are none. Use `yarn ui tsc`.
 - There are no unit tests. Reactive-field stories have `play` interaction tests, which run in the Storybook UI.
-- The lefthook pre-commit hook runs `vp lint --fix` and `vp fmt` on staged files, and its commit-msg hook runs `scripts/commit-msg-lint.sh`. CI (`.github/workflows/ci.yml`) runs `just ci` on every pull request: install, format check, lint and type check of `ui` and `lib`, then the builds. Do not add Claude Code hooks for linting or formatting.
+- The lefthook pre-commit hook runs `vp lint --fix` and `vp fmt` on staged files, and its commit-msg hook runs `scripts/commit-msg-lint.sh`. CI (`.github/workflows/ci.yml`) runs `just ci` on every pull request: install, format check, lint and type check of `ui` and `lib`, then the builds. It skips docs-only changes and release-please's release PR. Do not add Claude Code hooks for linting or formatting.
 
 ## Formatting and lint
 
