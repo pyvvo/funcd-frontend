@@ -1,6 +1,7 @@
 import { PyColorsType } from '@/mantine.theme';
 import type { Meta, StoryObj } from '@storybook/react';
 import FuncdLogo from './funcd-logo';
+import FuncdWordmark from './funcd-wordmark';
 
 const paletteColors: PyColorsType[] = [
   'primary',
@@ -58,15 +59,28 @@ export const Showcase: Story = {
           <div className="w-full">
             <h6 className="font-semibold">Usage</h6>
             <div className="mt-2 grid gap-4 sm:grid-cols-2">
-              <div className="flex items-center justify-center space-x-4 rounded-xl bg-white p-6">
+              <div
+                role="img"
+                aria-label="Funcd"
+                className="flex items-center justify-center gap-2.5 rounded-xl bg-white p-6">
                 <FuncdLogo size={72} color="#17151F" aria-hidden="true" />
-                <span className="text-2xl font-semibold">funcd</span>
+                <FuncdWordmark
+                  width={110}
+                  className="h-auto"
+                  color="#17151F"
+                  aria-hidden="true"
+                />
               </div>
               <div
-                className="flex items-center justify-center space-x-4 rounded-xl p-6 text-white"
-                style={{ background: '#17151F' }}>
+                role="img"
+                aria-label="Funcd"
+                className="flex items-center justify-center gap-2.5 rounded-xl bg-[#17151F] p-6 text-white">
                 <FuncdLogo size={72} aria-hidden="true" />
-                <span className="text-2xl font-semibold">funcd</span>
+                <FuncdWordmark
+                  width={110}
+                  className="h-auto"
+                  aria-hidden="true"
+                />
               </div>
             </div>
           </div>
