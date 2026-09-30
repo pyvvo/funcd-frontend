@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import FuncdLogo from './funcd-logo';
 import FuncdWordmark from './funcd-wordmark';
 
+const funcdDark = '#17151F';
+
 const paletteColors: PyColorsType[] = [
   'primary',
   'secondary',
@@ -23,7 +25,7 @@ const meta: Meta<typeof FuncdLogo> = {
     layout: 'centered',
     backgrounds: {
       options: {
-        'funcd-dark': { name: 'Funcd dark', value: '#17151F' },
+        'funcd-dark': { name: 'Funcd dark', value: funcdDark },
         'funcd-light': { name: 'Light', value: '#FFFFFF' }
       }
     }
@@ -63,11 +65,11 @@ export const Showcase: Story = {
                 role="img"
                 aria-label="Funcd"
                 className="flex items-center justify-center gap-2.5 rounded-xl bg-white p-6">
-                <FuncdLogo size={72} color="#17151F" aria-hidden="true" />
+                <FuncdLogo size={72} color={funcdDark} aria-hidden="true" />
                 <FuncdWordmark
                   width={110}
                   className="h-auto"
-                  color="#17151F"
+                  color={funcdDark}
                   aria-hidden="true"
                 />
               </div>
@@ -90,7 +92,7 @@ export const Showcase: Story = {
             <div className="mt-2 flex flex-wrap items-end justify-center gap-8 rounded-xl bg-white p-6">
               {[24, 32, 48, 64, 128].map((size) => (
                 <div key={size} className="flex flex-col items-center gap-3">
-                  <FuncdLogo size={size} color="#17151F" />
+                  <FuncdLogo size={size} color={funcdDark} />
                   <span className="text-sm text-gray-600">{size}px</span>
                 </div>
               ))}
@@ -105,7 +107,7 @@ export const Showcase: Story = {
                 <div key={color} className="flex flex-col items-center gap-3">
                   <FuncdLogo
                     size={80}
-                    color="#17151F"
+                    color={funcdDark}
                     accentColor={paletteValues[color]}
                     aria-label={`Funcd ${color} accent`}
                   />
@@ -154,6 +156,6 @@ export const IconSizes: Story = {
 };
 
 export const LightSurface: Story = {
-  args: { size: 192, color: '#17151F' },
+  args: { size: 192, color: funcdDark },
   globals: { backgrounds: { value: 'funcd-light' } }
 };

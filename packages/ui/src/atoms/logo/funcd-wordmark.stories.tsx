@@ -2,6 +2,8 @@ import { PyColorsType } from '@/mantine.theme';
 import type { Meta, StoryObj } from '@storybook/react';
 import FuncdWordmark from './funcd-wordmark';
 
+const funcdDark = '#17151F';
+
 const paletteColors: PyColorsType[] = [
   'primary',
   'secondary',
@@ -18,7 +20,7 @@ const meta: Meta<typeof FuncdWordmark> = {
     layout: 'centered',
     backgrounds: {
       options: {
-        'funcd-dark': { name: 'Funcd dark', value: '#17151F' },
+        'funcd-dark': { name: 'Funcd dark', value: funcdDark },
         'funcd-light': { name: 'Light', value: '#FFFFFF' }
       }
     }
@@ -38,7 +40,7 @@ type Story = StoryObj<typeof FuncdWordmark>;
 export const _FuncdWordmark: Story = {};
 
 export const LightSurface: Story = {
-  args: { color: '#17151F' },
+  args: { color: funcdDark },
   globals: { backgrounds: { value: 'funcd-light' } }
 };
 

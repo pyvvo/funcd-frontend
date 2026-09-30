@@ -4,7 +4,10 @@ export interface IFuncdWordmark extends SVGProps<SVGSVGElement> {
   color?: string;
 }
 
-/** The approved soft, extended lettering with its final spacing drawn as paths. */
+/**
+ * The approved soft, extended lettering with its final spacing drawn as paths.
+ * Run `yarn ui generate:logo` after editing to update assets/funcd-wordmark.svg.
+ */
 const FuncdWordmark: FC<IFuncdWordmark> = (props) => {
   const { color = '#FFFFFF', width = 160, height = 'auto', ...rest } = props;
 
