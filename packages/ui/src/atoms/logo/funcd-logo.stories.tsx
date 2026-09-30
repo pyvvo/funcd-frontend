@@ -68,7 +68,6 @@ export const Showcase: Story = {
                 <FuncdLogo size={72} color={funcdDark} aria-hidden="true" />
                 <FuncdWordmark
                   width={110}
-                  className="h-auto"
                   color={funcdDark}
                   aria-hidden="true"
                 />
@@ -78,11 +77,7 @@ export const Showcase: Story = {
                 aria-label="Funcd"
                 className="flex items-center justify-center gap-2.5 rounded-xl bg-[#17151F] p-6 text-white">
                 <FuncdLogo size={72} aria-hidden="true" />
-                <FuncdWordmark
-                  width={110}
-                  className="h-auto"
-                  aria-hidden="true"
-                />
+                <FuncdWordmark width={110} aria-hidden="true" />
               </div>
             </div>
           </div>

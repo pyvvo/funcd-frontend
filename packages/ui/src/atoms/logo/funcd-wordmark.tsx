@@ -9,7 +9,7 @@ export interface IFuncdWordmark extends SVGProps<SVGSVGElement> {
  * Run `yarn ui generate:logo` after editing to update assets/funcd-wordmark.svg.
  */
 const FuncdWordmark: FC<IFuncdWordmark> = (props) => {
-  const { color = '#FFFFFF', width = 160, height = 'auto', ...rest } = props;
+  const { color = '#FFFFFF', width = 160, height, ...rest } = props;
 
   return (
     <svg
