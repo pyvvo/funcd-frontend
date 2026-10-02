@@ -72,11 +72,15 @@ jobs:
         run: corepack enable
 
       # Through the root `ui` script, like CI: it puts the root's binaries (`vp`) on the PATH.
-      - name: Build and pack @funcd-dev/ui
+      - name: Build and pack @funcd-dev/ui and @funcd-dev/lib
         run: |
           yarn install --immutable
           yarn ui build
           yarn ui pack --out "$RUNNER_TEMP/ui.tgz"
+          yarn lib build
+          yarn lib pack --out "$RUNNER_TEMP/lib.tgz"
 
       - name: Publish to npm
-        run: npm publish "$RUNNER_TEMP/ui.tgz" --access public
+        run: |
+          npm publish "$RUNNER_TEMP/ui.tgz" --access public
+          npm publish "$RUNNER_TEMP/lib.tgz" --access public

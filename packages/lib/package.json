@@ -1,8 +1,18 @@
 {
   "name": "@funcd-dev/lib",
   "type": "module",
-  "description": "sdk, utils and helpers functions",
+  "description": "The funcd HTTP SDK (generated from the control-plane OpenAPI spec) and small utilities",
   "version": "0.1.0",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pyvvo/funcd-frontend.git",
+    "directory": "packages/lib"
+  },
+  "homepage": "https://github.com/pyvvo/funcd-frontend#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist"
   ],

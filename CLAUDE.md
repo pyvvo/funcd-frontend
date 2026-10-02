@@ -91,7 +91,7 @@ Run these from the repository root.
 ## Git
 
 - Commit messages and PR titles are Conventional Commits: lowercase `type(scope): imperative summary` (`feat`, `fix`, `docs`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`). Add a scope only to name a package (`fix(ui): ...`). PRs are squash-merged through a merge queue, so the PR title becomes the commit subject, with `(#NN)` appended; `pr-title.yml` checks it.
-- Releases: release-please (`.github/workflows/release-please.yml`) reads those subjects on `main` and keeps a release PR open with the next version and `CHANGELOG.md`. `feat` bumps the minor version and `fix` the patch while below 1.0; `!` marks a breaking change. Merging the release PR tags `vX.Y.Z` and publishes `@funcd-dev/ui` to npm through trusted publishing. The version lives in `.release-please-manifest.json`, `version.txt` and `packages/ui/package.json`; never edit it by hand.
+- Releases: release-please (`.github/workflows/release-please.yml`) reads those subjects on `main` and keeps a release PR open with the next version and `CHANGELOG.md`. `feat` bumps the minor version and `fix` the patch while below 1.0; `!` marks a breaking change. Merging the release PR tags `vX.Y.Z` and publishes `@funcd-dev/ui` and `@funcd-dev/lib` to npm through trusted publishing. The version lives in `.release-please-manifest.json`, `version.txt`, `packages/ui/package.json` and `packages/lib/package.json`; never edit it by hand.
 - Branches: `<type>/<kebab-case>` (`feat/...`, `fix/...`, `chore/...`).
 - Recent PR descriptions use `## Summary` and `## Verification` sections.
 - Commit or push only when the user asks.

@@ -40,6 +40,7 @@ jobs:
               - '!version.txt'
               - '!.release-please-manifest.json'
               - '!packages/ui/package.json'
+              - '!packages/lib/package.json'
 
   # release-please's PR only bumps the version and the changelog of an already checked main,
   # so it skips the ci job on the PR and in the merge queue. A release branch that touches
