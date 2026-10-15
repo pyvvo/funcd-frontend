@@ -1,12 +1,11 @@
-import { ContentLayout, IReactiveFieldMeta, ReactiveForm } from '@funcd-dev/ui';
-import { Button, Group } from '@mantine/core';
+import { HMDrawer, IReactiveFieldMeta, ReactiveForm } from '@funcd-dev/ui';
+import { Button, Group, Title } from '@mantine/core';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DeviceInputType } from '../api/contract';
 import { deviceTypeLabels } from '../common/display';
-import Panel from '../common/panel';
 import { DeviceStoreType } from './device.store';
 
 interface IDeviceForm {
@@ -21,7 +20,7 @@ const emptyDevice: DeviceInputType = {
   tags: []
 };
 
-// Registers a device, or edits the one in the URL.
+// Registers a device, or edits the one in the URL, in a drawer over the page.
 const DeviceForm: FC<IDeviceForm> = observer((props) => {
   const { store } = props;
   const { device, sites } = store;
@@ -31,7 +30,7 @@ const DeviceForm: FC<IDeviceForm> = observer((props) => {
 
   useEffect(() => {
     store.loadSites();
-    if (id) store.loadDevice(id);
+    if (id && store.device?.id !== id) store.loadDevice(id);
   }, [store, id]);
 
   useEffect(() => {
@@ -98,21 +97,20 @@ const DeviceForm: FC<IDeviceForm> = observer((props) => {
   };
 
   return (
-    <ContentLayout>
-      <Panel
-        title={id ? `Edit ${device?.name ?? ''}` : 'Register a device'}
-        maw={640}>
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
-          <ReactiveForm meta={meta} form={form} />
-          <Group justify="flex-end" mt="lg">
-            <Button variant="secondary" onClick={() => navigate(-1)}>
-              Cancel
-            </Button>
-            <Button type="submit">{id ? 'Save' : 'Register'}</Button>
-          </Group>
-        </form>
-      </Panel>
-    </ContentLayout>
+    <HMDrawer>
+      <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <Title order={4} mb="md">
+          {id ? `Edit ${device?.name ?? ''}` : 'Register a device'}
+        </Title>
+        <ReactiveForm meta={meta} form={form} />
+        <Group justify="flex-end" mt="lg">
+          <Button variant="secondary" onClick={() => navigate(-1)}>
+            Cancel
+          </Button>
+          <Button type="submit">{id ? 'Save' : 'Register'}</Button>
+        </Group>
+      </form>
+    </HMDrawer>
   );
 });
 

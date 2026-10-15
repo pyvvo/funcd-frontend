@@ -23,7 +23,7 @@ import { IconEdit, IconRefresh, IconTrash } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react-lite';
 import { FC, ReactNode, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { AlertStatusType, SeverityType } from '../api/contract';
 import {
   alertStatusColors,
@@ -231,6 +231,7 @@ const Device: FC<IDevice> = observer((props) => {
           />
         </>
       )}
+      <Outlet />
     </SplitLayout>
   );
 });

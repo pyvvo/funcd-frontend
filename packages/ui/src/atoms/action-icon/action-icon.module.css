@@ -430,7 +430,7 @@
     }
 
     @mixin dark {
-      box-shadow: 0 -1px 10px -2px var(--mantine-color-gray-9);
+      box-shadow: 0 -1px 10px -2px var(--mantine-color-dark-7);
     }
   }
 
@@ -506,7 +506,7 @@
     color: var(--mantine-color-gray-4);
 
     @mixin dark {
-      background-color: var(--mantine-color-gray-8);
+      background-color: var(--mantine-color-dark-6);
       color: var(--mantine-color-gray-6);
     }
   }
