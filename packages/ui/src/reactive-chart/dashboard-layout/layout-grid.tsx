@@ -1,4 +1,4 @@
-import { Grid, rem, Stack } from '@mantine/core';
+import { Grid, rem, Stack, useMantineTheme } from '@mantine/core';
 import {
   Children,
   cloneElement,
@@ -19,6 +19,7 @@ interface ILayoutGrid {
 
 const LayoutGrid: FC<ILayoutGrid> = (props) => {
   const { rowHeight = 150, children } = props;
+  const theme = useMantineTheme();
 
   // Mantine's Grid places columns row by row: group the items by `y`, sort
   // each row by `x`, and turn the gap before an item into its offset.
@@ -42,7 +43,14 @@ const LayoutGrid: FC<ILayoutGrid> = (props) => {
   return (
     <Stack gap="lg" style={{ '--layout-row-height': rem(rowHeight) }}>
       {rows.map((row) => (
-        <Grid key={row[0].props.layout.y} columns={12} gap="lg">
+        // Container queries: the items' spans follow the dashboard's own
+        // width, not the screen's, at the theme's breakpoint values.
+        <Grid
+          key={row[0].props.layout.y}
+          columns={12}
+          gap="lg"
+          type="container"
+          breakpoints={theme.breakpoints}>
           {row.map((item, index) => {
             const previous = row[index - 1]?.props.layout;
             const previousEnd = previous ? previous.x + previous.w : 0;
