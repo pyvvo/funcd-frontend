@@ -14,7 +14,7 @@
   flex-direction: column;
   width: var(--mantine-sidebar-width);
   height: 100%;
-  border-radius: var(--mantine-sidebar-border-radius);
+  border-radius: var(--mantine-bar-border-radius);
   align-items: center;
   justify-content: center;
   padding: 14px;

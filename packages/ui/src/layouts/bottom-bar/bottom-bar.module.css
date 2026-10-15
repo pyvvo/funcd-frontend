@@ -3,7 +3,7 @@
   width: auto;
   height: 68px;
   background-color: white;
-  border-radius: var(--mantine-bottombar-border-radius);
+  border-radius: var(--mantine-bar-border-radius);
   left: 50%;
   transform: translate(-50%, -20%);
   padding: 16px;
@@ -31,7 +31,7 @@
   width: auto;
   height: 68px;
   background-color: white;
-  border-radius: var(--mantine-bottombar-border-radius);
+  border-radius: var(--mantine-bar-border-radius);
   left: 50%;
   transform: translate(-50%, -20%);
   padding: 16px;

@@ -1,6 +1,6 @@
 .table {
   border-collapse: separate; /* Ensure borders are rounded properly */
-  border-radius: 8px; /* Rounds the corners of the table */
+  border-radius: var(--mantine-grid-border-radius);
   /* overflow: hidden;  // Ensures the rounded corners are maintained */
   thead {
     th {

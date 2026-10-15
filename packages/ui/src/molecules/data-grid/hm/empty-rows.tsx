@@ -14,7 +14,7 @@ const EmptyRows: FC<IEmptyRows> = (props) => {
 
   return (
     <Box className={styles.root}>
-      <ThemeIcon variant="light" size={48} radius="xl">
+      <ThemeIcon variant="light" size={48} radius="50%">
         {icon}
       </ThemeIcon>
       <Box className={styles.text}>{text}</Box>

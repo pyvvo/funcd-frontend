@@ -17,13 +17,14 @@
 }
 
 .root :global(.react-flow__minimap) {
-  border-radius: 22px;
+  border-radius: var(--mantine-card-border-radius);
   padding: 8px;
   box-shadow: 0 -1px 10px -2px var(--mantine-color-gray-3);
 }
 
 .root :global(.react-flow__minimap-svg) {
-  border-radius: 20px;
+  /* The card radius less the minimap's padding, so both curves stay parallel. */
+  border-radius: calc(var(--mantine-card-border-radius) - 8px);
 }
 
 .input {

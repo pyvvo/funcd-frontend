@@ -65,7 +65,8 @@
 }
 
 .footer {
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 var(--mantine-grid-border-radius)
+    var(--mantine-grid-border-radius);
   display: flex;
   justify-content: flex-end;
   padding-inline: 12px;
