@@ -1,0 +1,33 @@
+/* The root is the query container and the grid inside it follows its width:
+   narrow, the side sits above the detail; once the layout itself is wide
+   enough, the side takes its width on the left or the right. */
+.root {
+  container: split-layout / inline-size;
+  padding-block: var(--mantine-spacing-md);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--mantine-spacing-md);
+
+  @container split-layout (min-width: $mantine-breakpoint-sm) {
+    grid-template-columns: var(--split-side-width) minmax(0, 1fr);
+
+    .root[data-side-position='right'] & {
+      grid-template-columns: minmax(0, 1fr) var(--split-side-width);
+
+      .side {
+        order: 2;
+      }
+    }
+  }
+}
+
+.side,
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-md);
+  min-width: 0;
+}

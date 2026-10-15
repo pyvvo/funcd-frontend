@@ -1,0 +1,29 @@
+/* The layout is its own query container: the aside moves beside the main
+   content once the layout itself, not the screen, is wide enough. */
+.root {
+  container: content-layout / inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-md);
+  padding-block: var(--mantine-spacing-md);
+}
+
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--mantine-spacing-md);
+
+  @container content-layout (min-width: $mantine-breakpoint-md) {
+    &[data-with-aside] {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    }
+  }
+}
+
+.main,
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-md);
+  min-width: 0;
+}
