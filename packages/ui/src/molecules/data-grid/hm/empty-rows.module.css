@@ -1,0 +1,15 @@
+/* Spans every column of the grid, under the header. */
+.root {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mantine-spacing-sm);
+  padding-block: var(--mantine-spacing-xl);
+}
+
+.text {
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-dimmed);
+}

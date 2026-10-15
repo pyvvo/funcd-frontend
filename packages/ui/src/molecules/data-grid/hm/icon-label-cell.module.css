@@ -1,0 +1,7 @@
+/* An icon and a label, for a data grid cell. */
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mantine-spacing-sm);
+  font-size: var(--mantine-font-size-sm);
+}

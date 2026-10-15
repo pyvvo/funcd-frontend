@@ -21,7 +21,6 @@ body {
   .rdg {
     --header-background-color: var(--mantine-primary-color-0);
     --row-hover-background-color: var(--mantine-primary-color-0);
-    min-height: calc(100vh - 310px);
   }
   background-color: darken(var(--mantine-primary-color-1), 0.9);
   @mixin light {
@@ -42,14 +41,6 @@ body {
   .rdg .rdg-header-row:nth-of-type(1) {
     & .rdg-cell {
       border-style: none;
-    }
-  }
-
-  .rdg-row,
-  .rdg-header-row {
-    & [aria-selected='true'] {
-      box-shadow: none;
-      outline-color: transparent;
     }
   }
 }

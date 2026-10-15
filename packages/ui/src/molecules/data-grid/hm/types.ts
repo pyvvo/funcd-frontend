@@ -1,5 +1,5 @@
 import { Flatten, NestedKeyOf } from '@/types';
-import { JSX } from 'react';
+import { JSX, ReactNode } from 'react';
 import { DataGridProps, RenderCheckboxProps } from 'react-data-grid';
 
 type Key = string | number;
@@ -141,6 +141,33 @@ export interface IHMDataGrid<TRow extends TRowBase> {
    * @see  {mantine-data-table} https://icflorescu.github.io/mantine-datatable/examples/basic-table-properties
    */
   headerRowHeight?: number;
+
+  /** Rows shown before the grid scrolls; without it the grid shows every row */
+  maxRows?: number;
+
+  /** Takes its parent's height and scrolls inside it; the parent needs a height */
+  withFill?: boolean;
+
+  /** Shown in the card under the rows, for example a "Showing 1–4 of 12" bar */
+  footer?: ReactNode;
+
+  /** Shown above `emptyText` when there are no rows (an inbox by default) */
+  emptyIcon?: ReactNode;
+
+  /** Shown when there are no rows ("Nothing to show" by default) */
+  emptyText?: string;
+
+  /** Bulk actions shown in the selection bar while rows are selected */
+  selectionActions?: ReactNode;
+
+  /** The selection bar's text for a count ("4 selected" by default) */
+  selectedText?: (count: number) => string;
+
+  /** The label of the selection bar's clear button ("Clear" by default) */
+  clearText?: string;
+
+  /** Outlines the selected cell; by default a click highlights its whole row */
+  withCellOutline?: boolean;
 
   /** Enable sorting of a column
    * @see  {mantine-data-grid} https://kuechlin.github.io/mantine-data-grid/#/example/rowselection

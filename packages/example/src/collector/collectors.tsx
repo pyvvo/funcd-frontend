@@ -38,6 +38,7 @@ const Collectors: FC = () => {
         <Button>New</Button>
       </Box>
       <HMDataGrid
+        maxRows={12}
         withRowSelection
         withSorting
         rowKeyGetter={(row) => row.name}

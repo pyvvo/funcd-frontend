@@ -1,8 +1,9 @@
-import { useMantineTheme } from '@mantine/core';
+import { rem, useComputedColorScheme, useMantineTheme } from '@mantine/core';
 import DataGrid from 'react-data-grid';
 import 'react-data-grid/lib/styles.css';
 import styles from './hm-data-grid.module.css';
 import DataGridContainer from './hm/data-grid-container';
+import EmptyRows from './hm/empty-rows';
 import RenderCheckbox from './hm/render-checkbox';
 import { IHMDataGrid, RowHeight } from './hm/types';
 import useRGDParser from './hm/use-data-gri-parser.hook';
@@ -20,14 +21,24 @@ const HMDataGrid = <TRow extends Record<string, any>>(
     selectedRows,
     headerRowHeight,
     rowHeight = RowHeight.standard,
+    maxRows,
     onRowClick,
     onSelectedRowsChange,
     onSort,
     rowKeyGetter = (row: TRow) => row.id,
     withColumnResizing = false,
     withRowSelection = false,
-    withSorting = false
+    withSorting = false,
+    withFill = false,
+    footer,
+    emptyIcon,
+    emptyText,
+    withCellOutline = false,
+    selectionActions,
+    selectedText,
+    clearText
   } = props;
+  const computedColorScheme = useComputedColorScheme('light');
 
   const params = {
     components,
@@ -53,8 +64,38 @@ const HMDataGrid = <TRow extends Record<string, any>>(
 
   return (
     <>
-      <DataGridContainer theme={theme} className={styles.root}>
-        <DataGrid {...parsedData} />
+      <DataGridContainer
+        theme={theme}
+        className={styles.root}
+        selectedRowCount={selectedRows?.size ?? 0}
+        selectionActions={selectionActions}
+        selectedText={selectedText}
+        clearText={clearText}
+        onClearSelection={
+          onSelectedRowsChange
+            ? () => onSelectedRowsChange(new Set())
+            : undefined
+        }
+        footer={footer}
+        mod={{
+          fill: withFill,
+          clickable: !!onRowClick,
+          'cell-outline': withCellOutline
+        }}
+        style={{
+          '--data-grid-row-height': rem(rowHeight),
+          '--data-grid-max-rows': maxRows
+        }}>
+        {/* The CSS turns the row height and `maxRows` into the grid's maximum
+            height; without `maxRows` the grid shows every row. */}
+        <DataGrid
+          {...parsedData}
+          className={computedColorScheme === 'dark' ? 'rdg-dark' : 'rdg-light'}
+          renderers={{
+            ...parsedData.renderers,
+            noRowsFallback: <EmptyRows icon={emptyIcon} text={emptyText} />
+          }}
+        />
       </DataGridContainer>
       {/* <Pagination total={10} /> */}
     </>

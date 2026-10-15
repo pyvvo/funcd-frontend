@@ -1,91 +1,63 @@
 /* oxlint-disable react/display-name */
 /* eslint-disable react/require-default-props */
-import {
-  Children,
-  ComponentProps,
-  ComponentPropsWithoutRef,
-  FC,
-  ReactNode,
-  cloneElement,
-  isValidElement
-} from 'react';
+import { FC, ReactNode } from 'react';
 import {
   Box,
+  Button,
+  Group,
   MantineTheme,
   Paper,
-  Text,
-  useComputedColorScheme
+  PaperProps,
+  Text
 } from '@mantine/core';
 import styles from './data-grid-container.module.css';
 
-const EmptyRowsRenderer = () => (
-  <div style={{ textAlign: 'center', gridColumn: '1/-1' }}>
-    Nothing to show
-    <span lang="ja" title="ショボーン">
-      (´・ω・`)
-    </span>
-  </div>
-);
-
-interface IDataGridContainer extends ComponentPropsWithoutRef<'div'> {
+interface IDataGridContainer extends PaperProps {
   theme: MantineTheme;
+  selectedRowCount?: number;
+  selectionActions?: ReactNode;
+  selectedText?: (count: number) => string;
+  clearText?: string;
+  onClearSelection?: () => void;
+  footer?: ReactNode;
   children: ReactNode;
 }
 
 const DataGridContainer: FC<IDataGridContainer> = (props) => {
-  const { children, theme, ...rest } = props;
-  const computedColorScheme = useComputedColorScheme('light');
-  let selectedRowCount = 0;
-  const modifiedChildren = Children.map(children as any, (child) => {
-    // Checking isValidElement is the safe way and avoids a typescript
-    // error too.
-    if (isValidElement(child as any)) {
-      selectedRowCount = child.props.selectedRows
-        ? child.props.selectedRows.size
-        : 0;
+  const {
+    children,
+    theme,
+    selectedRowCount = 0,
+    selectionActions,
+    selectedText = (count) => `${count} selected`,
+    clearText = 'Clear',
+    onClearSelection,
+    footer,
+    ...rest
+  } = props;
 
-      return cloneElement<any>(child, {
-        className: computedColorScheme === 'dark' ? 'rdg-dark' : 'rdg-light',
-        components: { noRowsFallback: <EmptyRowsRenderer /> }
-      });
-    }
-    return child;
-  });
   return (
     <Paper
       radius="var(--mantine-grid-border-radius)"
       classNames={{ root: styles.root }}
       {...rest}>
-      {/* <Global
-        styles={{
-          '.rdg ': {
-            '--row-count': `${rowCount}`,
-            minHeight: `${
-              rowCount >= 13
-                ? 'calc(100vh - 310px)'
-                : 'calc(var(--header-row-height) * var(--row-count))'
-            }`,
-          }
-        }}
-      /> */}
       {selectedRowCount ? (
         <Box className={styles.header}>
-          <Text variant="text">{selectedRowCount} item(s) selected</Text>
+          <Text className={styles.selectedText}>
+            {selectedText(selectedRowCount)}
+          </Text>
+          <Group gap="xs">
+            {selectionActions}
+            {onClearSelection && (
+              <Button variant="subtle" size="xs" onClick={onClearSelection}>
+                {clearText}
+              </Button>
+            )}
+          </Group>
         </Box>
       ) : null}
-      <Box className={styles.list}>{modifiedChildren}</Box>
-      <Box className={styles.footer}>
-        {/* <Button>
-          <NavigateBefore />
-        </Button>
-        <Button >
-          <NavigateNext />
-        </Button>
-
-        <LoadMore color="primary" variant="contained" size="small">
-          Load more
-        </LoadMore> */}
-      </Box>
+      <Box className={styles.list}>{children}</Box>
+      <Box className={styles.footer}>{footer}</Box>
     </Paper>
   );
 };
