@@ -26,7 +26,7 @@ import {
 } from '@tabler/icons-react';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { DeviceStatusType, DeviceType } from '../api/contract';
 import {
   capitalize,
@@ -212,6 +212,7 @@ const Devices: FC<IDevices> = observer((props) => {
           </Group>
         }
       />
+      <Outlet />
     </ContentLayout>
   );
 });

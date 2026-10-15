@@ -160,6 +160,8 @@ const _store = {
       notifyError('Could not save the device', error);
       return undefined;
     }
+    // The open device shows the saved values without a reload.
+    if (_store.device?.id === data.id) _store.setDevice(data);
     notifyDone(
       id ? 'Device updated' : 'Device registered',
       data.name,
