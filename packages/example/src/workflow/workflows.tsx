@@ -42,6 +42,7 @@ const Workflows: FC<IWorfklowsProps> = (props) => {
         <Button>New</Button>
       </Box>
       <HMDataGrid
+        maxRows={12}
         withRowSelection
         withSorting
         rowKeyGetter={(row) => row.id}

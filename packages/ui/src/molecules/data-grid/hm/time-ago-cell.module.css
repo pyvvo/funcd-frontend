@@ -1,0 +1,5 @@
+/* A relative date in monospace, for a data grid cell. */
+.root {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: var(--mantine-font-size-sm);
+}

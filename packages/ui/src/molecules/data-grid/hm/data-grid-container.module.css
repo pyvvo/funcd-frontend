@@ -1,14 +1,5 @@
 .list {
   width: 100%;
-
-  .rdg {
-    display: none;
-    border-style: none;
-
-    @media (min-height: 50em) {
-      height: 100%;
-    }
-  }
 }
 
 /* The chart cards' surface, with the grid's smaller radius (set on Paper). */
@@ -17,14 +8,33 @@
   margin-block: 8px;
   height: auto;
   overflow: hidden;
+  color: var(--mantine-color-text);
+  border: 1px solid
+    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
 
   @mixin dark {
     background-color: var(--mantine-color-gray-9);
   }
 
-  .rdg {
-    --header-background-color: var(--mantine-primary-color-0);
-    --row-hover-background-color: var(--mantine-primary-color-0);
+  /* `withFill`: the card takes its parent's height, and the grid the rest of
+     the card once the selection header is placed. */
+  &[data-fill] {
+    display: flex;
+    flex-direction: column;
+    block-size: 100%;
+    margin-block: 0;
+
+    .list {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      min-block-size: 0;
+    }
+
+    .list > :global(.rdg) {
+      flex: 1;
+      min-block-size: 0;
+    }
   }
 }
 
@@ -50,4 +60,11 @@
   justify-content: flex-end;
   padding-inline: 12px;
   padding-block: 12px;
+
+  /* A footer with content sits under a divider, aligned with the cells. */
+  &:not(:empty) {
+    padding-inline: var(--mantine-spacing-lg);
+    border-top: 1px solid
+      light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
+  }
 }

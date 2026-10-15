@@ -1,7 +1,14 @@
 /* react-data-grid 7 reads the `--rdg-*` variables; the grid blends into its card. */
 .root :global(.rdg) {
   --rdg-background-color: transparent;
-  --rdg-header-background-color: var(--mantine-primary-color-0);
+  /* The header wears the theme color, like the active sidebar button, mixed
+     into the card's surface: an opaque color shows no seams between the
+     header cells and hides the rows that scroll under it. */
+  --rdg-header-background-color: color-mix(
+    in srgb,
+    var(--mantine-primary-color-1) 40%,
+    var(--mantine-color-white)
+  );
   --rdg-row-hover-background-color: var(--mantine-color-gray-0);
   --rdg-row-selected-background-color: var(--mantine-primary-color-0);
   --rdg-row-selected-hover-background-color: var(--mantine-primary-color-1);
@@ -9,12 +16,24 @@
   --rdg-border-color: var(--mantine-color-gray-2);
   --rdg-cell-frozen-box-shadow: none;
   border: none;
-  /* Fit the rows, up to the page's height, then scroll. */
+  /* react-data-grid's `content-visibility: auto` can keep a grid at a stale
+     size, such as an empty grid sized to its header only; it renders only
+     the visible rows already, so the grid is always laid out. */
+  content-visibility: visible;
+  /* Fit the rows, up to `maxRows` rows, then scroll. Without `maxRows` the
+     variable is unset, which drops the rule: the grid shows every row. */
   block-size: auto;
-  max-block-size: calc(100vh - 310px);
+  max-block-size: calc(
+    var(--rdg-header-row-height) + var(--data-grid-row-height) *
+      var(--data-grid-max-rows)
+  );
 
   @mixin dark {
-    --rdg-header-background-color: var(--mantine-color-dark-6);
+    --rdg-header-background-color: color-mix(
+      in srgb,
+      var(--mantine-primary-color-9) 40%,
+      var(--mantine-color-gray-9)
+    );
     --rdg-row-hover-background-color: var(--mantine-color-dark-6);
     --rdg-row-selected-background-color: alpha(
       var(--mantine-primary-color-9),
@@ -31,14 +50,23 @@
 .root :global(.rdg-cell) {
   display: flex;
   align-items: center;
-  padding-inline: var(--mantine-spacing-md);
+  padding-inline: var(--mantine-spacing-lg);
   border-right: none;
   border-bottom: 1px solid var(--rdg-border-color);
 }
 
 .root :global(.rdg-header-row .rdg-cell) {
-  color: var(--mantine-color-dimmed);
+  color: light-dark(var(--mantine-primary-color-9), var(--mantine-color-white));
+  font-size: var(--mantine-font-size-sm);
   font-weight: 600;
+  /* Columns end on fractions of a pixel, and the header row paints nothing
+     itself: each cell covers the gap to its right with the header color. */
+  box-shadow: 1px 0 0 var(--rdg-header-background-color);
+}
+
+/* With `onRowClick`, the whole row is the target. */
+.root[data-clickable] :global(.rdg-row) {
+  cursor: pointer;
 }
 
 .root :global(.rdg-header-sort-cell) {
