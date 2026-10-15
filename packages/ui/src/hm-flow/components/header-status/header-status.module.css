@@ -79,12 +79,16 @@
 
   @mixin dark {
     color: white;
-    background-color: var(--mantine-color-gray-8);
+    background-color: var(--mantine-color-dark-6);
   }
 }
 
 .title {
   width: fit-content;
+  /* An h2 without the browser's heading size and margins, whatever the page
+     around it resets. */
+  margin: 0;
+  font-size: inherit;
   font-weight: 400;
 
   white-space: nowrap;

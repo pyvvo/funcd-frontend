@@ -21,3 +21,8 @@
     background-color: #fafaf9;
   }
 }
+
+/* A paragraph without the browser's margins, whatever the page resets. */
+.label {
+  margin: 0;
+}

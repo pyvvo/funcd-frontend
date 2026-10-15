@@ -11,7 +11,7 @@ export interface INodesItemProps {
 const NodesItem: FC<INodesItemProps> = ({ img, label, onSelect }) => (
   <Group className={styles.nodeItem} onClick={() => onSelect(label)}>
     <Image src={img} className={styles.icon} />
-    <p>{label}</p>
+    <p className={styles.label}>{label}</p>
   </Group>
 );
 
