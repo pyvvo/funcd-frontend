@@ -9,7 +9,7 @@
 
   padding: 10px;
 
-  border-radius: 25px;
+  border-radius: var(--mantine-card-border-radius);
   box-shadow: 0 0px 2px -1px var(--mantine-color-gray-3);
 
   &:hover {

@@ -8,7 +8,7 @@
     width: calc(100% - (var(--mantine-header-offset) + 45px));
     right: 12px;
   }
-  border-radius: 18px;
+  border-radius: var(--mantine-bar-border-radius);
   position: fixed;
   align-items: center;
   justify-content: space-between;
@@ -25,7 +25,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-radius: 22px;
+  border-radius: var(--mantine-bar-border-radius);
   background-color: transparent;
   padding: 0px;
 

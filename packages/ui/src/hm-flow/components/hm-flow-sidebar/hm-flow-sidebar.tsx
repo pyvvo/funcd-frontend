@@ -27,7 +27,7 @@ const HmFlowSideBar: FC<IHmFlowSideBarProps> = (props) => {
       onClose={onDrawerClose}
       withCloseButton={false}
       padding="md"
-      radius={16}
+      radius="var(--mantine-card-border-radius)"
       offset={8}
       scrollAreaComponent={ScrollArea.Autosize}
       overlayProps={{ backgroundOpacity: 0.2, blur: 6 }}>

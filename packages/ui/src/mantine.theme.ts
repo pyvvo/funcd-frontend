@@ -154,14 +154,26 @@ const theme: MantineThemeOverride = createTheme({
   breakpoints,
   primaryColor: 'primary',
   primaryShade: 9,
-  defaultRadius: 8,
+  // The one radius scale: controls use it by name, and each surface role
+  // below picks a step, so changing a step rounds everything that uses it.
+  radius: {
+    xs: rem(2),
+    sm: rem(4),
+    md: rem(8),
+    lg: rem(12),
+    xl: rem(20)
+  },
+  defaultRadius: 'md',
   other: {
     headerOffset: rem(40),
-    sideBarBorderRadius: rem(20),
     sideBarWidth: rem(60),
-    bottomBarBorderRadius: rem(20),
-    cardBorderRadius: rem(20),
-    gridBorderRadius: rem(12)
+    // Corner radius by role, as a step of the radius scale.
+    // Bars: the header, the sidebar and the bottom bar.
+    barBorderRadius: 'xl',
+    // Cards: stat, chart and flow cards, drawers and the flow canvas panels.
+    cardBorderRadius: 'xl',
+    // Grids: data grids, tables and their rows.
+    gridBorderRadius: 'lg'
   },
   components: {
     Button: Button.extend({
@@ -177,7 +189,7 @@ const theme: MantineThemeOverride = createTheme({
       defaultProps: {
         variant: 'filled',
         mod: { color: 'primary' },
-        radius: 'lg'
+        radius: 'xl'
       }
     }),
     Tabs: Tabs.extend({
@@ -192,11 +204,10 @@ const theme: MantineThemeOverride = createTheme({
 export const cssVarResolver: CSSVariablesResolver = (theme) => ({
   variables: {
     '--mantine-header-offset': theme.other.headerOffset,
-    '--mantine-sidebar-border-radius': theme.other.sideBarBorderRadius,
+    '--mantine-bar-border-radius': `var(--mantine-radius-${theme.other.barBorderRadius})`,
     '--mantine-sidebar-width': theme.other.sideBarWidth,
-    '--mantine-bottombar-border-radius': theme.other.bottomBarBorderRadius,
-    '--mantine-card-border-radius': theme.other.cardBorderRadius,
-    '--mantine-grid-border-radius': theme.other.gridBorderRadius
+    '--mantine-card-border-radius': `var(--mantine-radius-${theme.other.cardBorderRadius})`,
+    '--mantine-grid-border-radius': `var(--mantine-radius-${theme.other.gridBorderRadius})`
   },
   light: {},
   dark: {}

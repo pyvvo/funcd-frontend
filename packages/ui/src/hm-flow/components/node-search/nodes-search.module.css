@@ -11,7 +11,7 @@
 .nodeItem {
   margin-top: 0.5rem;
   padding: 0.75rem;
-  border-radius: 12px;
+  border-radius: var(--mantine-grid-border-radius);
   display: flex;
   align-items: center;
   cursor: pointer;
