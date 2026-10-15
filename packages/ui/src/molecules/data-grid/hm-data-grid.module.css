@@ -10,7 +10,12 @@
     var(--mantine-color-white)
   );
   --rdg-row-hover-background-color: var(--mantine-color-gray-0);
-  --rdg-row-selected-background-color: var(--mantine-primary-color-0);
+  /* Lighter than the header; a selected row also gets an accent bar. */
+  --rdg-row-selected-background-color: color-mix(
+    in srgb,
+    var(--mantine-primary-color-0) 60%,
+    var(--mantine-color-white)
+  );
   --rdg-row-selected-hover-background-color: var(--mantine-primary-color-1);
   --rdg-selection-color: var(--mantine-primary-color-filled);
   --rdg-border-color: var(--mantine-color-gray-2);
@@ -67,6 +72,34 @@
 /* With `onRowClick`, the whole row is the target. */
 .root[data-clickable] :global(.rdg-row) {
   cursor: pointer;
+}
+
+/* A click or the keyboard selects a cell: its whole row is highlighted, and
+   the cell itself is outlined only with `withCellOutline`. */
+.root :global(.rdg-row:has(> .rdg-cell[aria-selected='true'])) {
+  background-color: var(--rdg-row-selected-background-color);
+}
+
+/* Like the header, a colored row covers the sub-pixel gaps between its
+   cells with its own color. */
+.root :global(.rdg-row:hover > .rdg-cell) {
+  box-shadow: 1px 0 0 var(--rdg-row-hover-background-color);
+}
+
+.root :global(.rdg-row[aria-selected='true'] > .rdg-cell),
+.root :global(.rdg-row:has(> .rdg-cell[aria-selected='true']) > .rdg-cell) {
+  box-shadow: 1px 0 0 var(--rdg-row-selected-background-color);
+}
+
+/* A checked row shows a bar in the theme color on its left edge. */
+.root :global(.rdg-row[aria-selected='true'] > .rdg-cell:first-child) {
+  box-shadow:
+    inset 3px 0 0 var(--mantine-primary-color-filled),
+    1px 0 0 var(--rdg-row-selected-background-color);
+}
+
+.root:not([data-cell-outline]) :global(.rdg-cell[aria-selected='true']) {
+  outline: none;
 }
 
 .root :global(.rdg-header-sort-cell) {

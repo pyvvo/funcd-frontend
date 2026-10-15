@@ -1,13 +1,21 @@
 import { action } from 'storybook/actions';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ActionIcon, Box, Group, MantineColor, Text } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Group,
+  MantineColor,
+  Text
+} from '@mantine/core';
 import {
   IconBrandNodejs,
   IconBrandPython,
   IconChevronLeft,
   IconChevronRight,
   IconCode,
-  IconSearch
+  IconSearch,
+  IconTrash
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { ReactNode, useState } from 'react';
@@ -358,7 +366,8 @@ export const Showcase: Story = {
           <div className="w-full">
             <h6 className="font-semibold">Row selection</h6>
             <p className="mt-2 text-sm text-gray-600">
-              Sorting and checkboxes; the header counts the selected rows
+              Sorting and checkboxes; the selection bar counts the rows and
+              holds bulk actions
             </p>
             <div className="mt-2">
               <HMDG
@@ -369,6 +378,16 @@ export const Showcase: Story = {
                 rows={_rows}
                 selectedRows={selectedRows}
                 onSelectedRowsChange={setSelectedRows}
+                selectionActions={
+                  <Button
+                    variant="subtle"
+                    size="xs"
+                    mod={{ color: 'alert' }}
+                    leftSection={<IconTrash size={14} />}
+                    onClick={() => action('delete')([...selectedRows])}>
+                    Delete
+                  </Button>
+                }
               />
             </div>
           </div>

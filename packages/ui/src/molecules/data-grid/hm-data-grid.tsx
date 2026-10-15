@@ -32,7 +32,11 @@ const HMDataGrid = <TRow extends Record<string, any>>(
     withFill = false,
     footer,
     emptyIcon,
-    emptyText
+    emptyText,
+    withCellOutline = false,
+    selectionActions,
+    selectedText,
+    clearText
   } = props;
   const computedColorScheme = useComputedColorScheme('light');
 
@@ -64,8 +68,20 @@ const HMDataGrid = <TRow extends Record<string, any>>(
         theme={theme}
         className={styles.root}
         selectedRowCount={selectedRows?.size ?? 0}
+        selectionActions={selectionActions}
+        selectedText={selectedText}
+        clearText={clearText}
+        onClearSelection={
+          onSelectedRowsChange
+            ? () => onSelectedRowsChange(new Set())
+            : undefined
+        }
         footer={footer}
-        mod={{ fill: withFill, clickable: !!onRowClick }}
+        mod={{
+          fill: withFill,
+          clickable: !!onRowClick,
+          'cell-outline': withCellOutline
+        }}
         style={{
           '--data-grid-row-height': rem(rowHeight),
           '--data-grid-max-rows': maxRows

@@ -43,14 +43,6 @@ body {
       border-style: none;
     }
   }
-
-  .rdg-row,
-  .rdg-header-row {
-    & [aria-selected='true'] {
-      box-shadow: none;
-      outline-color: transparent;
-    }
-  }
 }
 
 code {

@@ -157,6 +157,18 @@ export interface IHMDataGrid<TRow extends TRowBase> {
   /** Shown when there are no rows ("Nothing to show" by default) */
   emptyText?: string;
 
+  /** Bulk actions shown in the selection bar while rows are selected */
+  selectionActions?: ReactNode;
+
+  /** The selection bar's text for a count ("4 selected" by default) */
+  selectedText?: (count: number) => string;
+
+  /** The label of the selection bar's clear button ("Clear" by default) */
+  clearText?: string;
+
+  /** Outlines the selected cell; by default a click highlights its whole row */
+  withCellOutline?: boolean;
+
   /** Enable sorting of a column
    * @see  {mantine-data-grid} https://kuechlin.github.io/mantine-data-grid/#/example/rowselection
    * @see  {react-data-grid} https://github.com/adazzle/react-data-grid/blob/921fc3d6b6c8b8778af3017aa1688e650a8994d9/src/DataGrid.tsx#L147
