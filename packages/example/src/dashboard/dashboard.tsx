@@ -7,11 +7,11 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable no-console */
 import {
+  ContentLayout,
   IReactiveChartMeta,
   ReactiveDashboard,
   StatsRing
 } from '@funcd-dev/ui';
-import { Box, SimpleGrid, useMantineTheme } from '@mantine/core';
 import { FC } from 'react';
 
 interface IData {
@@ -93,29 +93,20 @@ const chartMeta: IReactiveChartMeta<typeof chartData>[] = [
   }
 ];
 
-const Dashboard: FC = () => {
-  const theme = useMantineTheme();
-
-  return (
-    <Box style={{ marginTop: '24px', marginBottom: '24px' }}>
-      <SimpleGrid
-        type="container"
-        cols={{ base: 1, [theme.breakpoints.sm]: 3 }}
-        style={{ marginBottom: '12px' }}>
-        {data.map((value) => (
-          <StatsRing
-            key={value.label}
-            color={value.color}
-            icon={value.icon}
-            label={value.label}
-            stats={value.stats}
-            progress={value.progress}
-          />
-        ))}
-      </SimpleGrid>
-      <ReactiveDashboard data={chartData} meta={chartMeta} />
-    </Box>
-  );
-};
+const Dashboard: FC = () => (
+  <ContentLayout
+    header={data.map((value) => (
+      <StatsRing
+        key={value.label}
+        color={value.color}
+        icon={value.icon}
+        label={value.label}
+        stats={value.stats}
+        progress={value.progress}
+      />
+    ))}>
+    <ReactiveDashboard data={chartData} meta={chartMeta} />
+  </ContentLayout>
+);
 
 export default Dashboard;
