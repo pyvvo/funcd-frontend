@@ -26,7 +26,7 @@
   animation: 0.5s ease-in-out;
 
   @mixin dark {
-    background-color: var(--mantine-color-gray-8);
+    background-color: var(--mantine-color-dark-6);
   }
 }
 
