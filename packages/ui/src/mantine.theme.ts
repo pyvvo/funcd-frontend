@@ -10,6 +10,7 @@ import {
 import CustomActionIcon from '../../ui/src/atoms/action-icon/action-icon.module.css';
 import CustomTabs from '../../ui/src/molecules/navigation/tabs/tabs.module.css';
 import CustomButton from './atoms/button/Button.module.css';
+import breakpoints from './breakpoints.json';
 
 export type PyColorsType =
   | 'primary'
@@ -150,6 +151,7 @@ const theme: MantineThemeOverride = createTheme({
       '#000000'
     ]
   },
+  breakpoints,
   primaryColor: 'primary',
   primaryShade: 9,
   defaultRadius: 8,
