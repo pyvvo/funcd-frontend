@@ -40,5 +40,5 @@ ci:
     yarn lib tsc
     yarn lib build
     yarn ui build
-    yarn ex build
+    yarn fleet build
     yarn cpui build

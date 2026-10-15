@@ -1,0 +1,16 @@
+#root,
+body {
+  margin: 0;
+  /* Clip sideways overflow only, so tall pages still scroll. */
+  overflow-x: hidden;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: lighten(var(--mantine-primary-color-1), 0.7);
+
+  @mixin dark {
+    background-color: var(--mantine-color-dark-8);
+  }
+}

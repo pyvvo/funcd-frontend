@@ -8,9 +8,9 @@
       "port": 3002
     },
     {
-      "name": "example",
+      "name": "fleet",
       "runtimeExecutable": "yarn",
-      "runtimeArgs": ["dev:ex"],
+      "runtimeArgs": ["dev:fleet"],
       "port": 5173
     }
   ]
