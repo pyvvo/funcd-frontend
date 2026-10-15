@@ -1,16 +1,22 @@
+import { createRequire } from 'node:module';
+
+// The breakpoints' single source, shared with the Mantine theme. CSS cannot
+// read a variable in a media or container query, so they become
+// $mantine-breakpoint-* variables here.
+const breakpoints = createRequire(import.meta.url)('./src/breakpoints.json');
+
 export default {
   plugins: {
     // tailwindcss: {},
     // autoprefixer: {},
     'postcss-preset-mantine': {},
     'postcss-simple-vars': {
-      variables: {
-        'mantine-breakpoint-xs': '36em',
-        'mantine-breakpoint-sm': '48em',
-        'mantine-breakpoint-md': '62em',
-        'mantine-breakpoint-lg': '75em',
-        'mantine-breakpoint-xl': '88em'
-      }
+      variables: Object.fromEntries(
+        Object.entries(breakpoints).map(([size, value]) => [
+          `mantine-breakpoint-${size}`,
+          value
+        ])
+      )
     }
   }
 };

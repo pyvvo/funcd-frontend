@@ -71,6 +71,11 @@ Run these from the repository root.
 - Do not add file-top `/* oxlint-disable ... */` or `/* eslint-disable ... */` headers. Only files from the first commit (November 2024) have them, and 190 of the 203 directives in `packages/ui/src` have no effect.
 - When the linter reports a line that must stay as it is, put `// oxlint-disable-next-line <rule>` directly above that line. In practice this is `react-hooks/exhaustive-deps` above a dependency array.
 
+## Responsive layout
+
+- Use media queries for page-level and device decisions: the shell, navigation and touch (for example `AppLayout` choosing `SideBar` or `BottomBar`).
+- Use container queries for components: cards, tiles, tables and charts that change shape to fit their slot. In Mantine, give `Grid` and `SimpleGrid` `type="container"`; in a `*.module.css` file, write an `@container` rule.
+
 ## TypeScript and imports
 
 - TypeScript runs in `strict` mode. `any` is allowed and used, mostly through `JSONData` (`Record<string, any>`).

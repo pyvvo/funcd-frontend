@@ -15,7 +15,7 @@ const LayoutGridItem: FC<ILayoutGridItem> = (props) => {
   const { w, h, minRows, maxRows, maxWidth } = layout;
   const isAutoHeight = h === undefined;
 
-  // On small screens every chart takes the full width, so the charts stack
+  // In a narrow dashboard every chart takes the full width, so the charts stack
   // in one column, by row then column. The CSS turns the rows into heights;
   // `minRows` and `maxRows` only apply without `h`.
   return (
