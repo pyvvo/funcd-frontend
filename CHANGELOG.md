@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/pyvvo/funcd-frontend/compare/v0.3.0...v0.3.1) (2026-10-21)
+
+
+### Bug Fixes
+
+* **ui:** pick the typed option on Enter in the reactive selects ([#20](https://github.com/pyvvo/funcd-frontend/issues/20)) ([791a025](https://github.com/pyvvo/funcd-frontend/commit/791a02501138c616c72021e2fa22a9f513ae43ca))
+
 ## [0.3.0](https://github.com/pyvvo/funcd-frontend/compare/v0.2.0...v0.3.0) (2026-10-15)
 
 
