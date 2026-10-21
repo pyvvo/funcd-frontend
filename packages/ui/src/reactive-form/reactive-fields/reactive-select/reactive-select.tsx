@@ -7,7 +7,7 @@ import { FC, useCallback } from 'react';
 import { Controller } from 'react-hook-form';
 import { IReactiveField, ReactiveFieldProps } from '../types';
 import { SelectCustomProps } from './types';
-import { getMantineError } from '../utils';
+import { getMantineError, keepEnterInDropdown } from '../utils';
 
 const ReactiveSelect: FC<IReactiveField<SelectCustomProps>> = (props) => {
   const { form, fieldKey, label, options, error, customProps } = props;
@@ -36,6 +36,9 @@ const ReactiveSelect: FC<IReactiveField<SelectCustomProps>> = (props) => {
     onDropdownOpen,
     data,
     searchable: true,
+    // Typing highlights the first match, so Enter picks it.
+    selectFirstOptionOnChange: true,
+    onKeyDown: keepEnterInDropdown,
     clearable: true,
     error: getMantineError(error)
   };

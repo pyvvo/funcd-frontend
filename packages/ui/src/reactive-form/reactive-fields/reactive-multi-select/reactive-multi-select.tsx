@@ -6,7 +6,7 @@ import { MultiSelect, MultiSelectProps } from '@mantine/core';
 import { FC, useCallback } from 'react';
 import { Controller } from 'react-hook-form';
 import { IReactiveField, ReactiveFieldProps } from '../types';
-import { getMantineError } from '../utils';
+import { getMantineError, keepEnterInDropdown } from '../utils';
 import { MultiSelectCustomProps } from './types';
 
 const ReactiveMultiSelect: FC<IReactiveField<MultiSelectCustomProps>> = (
@@ -48,6 +48,9 @@ const ReactiveMultiSelect: FC<IReactiveField<MultiSelectCustomProps>> = (
     onDropdownOpen,
     data,
     searchable: true,
+    // Typing highlights the first match, so Enter picks it.
+    selectFirstOptionOnChange: true,
+    onKeyDown: keepEnterInDropdown,
     clearable: true,
     leftSection,
     rightSection,
