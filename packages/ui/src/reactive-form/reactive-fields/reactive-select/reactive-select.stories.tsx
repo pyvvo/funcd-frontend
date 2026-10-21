@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent } from 'storybook/test';
-import { waitFor, within } from '@testing-library/dom';
+import { fireEvent, waitFor, within } from '@testing-library/dom';
 import { expect } from 'storybook/test';
 import { getReactiveRef, ReactiveFieldDecorator } from '@/story-utils';
 import { ReactiveFieldStoryType } from '../types';
@@ -55,4 +55,46 @@ export const ReactiveSelect: Story = {
       data: ['React', 'Angular', 'Svelte', 'Vue']
     }
   }
+};
+
+// Enter picks the typed match, and never submits the form while the dropdown
+// is open.
+export const PickOnEnter: Story = {
+  play: async ({ canvasElement, args: { fieldKey } }) => {
+    const { fieldRef, submitRef, resultRef } = getReactiveRef(
+      canvasElement,
+      fieldKey
+    );
+
+    await userEvent.click(fieldRef);
+    await wait(200);
+    // userEvent's typing leaves Mantine's search state unchanged here, so the
+    // search is set the way the input's change event sets it.
+    fireEvent.change(fieldRef, { target: { value: 'Sv' } });
+    // Mantine highlights the first match once the options are filtered.
+    const body = within(canvasElement.ownerDocument.body);
+    await waitFor(async () => {
+      await expect(
+        body.getByRole('option', { name: 'Svelte' })
+      ).toHaveAttribute('data-combobox-selected');
+    });
+    await userEvent.keyboard('{Enter}');
+    await wait(200);
+    // Not submitted: the form's result is still empty.
+    await expect(resultRef.value).toBe('');
+
+    // With nothing matching, Enter still does not submit the form.
+    fireEvent.change(fieldRef, { target: { value: 'zz' } });
+    await userEvent.keyboard('{Enter}');
+    await wait(200);
+    await expect(resultRef.value).toBe('');
+
+    await userEvent.click(submitRef);
+    await waitFor(async () => {
+      await expect(JSON.parse(resultRef.value)).toEqual({
+        value: 'Svelte'
+      });
+    });
+  },
+  args: ReactiveSelect.args
 };
