@@ -38,10 +38,12 @@ export const flattenObj = <T extends Record<string, any>>(
     const propName = parent ? `${parent}.${key}` : key;
     const value = obj[key];
 
+    // A Date is a value, not an object to flatten: it has no keys of its own.
     if (
       value !== null &&
       typeof obj[key] === 'object' &&
-      !Array.isArray(obj[key])
+      !Array.isArray(obj[key]) &&
+      !(value instanceof Date)
     ) {
       flattenObj(obj[key], propName, res, index);
     } else {

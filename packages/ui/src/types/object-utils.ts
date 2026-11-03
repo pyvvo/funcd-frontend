@@ -29,25 +29,27 @@ export type RequireAtLeastOne<
 type Entry = { key: string; value: any; optional: boolean };
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-type _Explode<T> = T extends object
-  ? {
-      [K in keyof T]-?: K extends string
-        ? Explode<T[K]> extends infer E
-          ? E extends Entry
-            ? {
-                key: `${K}${E['key'] extends '' ? '' : '.'}${E['key']}`;
-                value: E['value'];
-                optional: E['key'] extends ''
-                  ? {} extends Pick<T, K>
-                    ? true
-                    : false
-                  : E['optional'];
-              }
+type _Explode<T> = T extends Date
+  ? { key: ''; value: T; optional: false }
+  : T extends object
+    ? {
+        [K in keyof T]-?: K extends string
+          ? Explode<T[K]> extends infer E
+            ? E extends Entry
+              ? {
+                  key: `${K}${E['key'] extends '' ? '' : '.'}${E['key']}`;
+                  value: E['value'];
+                  optional: E['key'] extends ''
+                    ? {} extends Pick<T, K>
+                      ? true
+                      : false
+                    : E['optional'];
+                }
+              : never
             : never
-          : never
-        : never;
-    }[keyof T]
-  : { key: ''; value: T; optional: false };
+          : never;
+      }[keyof T]
+    : { key: ''; value: T; optional: false };
 
 type Explode<T> = _Explode<T extends readonly any[] ? { '0': T[number] } : T>;
 
