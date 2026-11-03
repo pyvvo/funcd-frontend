@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/pyvvo/funcd-frontend/compare/v0.3.1...v0.4.0) (2026-11-03)
+
+
+### Features
+
+* **ui:** add StatCard and ProgressCell ([#23](https://github.com/pyvvo/funcd-frontend/issues/23)) ([c5d79c8](https://github.com/pyvvo/funcd-frontend/commit/c5d79c84d941e6ccfccbed6eac8f0a9af6da404f))
+
+
+### Bug Fixes
+
+* **ui:** keep Date values in HMDataGrid rows ([#22](https://github.com/pyvvo/funcd-frontend/issues/22)) ([f2d2406](https://github.com/pyvvo/funcd-frontend/commit/f2d2406502fa828b995f56665a3398354a1ab207))
+
 ## [0.3.1](https://github.com/pyvvo/funcd-frontend/compare/v0.3.0...v0.3.1) (2026-10-21)
 
 
