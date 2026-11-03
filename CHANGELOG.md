@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/pyvvo/funcd-frontend/compare/v0.4.0...v0.5.0) (2026-11-03)
+
+
+### Features
+
+* **ui:** add TimelineBar ([#25](https://github.com/pyvvo/funcd-frontend/issues/25)) ([b964f93](https://github.com/pyvvo/funcd-frontend/commit/b964f93464eccdd1d48ca665529b96fe94a12ed4))
+
 ## [0.4.0](https://github.com/pyvvo/funcd-frontend/compare/v0.3.1...v0.4.0) (2026-11-03)
 
 
