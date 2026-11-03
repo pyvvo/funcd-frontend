@@ -1,0 +1,31 @@
+/* A thin bar filled to a percentage, and the percentage, for a data grid cell. */
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mantine-spacing-xs);
+  font-size: var(--mantine-font-size-sm);
+}
+
+.track {
+  width: 64px;
+  height: 6px;
+  border-radius: 9999px;
+  overflow: hidden;
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-4)
+  );
+}
+
+.bar {
+  display: block;
+  height: 100%;
+  border-radius: 9999px;
+  background-color: var(--progress-color);
+}
+
+.value {
+  min-width: 48px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
