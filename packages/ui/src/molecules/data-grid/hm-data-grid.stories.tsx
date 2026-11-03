@@ -21,6 +21,7 @@ import dayjs from 'dayjs';
 import { ReactNode, useState } from 'react';
 import HMDG from './hm-data-grid';
 import IconLabelCell from './hm/icon-label-cell';
+import ProgressCell from './hm/progress-cell';
 import StatusCell from './hm/status-cell';
 import TimeAgoCell from './hm/time-ago-cell';
 import TitleCell from './hm/title-cell';
@@ -141,6 +142,7 @@ interface IFunction {
   trigger: string;
   runtime: 'Node.js' | 'Python';
   status: 'Ready' | 'Idle';
+  successRate: number;
   lastDeployed: string;
 }
 
@@ -154,28 +156,33 @@ const statusColors: Record<IFunction['status'], MantineColor> = {
   Idle: 'gray'
 };
 
+// Green from 99%, yellow from 95%, red below.
+const successColor = (rate: number): MantineColor =>
+  rate >= 99 ? 'green' : rate >= 95 ? 'yellow' : 'red';
+
 const functionNames = [
-  ['process-webhook', 'HTTP trigger', 'Node.js', 'Ready', 12],
-  ['summarize-document', 'Event trigger', 'Python', 'Ready', 38],
-  ['resize-image', 'HTTP trigger', 'Python', 'Ready', 120],
-  ['sync-customer', 'Schedule', 'Node.js', 'Idle', 180],
-  ['send-invoice', 'Event trigger', 'Node.js', 'Ready', 240],
-  ['score-lead', 'HTTP trigger', 'Python', 'Ready', 300],
-  ['archive-logs', 'Schedule', 'Python', 'Idle', 420],
-  ['notify-slack', 'Event trigger', 'Node.js', 'Ready', 600],
-  ['translate-text', 'HTTP trigger', 'Python', 'Ready', 900],
-  ['cleanup-uploads', 'Schedule', 'Node.js', 'Idle', 1440],
-  ['generate-report', 'Schedule', 'Python', 'Ready', 2880],
-  ['refresh-cache', 'Event trigger', 'Node.js', 'Idle', 4320]
+  ['process-webhook', 'HTTP trigger', 'Node.js', 'Ready', 99.8, 12],
+  ['summarize-document', 'Event trigger', 'Python', 'Ready', 97.2, 38],
+  ['resize-image', 'HTTP trigger', 'Python', 'Ready', 100, 120],
+  ['sync-customer', 'Schedule', 'Node.js', 'Idle', 88.5, 180],
+  ['send-invoice', 'Event trigger', 'Node.js', 'Ready', 99.1, 240],
+  ['score-lead', 'HTTP trigger', 'Python', 'Ready', 94.6, 300],
+  ['archive-logs', 'Schedule', 'Python', 'Idle', 72.4, 420],
+  ['notify-slack', 'Event trigger', 'Node.js', 'Ready', 99.9, 600],
+  ['translate-text', 'HTTP trigger', 'Python', 'Ready', 96.3, 900],
+  ['cleanup-uploads', 'Schedule', 'Node.js', 'Idle', 81, 1440],
+  ['generate-report', 'Schedule', 'Python', 'Ready', 98.7, 2880],
+  ['refresh-cache', 'Event trigger', 'Node.js', 'Idle', 91.2, 4320]
 ] as const;
 
 const functions: IFunction[] = functionNames.map(
-  ([name, trigger, runtime, status, minutesAgo]) => ({
+  ([name, trigger, runtime, status, successRate, minutesAgo]) => ({
     id: name,
     name,
     trigger,
     runtime,
     status,
+    successRate,
     lastDeployed: dayjs().subtract(minutesAgo, 'minute').toISOString()
   })
 );
@@ -204,6 +211,16 @@ const functionColumns: IColumn<IFunction>[] = [
     name: 'Status',
     render: ({ row }) => (
       <StatusCell label={row.status} color={statusColors[row.status]} />
+    )
+  },
+  {
+    key: 'successRate',
+    name: 'Success rate',
+    render: ({ row }) => (
+      <ProgressCell
+        value={row.successRate}
+        color={successColor(row.successRate)}
+      />
     )
   },
   {
@@ -336,7 +353,7 @@ export const Showcase: Story = {
           <div className="w-full">
             <h6 className="font-semibold">Functions</h6>
             <p className="mt-2 text-sm text-gray-600">
-              The four built-in cells in 64px rows, with arrow navigation in the
+              The five built-in cells in 64px rows, with arrow navigation in the
               footer
             </p>
             <div className="mt-2">
@@ -348,7 +365,7 @@ export const Showcase: Story = {
             <h6 className="font-semibold">Cells</h6>
             <p className="mt-2 text-sm text-gray-600">
               Built-in pieces for a column&apos;s render: TitleCell,
-              IconLabelCell, StatusCell and TimeAgoCell
+              IconLabelCell, StatusCell, ProgressCell and TimeAgoCell
             </p>
             <div className="mt-2 flex flex-wrap items-center justify-center gap-10 rounded-xl bg-white p-6">
               <TitleCell
@@ -359,6 +376,8 @@ export const Showcase: Story = {
               <IconLabelCell icon={runtimeIcons['Node.js']} label="Node.js" />
               <StatusCell label="Ready" color="green" />
               <StatusCell label="Failed" color="red" />
+              <ProgressCell value={97.4} color="green" />
+              <ProgressCell value={62} color="red" />
               <TimeAgoCell date={functions[0].lastDeployed} />
             </div>
           </div>

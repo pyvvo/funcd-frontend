@@ -1,0 +1,17 @@
+/* The same surface as StatsRing and the chart cards. */
+.root {
+  background-color: white;
+  border-radius: var(--mantine-card-border-radius);
+  box-shadow: -1px 1px 10px -1px rgba(0, 0, 0, 0.103);
+
+  @mixin dark {
+    background-color: var(--mantine-color-dark-7);
+  }
+}
+
+.value {
+  margin-top: var(--mantine-spacing-xs);
+  font-size: 28px;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
