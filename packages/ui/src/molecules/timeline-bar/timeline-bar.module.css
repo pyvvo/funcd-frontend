@@ -1,0 +1,22 @@
+/* A rounded track spanning the range, with each segment placed in it by position. */
+.root {
+  width: 100%;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  border-radius: 9999px;
+  overflow: hidden;
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-4)
+  );
+}
+
+.segment {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: block;
+}
