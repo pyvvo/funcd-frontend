@@ -1,0 +1,308 @@
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  color: #e9edfb;
+  background: #0b0e15;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+main {
+  padding: 30px 16px;
+}
+.zg-workflow {
+  --zg-blue: #14b5fa;
+  --zg-border: #294e67;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 19px 21px;
+  border: 1px solid #2b3e59;
+  border-radius: 14px;
+  background: radial-gradient(
+    ellipse at 50% 42%,
+    #171b2e 0%,
+    #121725 55%,
+    #111622 100%
+  );
+}
+.zg-sources {
+  display: grid;
+  grid-template-columns: repeat(2, 111px);
+  gap: 8px;
+}
+.zg-source {
+  height: 62px;
+  border: 1px solid var(--zg-border);
+  border-radius: 11px;
+  background: #121c2b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.zg-source svg {
+  width: 27px;
+  height: 27px;
+  color: #1fa9ed;
+}
+.zg-source span {
+  font:
+    700 11px ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+  letter-spacing: 1px;
+}
+.zg-engine {
+  width: min(100%, 290px);
+  margin-top: 14px;
+  padding: 16px 12px 12px;
+  border: 1px solid #2387bb;
+  border-radius: 14px;
+  background: linear-gradient(110deg, #171b2d, #121b2a);
+}
+.zg-command {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+.zg-icon-tile {
+  width: 31px;
+  height: 31px;
+  border-radius: 10px;
+  background: #112130;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--zg-blue);
+  flex-shrink: 0;
+}
+.zg-icon-tile svg {
+  width: 21px;
+  height: 21px;
+  stroke-width: 1.7;
+}
+.zg-wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 25px;
+  line-height: 31px;
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+.zg-prompt {
+  color: var(--zg-blue);
+  font-size: 23px;
+  margin-right: 1px;
+}
+.zg-cursor {
+  color: var(--zg-blue);
+  margin-left: -3px;
+}
+.zg-methods {
+  margin-top: 16px;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+.zg-methods span {
+  border: 1px solid var(--zg-border);
+  border-radius: 20px;
+  padding: 3px 8px;
+  color: #a6b1c7;
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 12px;
+}
+.zg-arrow {
+  color: #258ec6;
+  height: 25px;
+  width: 25px;
+  margin: 13px 0 15px;
+}
+.zg-arrow svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.zg-evidence {
+  width: min(100%, 290px);
+  padding: 12px;
+  background: #121c2b;
+  border: 1px solid #286181;
+  border-radius: 13px;
+}
+.zg-result-preview {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.zg-result-lines {
+  display: grid;
+  gap: 5px;
+  flex: 1;
+}
+.zg-result-lines i {
+  display: block;
+  height: 3px;
+  border-radius: 5px;
+  background: #454f6b;
+  width: 64%;
+}
+.zg-result-lines i:first-child {
+  width: 88%;
+  background: #2a6089;
+}
+.zg-result-lines i:nth-child(2) {
+  width: 75%;
+}
+.zg-evidence strong {
+  display: block;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 700;
+}
+.zg-metadata {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 3px;
+  font:
+    10px/16px ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+  color: #a8b2c9;
+  letter-spacing: 0.3px;
+}
+.zg-audiences {
+  width: min(100%, 275px);
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 32px 21px;
+}
+.zg-audiences > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+.zg-audiences svg {
+  color: #2299d5;
+  width: 32px;
+  height: 32px;
+}
+.zg-audiences > div:last-child svg {
+  color: #7c5aff;
+}
+.zg-audiences span {
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.zg-benefits {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 17px;
+  padding-top: 15px;
+  border-top: 1px solid #273144;
+  color: #a5afc5;
+}
+.zg-benefits > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 650;
+}
+.zg-benefits svg {
+  width: 15px;
+  height: 15px;
+  color: var(--zg-blue);
+  stroke-width: 1.7;
+}
+.zg-demo {
+  max-width: 960px;
+  margin-inline: auto;
+}
+.zg-animation-toggle {
+  display: block;
+  margin: 14px auto 0;
+  padding: 7px 12px;
+  border: 1px solid #294e67;
+  border-radius: 7px;
+  background: #121c2b;
+  color: #a8b2c9;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.zg-animation-toggle:hover {
+  color: #e9edfb;
+  border-color: #14b5fa;
+}
+.zg-animation-toggle:focus-visible {
+  outline: 2px solid #14b5fa;
+  outline-offset: 3px;
+}
+/* Motion owns animation; CSS defines only the static appearance. */
+.zg-engine {
+  position: relative;
+  overflow: hidden;
+}
+.zg-search-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    #14b5fa20 50%,
+    transparent 70%
+  );
+  transform: translateX(-110%);
+}
+.zg-result-lines i {
+  transform-origin: left;
+}
+.zg-animation-toggle[hidden] {
+  display: none;
+}
+@media (min-width: 1000px) {
+  main {
+    padding-top: 48px;
+  }
+}
+@media (max-width: 380px) {
+  main {
+    padding: 16px 10px;
+  }
+  .zg-workflow {
+    padding-inline: 12px;
+  }
+  .zg-benefits {
+    gap: 12px;
+  }
+}

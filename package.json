@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@xyflow/react": "^12.3.6",
+    "motion": "^14.6.0",
     "uuid": "^11.0.3"
   },
   "resolutions": {
