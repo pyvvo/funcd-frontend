@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/pyvvo/funcd-frontend/compare/v0.5.0...v0.5.1) (2026-11-07)
+
+
+### Bug Fixes
+
+* **ui:** keep a module's nav link active on its sub-pages ([#27](https://github.com/pyvvo/funcd-frontend/issues/27)) ([11033fd](https://github.com/pyvvo/funcd-frontend/commit/11033fdec57ce928e25e2948fe5f26e3111a0212))
+
 ## [0.5.0](https://github.com/pyvvo/funcd-frontend/compare/v0.4.0...v0.5.0) (2026-11-03)
 
 
