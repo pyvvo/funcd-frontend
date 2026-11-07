@@ -9,7 +9,11 @@ interface INavBarLink extends LinkProps {
 const NavBarLink: FC<INavBarLink> = (props) => {
   const { to, children, handleIsActive, ...rest } = props;
   const resolved = useResolvedPath(to);
-  const pathname = useMatch({ path: resolved.pathname, end: true })?.pathname;
+  // A module stays active on its sub-pages (/workflows/transform); a home link at / only on itself.
+  const pathname = useMatch({
+    path: resolved.pathname,
+    end: resolved.pathname === '/'
+  })?.pathname;
   useEffect(() => {
     handleIsActive(Boolean(pathname));
     // oxlint-disable-next-line react-hooks/exhaustive-deps
