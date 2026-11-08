@@ -62,6 +62,7 @@ const actions: SpotlightActionData[] = [
 export const Header: Story = {
   args: {
     moduleName: 'Dashboard',
+    modulePath: '/dashboard',
     imageSrc: chance.avatar({ protocol: 'https' }),
     offset: 0,
     actions

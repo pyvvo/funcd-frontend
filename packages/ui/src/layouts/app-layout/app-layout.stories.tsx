@@ -147,3 +147,21 @@ export const AppLayout: Story = {
     }
   }
 };
+
+export const SubPage: Story = {
+  args: {
+    ...AppLayout.args,
+    headerMatches: [{ matchPath: '/dashboard', label: 'Dashboard' }],
+    routes: [
+      {
+        to: '/dashboard/overview',
+        element: <div>Dashboard overview</div>
+      },
+      {
+        to: '/dashboard',
+        element: <div>dashboard</div>
+      }
+    ]
+  },
+  argTypes: AppLayout.argTypes
+};

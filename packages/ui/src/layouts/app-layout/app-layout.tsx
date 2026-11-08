@@ -31,6 +31,7 @@ const AppLayout: FC<ILayout> = (props) => {
   } = props;
   const location = useLocation();
   const [moduleName, setModuleName] = useState('');
+  const [modulePath, setModulePath] = useState<string>();
   const theme = useMantineTheme();
   const isLaptop = useMediaQuery(`(min-width: ${theme.breakpoints.sm})`);
 
@@ -41,9 +42,11 @@ const AppLayout: FC<ILayout> = (props) => {
 
     if (match) {
       setModuleName(match.label);
+      setModulePath(match.matchPath);
     } else {
       const fallback = modules.find((link) => link.to === location.pathname);
       setModuleName(fallback?.label ?? '');
+      setModulePath(fallback?.to);
     }
   }, [location.pathname, headerMatches, modules]);
 
@@ -54,6 +57,7 @@ const AppLayout: FC<ILayout> = (props) => {
           <Grid.Col>
             <Header
               moduleName={moduleName}
+              modulePath={modulePath}
               imageSrc={imageSrc}
               offset={isLaptop ? 80 : undefined}
             />
