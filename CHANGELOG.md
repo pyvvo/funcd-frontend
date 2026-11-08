@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.0](https://github.com/pyvvo/funcd-frontend/compare/v0.5.1...v0.6.0) (2026-11-08)
+
+
+### Features
+
+* **ui:** link the header title to its module's page ([#33](https://github.com/pyvvo/funcd-frontend/issues/33)) ([7978dc9](https://github.com/pyvvo/funcd-frontend/commit/7978dc91b17477b03ff4e915b6b65443df8c534a))
+
+
+### Bug Fixes
+
+* **ui:** keep the sidebar from covering the page ([#31](https://github.com/pyvvo/funcd-frontend/issues/31)) ([d385787](https://github.com/pyvvo/funcd-frontend/commit/d3857873f767e10d6ab17420a9a793335984b9f0))
+
 ## [0.5.1](https://github.com/pyvvo/funcd-frontend/compare/v0.5.0...v0.5.1) (2026-11-07)
 
 
