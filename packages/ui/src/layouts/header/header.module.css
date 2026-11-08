@@ -49,6 +49,18 @@
   }
 }
 
+.titleLink {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: var(--mantine-radius-sm);
+
+  &:focus-visible {
+    outline: 2px solid var(--mantine-primary-color-filled);
+    outline-offset: 2px;
+  }
+}
+
 .searchBar {
   display: none;
   @mixin larger-than $mantine-breakpoint-xs {

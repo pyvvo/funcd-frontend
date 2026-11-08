@@ -3,6 +3,7 @@ import { SearchBar, ToggleThemeMode } from '@/molecules';
 import { Avatar, Box, Portal, Title } from '@mantine/core';
 import { spotlight } from '@mantine/spotlight';
 import { FC, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './header.module.css';
 
 const container = document.createElement('div');
@@ -11,12 +12,14 @@ container.id = containerId;
 
 interface IHeader {
   moduleName: string;
+  modulePath?: string;
   imageSrc?: string;
   offset?: number;
 }
 
 const Header: FC<IHeader> = (props) => {
-  const { moduleName, imageSrc, offset = 0 } = props;
+  const { moduleName, modulePath, imageSrc, offset = 0 } = props;
+  const location = useLocation();
 
   useEffect(() => {
     document.body.appendChild(container);
@@ -25,11 +28,25 @@ const Header: FC<IHeader> = (props) => {
     // valid dependency — this effect is mount/unmount only.
   }, []);
 
+  // Link back to the module's page only from a page below it (/tables/transactions under /tables).
+  const isLink =
+    Boolean(modulePath) &&
+    location.pathname !== modulePath &&
+    location.pathname.startsWith(
+      modulePath?.endsWith('/') ? modulePath : `${modulePath}/`
+    );
+
   return (
     <Portal target={container}>
       <Box component="header" className={styles.header}>
-        <Title size="h1" className={styles.title}>
-          {moduleName}
+        <Title size="h1" mod={{ link: isLink }} className={styles.title}>
+          {isLink && modulePath ? (
+            <Link to={modulePath} className={styles.titleLink}>
+              {moduleName}
+            </Link>
+          ) : (
+            moduleName
+          )}
         </Title>
         <Box className={styles.featureBar}>
           <SearchBar
