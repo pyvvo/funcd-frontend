@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+html {
+  scrollbar-gutter: stable;
+}
+
+/* funcd UI's colors, from the --funcd-* palettes that root.tsx writes into
+   each page. The content sits on white or dark 7; the sidebar and the cards
+   take the tinted tones of @funcd-dev/ui's theme.css page backgrounds. The
+   rest follows how Mantine uses the palettes: text on dark 0 and dimmed text
+   on gray 6 or dark 2, borders on gray 4 or dark 4, hovers on gray 1 or
+   dark 5. */
+:root {
+  --color-fd-background: #ffffff;
+  --color-fd-foreground: #000000;
+  --color-fd-muted: var(--funcd-gray-1);
+  --color-fd-muted-foreground: var(--funcd-gray-6);
+  --color-fd-popover: #ffffff;
+  --color-fd-popover-foreground: #000000;
+  --color-fd-card: color-mix(in srgb, var(--funcd-primary-1), white 70%);
+  --color-fd-card-foreground: #000000;
+  --color-fd-border: var(--funcd-gray-4);
+  --color-fd-primary: var(--funcd-primary-9);
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-secondary: var(--funcd-gray-1);
+  --color-fd-secondary-foreground: #000000;
+  --color-fd-accent: var(--funcd-gray-1);
+  --color-fd-accent-foreground: #000000;
+  --color-fd-ring: var(--funcd-primary-9);
+}
+
+.dark {
+  --color-fd-background: var(--funcd-dark-7);
+  --color-fd-foreground: var(--funcd-dark-0);
+  --color-fd-muted: var(--funcd-dark-6);
+  --color-fd-muted-foreground: var(--funcd-dark-2);
+  --color-fd-popover: var(--funcd-dark-7);
+  --color-fd-popover-foreground: var(--funcd-dark-0);
+  --color-fd-card: color-mix(in srgb, var(--funcd-primary-1), black 90%);
+  --color-fd-card-foreground: var(--funcd-dark-0);
+  --color-fd-border: var(--funcd-dark-4);
+  --color-fd-primary: var(--funcd-primary-4);
+  --color-fd-primary-foreground: var(--funcd-dark-9);
+  --color-fd-secondary: var(--funcd-dark-6);
+  --color-fd-secondary-foreground: var(--funcd-dark-0);
+  --color-fd-accent: var(--funcd-dark-5);
+  --color-fd-accent-foreground: var(--funcd-dark-0);
+  --color-fd-ring: var(--funcd-primary-9);
+}
+
+/* Fumadocs' neutral theme sets these again inside the sidebar. */
+.dark #nd-sidebar {
+  --color-fd-muted: var(--funcd-dark-6);
+  --color-fd-secondary: var(--funcd-dark-6);
+  --color-fd-muted-foreground: var(--funcd-dark-2);
+}
+
+/* The middle column is as wide as a page (900px), so on a wide screen the
+   extra width goes to the edges instead of between the sidebar and the text. */
+#nd-docs-layout {
+  --fd-layout-width: calc(
+    var(--fd-sidebar-width) + 900px + var(--fd-toc-width)
+  );
+}

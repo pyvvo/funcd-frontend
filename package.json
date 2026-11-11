@@ -9,9 +9,11 @@
     "ui": "yarn workspace @funcd-dev/ui",
     "lib": "yarn workspace @funcd-dev/lib",
     "cpui": "yarn workspace @funcd-dev/control-plane-ui",
+    "docs": "yarn workspace @funcd-dev/docs",
     "dev:ui": "yarn ui dev",
     "dev:fleet": "yarn fleet dev",
     "dev:cpui": "yarn cpui dev",
+    "dev:docs": "yarn docs dev",
     "build:rf": "yarn ui build",
     "codegen:schema": "tsx scripts/generate_schema.ts openapi ts-schema"
   },
