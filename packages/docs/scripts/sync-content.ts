@@ -3,6 +3,7 @@ import {
   cpSync,
   existsSync,
   mkdtempSync,
+  readFileSync,
   rmSync,
   writeFileSync
 } from 'node:fs';
@@ -24,18 +25,15 @@ const copies = [
 }));
 const releaseFile = new URL('../content/release.json', import.meta.url);
 
-// The pages and the install script describe the latest release, and the
-// sidebar names it. Its version comes from its SHA256SUMS, which lists the
-// builds by name (funcdctl-v0.41.0-darwin-arm64).
-const latestRelease = async () => {
-  const url =
-    'https://github.com/pyvvo/funcd/releases/latest/download/SHA256SUMS';
-  const response = await fetch(url);
-  if (!response.ok)
-    throw new Error(`could not read ${url}: ${response.status}`);
-  const version = (await response.text()).match(/funcdctl-(v[0-9.]+)-/)?.[1];
-  if (!version) throw new Error(`${url} names no funcdctl build`);
-  return version;
+// The sidebar names the release that the pages describe. funcd's release PR
+// writes that version into its release-please manifest, so the site reads it
+// from the same funcd as the pages. The site is published at each release, so
+// it names the latest one.
+const manifest = '.release-please-manifest.json';
+const releaseOf = (funcd: string) => {
+  const version = JSON.parse(readFileSync(join(funcd, manifest), 'utf8'))['.'];
+  if (!version) throw new Error(`funcd's ${manifest} names no version`);
+  return `v${version}`;
 };
 
 const cloneAt = (ref: string) => {
@@ -58,7 +56,8 @@ const cloneAt = (ref: string) => {
     'sparse-checkout',
     'set',
     '--no-cone',
-    ...copies.map(({ from }) => `/${from}`)
+    ...copies.map(({ from }) => `/${from}`),
+    `/${manifest}`
   );
   return dir;
 };
@@ -80,9 +79,9 @@ try {
   console.log(
     `copied ${copies.map(({ from }) => from).join(' and ')} from ${root ?? `funcd ${ref}`}`
   );
-  const latest = await latestRelease();
+  const latest = releaseOf(funcd);
   writeFileSync(releaseFile, `${JSON.stringify({ latest })}\n`);
-  console.log(`the latest release is ${latest}`);
+  console.log(`the pages describe release ${latest}`);
 } finally {
   if (clone) rmSync(clone, { recursive: true, force: true });
 }

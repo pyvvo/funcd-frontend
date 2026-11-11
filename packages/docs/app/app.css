@@ -57,10 +57,469 @@ html {
   --color-fd-muted-foreground: var(--funcd-dark-2);
 }
 
+/* A draw.io diagram keeps the light colors it was drawn in, so in dark mode it
+   sits on a light card. */
+.dark img[src*='.drawio'] {
+  border-radius: 0.75rem;
+  background: #ffffff;
+  padding: 0.5rem;
+}
+
 /* The middle column is as wide as a page (900px), so on a wide screen the
    extra width goes to the edges instead of between the sidebar and the text. */
 #nd-docs-layout {
   --fd-layout-width: calc(
     var(--fd-sidebar-width) + 900px + var(--fd-toc-width)
   );
+}
+
+/* The landing page (routes/home.tsx). */
+.hero-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    color-mix(in srgb, var(--color-fd-foreground) 13%, transparent) 1px,
+    transparent 0
+  );
+  background-size: 26px 26px;
+  mask-image: radial-gradient(
+    ellipse 75% 65% at 65% 40%,
+    black 25%,
+    transparent 75%
+  );
+}
+
+.hero-halo {
+  inset: 6% 2% 24% 2%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--funcd-primary-9) 24%, transparent),
+    transparent
+  );
+  filter: blur(28px);
+}
+
+.hero-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--funcd-primary-9),
+    #b05ce7 55%,
+    #ff5e60
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.dark .hero-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--funcd-primary-5),
+    #d39cf5 55%,
+    #ff8c87
+  );
+}
+
+.world-progress {
+  animation-name: world-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+@keyframes world-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.journey-line {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-fd-border) 0 6px,
+    transparent 6px 12px
+  );
+}
+
+.journey-line::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-fd-primary);
+  box-shadow: 0 0 12px var(--color-fd-primary);
+  animation: journey 4.5s ease-in-out infinite;
+}
+
+@keyframes journey {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  12%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+.cta-glow {
+  background: radial-gradient(
+    ellipse 50% 60% at 50% 0%,
+    color-mix(in srgb, var(--funcd-primary-9) 16%, transparent),
+    transparent 70%
+  );
+}
+
+.cta-mark {
+  filter: drop-shadow(
+    0 12px 32px color-mix(in srgb, var(--funcd-primary-9) 45%, transparent)
+  );
+}
+
+/* Isometric blocks (components/landing/iso.tsx). A block's faces read its
+   height --h, scaled by --k: a district that sleeps settles low and pale, and
+   rises when it wakes, nearest blocks first (--d). */
+.iso {
+  --k: 1;
+  --iso-edge: rgba(46, 34, 110, 0.1);
+  --iso-shadow: #2a2350;
+  --slab-l: #dcd7ec;
+  --slab-r: #cbc5e1;
+}
+
+.dark .iso {
+  --iso-edge: rgba(0, 0, 0, 0.32);
+  --iso-shadow: #000000;
+  --slab-l: #26232f;
+  --slab-r: #1d1b25;
+}
+
+.iso .district {
+  --k: 0.32;
+  opacity: 0.6;
+  transition: opacity 700ms ease;
+}
+
+.iso .district.awake {
+  --k: 1;
+  opacity: 1;
+}
+
+.iso.mini {
+  --k: 1;
+}
+
+.group:hover .iso.mini {
+  --k: 2.1;
+}
+
+.iso .ft,
+.iso .fl,
+.iso .fr {
+  transition: transform 750ms cubic-bezier(0.2, 0.8, 0.2, 1)
+    calc(var(--d) * 32ms);
+}
+
+.iso .ft {
+  transform: translateY(calc(var(--h) * var(--k) * -100px));
+}
+
+.iso .fl,
+.iso .fr {
+  transform: scaleY(calc(var(--h) * var(--k) * 100));
+  transform-box: fill-box;
+  transform-origin: 0 100%;
+}
+
+.iso .ft polygon,
+.iso .fl,
+.iso .fr {
+  stroke: var(--iso-edge);
+  stroke-width: 0.75;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  transition: fill 600ms ease;
+}
+
+.iso .ft polygon {
+  fill: var(--t);
+}
+
+.iso .fl {
+  fill: var(--l);
+}
+
+.iso .fr {
+  fill: var(--r);
+}
+
+.iso .slab .sl {
+  fill: var(--slab-l);
+}
+
+.iso .slab .sr {
+  fill: var(--slab-r);
+}
+
+.iso .pulse {
+  fill: #ffffff;
+}
+
+.iso .float {
+  animation: iso-float 5s ease-in-out infinite;
+}
+
+@keyframes iso-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.iso .core-glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: core-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes core-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+.iso .m-ground {
+  --t: #f3f2f8;
+  --l: #dfdbea;
+  --r: #cfcadf;
+}
+
+.iso .m-road {
+  --t: #e7e4f1;
+  --l: #d4cfe3;
+  --r: #c4bed8;
+}
+
+.iso .m-core {
+  --t: #8f84f1;
+  --l: #6c5ce7;
+  --r: #4e42ab;
+}
+
+.iso .m-screen {
+  --t: #3d3a4a;
+  --l: #2f2c3a;
+  --r: #6c5ce7;
+}
+
+.iso .m-slate {
+  --t: #cdc8dd;
+  --l: #b5afca;
+  --r: #a09ab8;
+}
+
+.iso .m-crop {
+  --t: #a8d67e;
+  --l: #88bf5b;
+  --r: #71a746;
+}
+
+.iso .m-soil {
+  --t: #e5d8c6;
+  --l: #cfbea8;
+  --r: #bba78f;
+}
+
+.iso .m-hall {
+  --t: #d8d3f2;
+  --l: #bbb3e7;
+  --r: #9f95d9;
+}
+
+.iso .m-machine {
+  --t: #ffd08e;
+  --l: #f7b45c;
+  --r: #e49a37;
+}
+
+.iso .m-belt {
+  --t: #a4acbd;
+  --l: #8d96a8;
+  --r: #7a8396;
+}
+
+.iso .m-water {
+  --t: #9fd5f7;
+  --t2: #cbe9fc;
+  --l: #70bdec;
+  --r: #4ea7dc;
+}
+
+.iso .m-bronze {
+  --t: #ddb088;
+  --l: #c9956a;
+  --r: #b17e53;
+}
+
+.iso .m-silver {
+  --t: #e6e9f0;
+  --l: #ccd2dd;
+  --r: #b3bccb;
+}
+
+.iso .m-gold {
+  --t: #f7d572;
+  --l: #e9bf4a;
+  --r: #d4a730;
+}
+
+.dark .iso .m-ground {
+  --t: #2c2a36;
+  --l: #22202b;
+  --r: #1b1a23;
+}
+
+.dark .iso .m-road {
+  --t: #363343;
+  --l: #2a2834;
+  --r: #22202b;
+}
+
+.dark .iso .m-core {
+  --t: #9086f2;
+  --l: #5d4fc9;
+  --r: #40368f;
+}
+
+.dark .iso .m-screen {
+  --t: #474359;
+  --l: #2c2a38;
+}
+
+.dark .iso .m-slate {
+  --t: #4d495d;
+  --l: #3d394b;
+  --r: #312e3d;
+}
+
+.dark .iso .m-crop {
+  --t: #5c8a43;
+  --l: #4a7336;
+  --r: #3d602c;
+}
+
+.dark .iso .m-soil {
+  --t: #574a3c;
+  --l: #463b30;
+  --r: #3a3128;
+}
+
+.dark .iso .m-hall {
+  --t: #554f7e;
+  --l: #443f68;
+  --r: #383457;
+}
+
+.dark .iso .m-machine {
+  --t: #c48a33;
+  --l: #a37128;
+  --r: #875d21;
+}
+
+.dark .iso .m-belt {
+  --t: #555b6c;
+  --l: #464b5a;
+  --r: #3b3f4c;
+}
+
+.dark .iso .m-water {
+  --t: #2d74a6;
+  --t2: #3f8fc4;
+  --l: #245e88;
+  --r: #1d4e71;
+}
+
+.dark .iso .m-bronze {
+  --t: #a5754b;
+  --l: #8b613d;
+  --r: #745132;
+}
+
+.dark .iso .m-silver {
+  --t: #8e97a8;
+  --l: #767e8e;
+  --r: #626979;
+}
+
+.dark .iso .m-gold {
+  --t: #d0a73e;
+  --l: #b18c30;
+  --r: #947426;
+}
+
+/* The screen plays frames, and the lake ripples, while their world is awake. */
+.iso .m-screen .fr {
+  animation: iso-frames 3.2s linear infinite;
+  animation-delay: calc(var(--j) * -0.22s);
+}
+
+@keyframes iso-frames {
+  0%,
+  100% {
+    fill: #6c5ce7;
+  }
+  25% {
+    fill: #e2557a;
+  }
+  50% {
+    fill: #f4a940;
+  }
+  75% {
+    fill: #2bb3a3;
+  }
+}
+
+.iso .m-water .ft polygon {
+  animation: iso-ripple 2.8s ease-in-out infinite;
+  animation-delay: calc(var(--d) * -0.35s);
+}
+
+@keyframes iso-ripple {
+  0%,
+  100% {
+    fill: var(--t);
+  }
+  50% {
+    fill: var(--t2);
+  }
+}
+
+.iso .district:not(.awake) .m-screen .fr,
+.iso .district:not(.awake) .m-water .ft polygon {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iso *,
+  .journey-line::after,
+  .world-progress {
+    animation: none !important;
+    transition: none !important;
+  }
 }

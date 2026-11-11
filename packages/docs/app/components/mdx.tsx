@@ -12,9 +12,11 @@ import {
   SimpleGrid,
   StatCard
 } from './funcd-ui';
+import { PlatformDiagram } from './platform-diagram/platform-diagram';
 
-// The components a page may use without importing them: Fumadocs' first, then
-// the funcd UI ones, which render inside a <FuncdUI> block.
+// The components a page may use without importing them: Fumadocs' first, the
+// site's diagrams, then the funcd UI ones, which render inside a <FuncdUI>
+// block.
 export const getMDXComponents = (components?: MDXComponents): MDXComponents =>
   ({
     ...defaultMdxComponents,
@@ -25,6 +27,7 @@ export const getMDXComponents = (components?: MDXComponents): MDXComponents =>
     Steps,
     Tab,
     Tabs,
+    PlatformDiagram,
     Button,
     FuncdUI,
     Group,

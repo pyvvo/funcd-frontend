@@ -12,3 +12,10 @@ export const baseOptions = (): BaseLayoutProps => ({
   },
   githubUrl: 'https://github.com/pyvvo/funcd'
 });
+
+// The top bar of the home and "Not found" pages links to the docs; a docs page
+// lists the pages in its sidebar instead.
+export const homeOptions = (): BaseLayoutProps => ({
+  ...baseOptions(),
+  links: [{ text: 'Docs', url: '/docs', active: 'nested-url' }]
+});
