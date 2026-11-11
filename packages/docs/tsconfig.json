@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["node", "vite/client"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "rootDirs": [".", "./.react-router/types"],
+    "paths": {
+      "@funcd-dev/ui/logo": ["../ui/src/atoms/logo/index.ts"],
+      "@funcd-dev/ui/theme": ["../ui/src/mantine.theme.ts"]
+    }
+  },
+  "include": [
+    "app",
+    "scripts",
+    ".react-router/types/**/*",
+    "*.ts",
+    "../ui/src/atoms/logo/funcd-logo.tsx"
+  ]
+}
