@@ -3,10 +3,12 @@ import {
   IconArrowDown,
   IconBraces,
   IconBucket,
+  IconChartLine,
   IconClock,
   IconDatabase,
   IconDatabaseEdit,
   IconListCheck,
+  IconLogs,
   IconMathFunction,
   IconPlug,
   IconProgressCheck,
@@ -14,6 +16,7 @@ import {
   IconRobot,
   IconSitemap,
   IconTable,
+  IconTimeline,
   IconTimelineEvent,
   IconWorld
 } from '@tabler/icons-react';
@@ -30,6 +33,7 @@ const timing = {
   features: { at: 1.1, stagger: 0.18 },
   toServices: { at: 1.8, duration: 0.6 },
   services: { at: 2.1, stagger: 0.18 },
+  observability: { at: 2.4, stagger: 0.18 },
   toStorage: { at: 3, duration: 0.6 },
   storage: { at: 3.3, stagger: 0.18 }
 };
@@ -56,6 +60,12 @@ const services: Part[] = [
   { label: 'KV', Icon: IconBraces },
   { label: 'SQL', Icon: IconTable },
   { label: 'Lake', Icon: IconRipple }
+];
+
+const observability: Part[] = [
+  { label: 'Logs', Icon: IconLogs },
+  { label: 'Metrics', Icon: IconChartLine },
+  { label: 'Traces', Icon: IconTimeline }
 ];
 
 const storage: Part[] = [
@@ -107,8 +117,12 @@ const Row = ({
   </div>
 );
 
-const Group = ({ title, children }: PropsWithChildren<{ title: string }>) => (
-  <div className="flex w-full flex-col gap-2 rounded-lg border p-3">
+const Group = ({
+  title,
+  className = 'w-full',
+  children
+}: PropsWithChildren<{ title: string; className?: string }>) => (
+  <div className={`flex flex-col gap-2 rounded-lg border p-3 ${className}`}>
     <span className="text-xs font-medium text-fd-muted-foreground">
       {title}
     </span>
@@ -126,8 +140,8 @@ const Arrow = ({ at, duration }: { at: number; duration: number }) => (
   </AnimatedBlock>
 );
 
-// What starts your code, what runs on funcd and the services it uses, and the
-// storage layer under them, as one animated loop.
+// What starts the code, what runs on funcd and the services it uses, what
+// observes them, and the storage layer under them, as one animated loop.
 export const PlatformDiagram = () => {
   const [paused, setPaused] = useState(false);
   const reducedMotion = useReducedMotion();
@@ -137,7 +151,7 @@ export const PlatformDiagram = () => {
       <div className="not-prose my-8 flex flex-col items-center gap-3">
         <figure
           className="flex w-full max-w-2xl flex-col items-center gap-3"
-          aria-label="HTTP calls, timers and data changes start Functions, Workflows and agents on funcd, which keep their data in its S3, KV, SQL and Lake services. Under them, funcd's storage layer holds the metastore, the event store and the run state. Custom connectors and Jobs are planned.">
+          aria-label="HTTP calls, timers and data changes start Functions, Workflows and agents on funcd, which keep their data in its S3, KV, SQL and Lake services. Beside them, funcd's observability records logs, metrics and traces. Under them, funcd's storage layer holds the metastore, the event store and the run state. Custom connectors and Jobs are planned.">
           <Group title="Triggers">
             <Row
               parts={triggers}
@@ -157,21 +171,34 @@ export const PlatformDiagram = () => {
                 one binary
               </span>
             </div>
-            <Group title="Features">
-              <Row
-                parts={features}
-                {...timing.features}
-                surface="bg-fd-background"
-              />
-            </Group>
-            <Arrow {...timing.toServices} />
-            <Group title="Services">
-              <Row
-                parts={services}
-                {...timing.services}
-                surface="bg-fd-background"
-              />
-            </Group>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <div className="flex min-w-0 flex-1 flex-col gap-3">
+                <Group title="Features">
+                  <Row
+                    parts={features}
+                    {...timing.features}
+                    surface="bg-fd-background"
+                  />
+                </Group>
+                <Arrow {...timing.toServices} />
+                <Group title="Services">
+                  <Row
+                    parts={services}
+                    {...timing.services}
+                    surface="bg-fd-background"
+                  />
+                </Group>
+              </div>
+              {/* Beside both layers: funcd observes the Features and the Services alike. */}
+              <Group title="Observability" className="w-full sm:w-28">
+                <Row
+                  parts={observability}
+                  {...timing.observability}
+                  surface="bg-fd-background"
+                  columns="grid-cols-3 sm:flex-1 sm:grid-cols-1 sm:auto-rows-fr"
+                />
+              </Group>
+            </div>
           </AnimatedBlock>
           <Arrow {...timing.toStorage} />
           <Group title="Storage layer">
