@@ -1,13 +1,13 @@
 import { HomeLayout } from 'fumadocs-ui/layouts/home';
 import { Link } from 'react-router';
-import { baseOptions } from '../lib/layout.shared';
+import { homeOptions } from '../lib/layout.shared';
 import type { Route } from './+types/home';
 
 export const meta: Route.MetaFunction = () => [{ title: 'funcd' }];
 
 export default function Home() {
   return (
-    <HomeLayout {...baseOptions()}>
+    <HomeLayout {...homeOptions()}>
       <div className="p-4 flex flex-col items-center justify-center text-center flex-1">
         <h1 className="text-xl font-bold mb-2">funcd</h1>
         <Link
