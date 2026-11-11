@@ -2877,6 +2877,7 @@ __metadata:
     fumadocs-ui: "npm:^16.18.4"
     isbot: "npm:^5.2.2"
     lucide-react: "npm:^1.70.0"
+    motion: "npm:^14.6.0"
     next-themes: "npm:^0.4.6"
     playwright-core: "npm:1.50.1"
     postcss: "npm:^8.5.3"

@@ -57,6 +57,14 @@ html {
   --color-fd-muted-foreground: var(--funcd-dark-2);
 }
 
+/* A draw.io diagram keeps the light colors it was drawn in, so in dark mode it
+   sits on a light card. */
+.dark img[src*='.drawio'] {
+  border-radius: 0.75rem;
+  background: #ffffff;
+  padding: 0.5rem;
+}
+
 /* The middle column is as wide as a page (900px), so on a wide screen the
    extra width goes to the edges instead of between the sidebar and the text. */
 #nd-docs-layout {

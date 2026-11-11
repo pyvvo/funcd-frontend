@@ -1,7 +1,19 @@
 import { FuncdLogo } from '@funcd-dev/ui/logo';
 import { loader } from 'fumadocs-core/source';
 import { defineDocs } from 'fumadocs-mdx/macro';
-import { Download, Rocket } from 'lucide-react';
+import {
+  Blocks,
+  Boxes,
+  Database,
+  Download,
+  Gauge,
+  Layers,
+  Network,
+  Rocket,
+  ShieldCheck,
+  SlidersHorizontal,
+  Zap
+} from 'lucide-react';
 import { createElement, type ReactElement } from 'react';
 
 export const docs = defineDocs({
@@ -12,9 +24,18 @@ export const docs = defineDocs({
 // The icons a page may name in its `icon` frontmatter. Only these are bundled,
 // not the whole Lucide set; `Funcd` is the funcd mark, without the wordmark.
 const icons: Record<string, () => ReactElement> = {
+  Blocks: () => createElement(Blocks),
+  Boxes: () => createElement(Boxes),
+  Database: () => createElement(Database),
   Download: () => createElement(Download),
   Funcd: () => createElement(FuncdLogo, { color: 'currentColor' }),
-  Rocket: () => createElement(Rocket)
+  Gauge: () => createElement(Gauge),
+  Layers: () => createElement(Layers),
+  Network: () => createElement(Network),
+  Rocket: () => createElement(Rocket),
+  ShieldCheck: () => createElement(ShieldCheck),
+  SlidersHorizontal: () => createElement(SlidersHorizontal),
+  Zap: () => createElement(Zap)
 };
 
 export const source = loader({
