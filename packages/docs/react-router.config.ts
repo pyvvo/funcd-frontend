@@ -12,7 +12,7 @@ export default {
   async prerender({ getStaticPaths }) {
     const paths = [...getStaticPaths(), '/llms.txt', '/llms-full.txt'];
     for await (const entry of glob(['**/*.md', '**/*.mdx'], {
-      cwd: 'content/docs'
+      cwd: 'content/funcd/docs/guide'
     })) {
       const url = getUrl(getSlugs(entry));
       paths.push(url, `/llms.mdx${url}.md`);
