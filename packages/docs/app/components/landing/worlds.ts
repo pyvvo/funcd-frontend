@@ -19,7 +19,7 @@ import type { WorldId } from './iso';
 export const blocks = {
   Agent: { Icon: IconRobot, href: '/docs' },
   Bucket: { Icon: IconBucket, href: '/docs/platform/services/bucket' },
-  Event: { Icon: IconBolt, href: '/docs/platform/events-and-workflows/events' },
+  Event: { Icon: IconBolt, href: '/docs/platform/events' },
   Function: {
     Icon: IconMathFunction,
     href: '/docs/platform/workloads/function'
@@ -30,11 +30,11 @@ export const blocks = {
   SQL: { Icon: IconTable, href: '/docs/platform/services/sql' },
   Timer: {
     Icon: IconClock,
-    href: '/docs/platform/events-and-workflows/events'
+    href: '/docs/platform/events'
   },
   Workflow: {
     Icon: IconSitemap,
-    href: '/docs/platform/events-and-workflows/workflows'
+    href: '/docs/platform/workloads/workflow'
   }
 };
 
