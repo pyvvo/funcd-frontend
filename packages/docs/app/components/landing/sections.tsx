@@ -131,7 +131,7 @@ const tiles = [
     name: 'Workflows',
     Icon: IconSitemap,
     text: 'Steps that each run a Function, in order or by their dependencies.',
-    href: '/docs/platform/events-and-workflows/workflows'
+    href: '/docs/platform/workloads/workflow'
   },
   {
     name: 'Data services',
