@@ -1,5 +1,4 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
-import { glob } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { extractCodeRegion } from 'fumadocs-core/mdx-plugins/remark-include';
@@ -15,7 +14,8 @@ const guide = join(mirror, 'docs/guide');
 const client = fileURLToPath(new URL('../build/client', import.meta.url));
 const problems: string[] = [];
 
-for await (const file of glob(['**/*.html', '**/*.md'], { cwd: client })) {
+for (const file of readdirSync(client, { recursive: true, encoding: 'utf8' })) {
+  if (!/\.(html|md)$/.test(file)) continue;
   if (readFileSync(join(client, file), 'utf8').includes('::include[')) {
     problems.push(`${file} still holds an ::include line`);
   }
@@ -26,7 +26,7 @@ const fences = (markdown: string) =>
     ([, , body]) => body
   );
 
-for (const { page, target, region } of await includesOf(guide)) {
+for (const { page, target, region } of includesOf(guide)) {
   // An included Markdown file becomes part of the page, not a code block.
   if (/\.mdx?$/.test(target)) continue;
   const entry = relative(guide, page);

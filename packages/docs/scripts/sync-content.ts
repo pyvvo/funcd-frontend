@@ -85,10 +85,10 @@ const pinnedTag = (name: string) => {
   if (!pin) throw new Error(`funcd's go.mod pins no github.com/pyvvo/${name}`);
   return pin[1];
 };
-const fetchIncluded = async () => {
+const fetchIncluded = () => {
   rmSync(repos, { recursive: true, force: true });
   const wanted = new Map<string, Set<string>>();
-  for (const { target } of await includesOf(join(mirror, 'docs/guide'))) {
+  for (const { target } of includesOf(join(mirror, 'docs/guide'))) {
     const path = relative(repos, target);
     if (path.startsWith('..')) continue;
     const [name, ...rest] = path.split(sep);
@@ -147,7 +147,7 @@ try {
   console.log(
     `copied ${copies.map(({ from }) => from).join(', ')} from ${root ?? `funcd ${ref}`}`
   );
-  await fetchIncluded();
+  fetchIncluded();
   const latest = releaseOf(funcd);
   writeFileSync(releaseFile, `${JSON.stringify({ latest })}\n`);
   console.log(`the pages describe release ${latest}`);
