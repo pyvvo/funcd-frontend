@@ -10,12 +10,13 @@ export default {
   basename: '/funcd/',
   ssr: false,
   async prerender({ getStaticPaths }) {
-    const paths = [...getStaticPaths()];
+    const paths = [...getStaticPaths(), '/llms.txt', '/llms-full.txt'];
     for await (const entry of glob(['**/*.md', '**/*.mdx'], {
       cwd: 'content/docs'
     })) {
-      paths.push(getUrl(getSlugs(entry)));
+      const url = getUrl(getSlugs(entry));
+      paths.push(url, `/llms.mdx${url}.md`);
     }
-    return paths;
+    return [...new Set(paths)];
   }
 } satisfies Config;

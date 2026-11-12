@@ -16,3 +16,10 @@ const fallback = ['index.html', '__spa-fallback.html']
 if (fallback) renameSync(fallback, `${client}404.html`);
 cpSync(pages, client, { recursive: true });
 rmSync(pages, { recursive: true, force: true });
+
+// Each page's markdown copy, pre-rendered under llms.mdx/, goes beside the page: llms.mdx/docs/a/b.md becomes docs/a/b.md.
+const copies = `${client}llms.mdx/`;
+if (existsSync(copies)) {
+  cpSync(copies, client, { recursive: true });
+  rmSync(copies, { recursive: true, force: true });
+}
