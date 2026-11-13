@@ -14,6 +14,7 @@ import {
 } from './funcd-ui';
 import { LangTab, LangTabs } from './lang-tabs';
 import { PlatformDiagram } from './platform-diagram/platform-diagram';
+import { pageHref } from '../lib/page-href';
 
 // The components a page may use without importing them: Fumadocs' first, the
 // site's diagrams, then the funcd UI ones, which render inside a <FuncdUI>
@@ -41,19 +42,6 @@ export const getMDXComponents = (components?: MDXComponents): MDXComponents =>
   }) satisfies MDXComponents;
 
 export const useMDXComponents = getMDXComponents;
-
-// A relative link names a page's file, as on GitHub (`get-started/install.md`):
-// it becomes that page's URL (`/docs/get-started/install`).
-const pageHref = (href: string, pagePath: string) => {
-  if (/^[a-z][a-z+.-]*:|^[/#]/i.test(href)) return href;
-  const [file, hash] = href.split('#');
-  const { pathname } = new URL(file, `file:///${pagePath}`);
-  const slug = pathname
-    .slice(1)
-    .replace(/\.mdx?$/, '')
-    .replace(/(^|\/)index$/, '');
-  return `/docs${slug ? `/${slug}` : ''}${hash ? `#${hash}` : ''}`;
-};
 
 // The page's links, resolved against its file path, the same on the server
 // and in the browser.
