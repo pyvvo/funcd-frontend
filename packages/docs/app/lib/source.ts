@@ -20,16 +20,21 @@ import {
 } from 'lucide-react';
 import { createElement, type ReactElement } from 'react';
 import remarkDirective from 'remark-directive';
+import { rehypeLangTabs } from './rehype-lang-tabs';
 
 // The guide sits in funcd's mirrored layout (scripts/sync-content.ts). Its
 // ::include lines are directives, which remark parses only with
-// remark-directive (funcd ADR-0325).
+// remark-directive (funcd ADR-0325). Its TypeScript and Python sections
+// become tabs (rehype-lang-tabs.ts).
 export const docs = defineDocs({
   dir: 'content/funcd/docs/guide',
   docs: {
     async: true,
     postprocess: { includeProcessedMarkdown: true },
-    mdxOptions: applyMdxPreset({ remarkPlugins: [remarkDirective] })
+    mdxOptions: applyMdxPreset({
+      remarkPlugins: [remarkDirective],
+      rehypePlugins: [rehypeLangTabs]
+    })
   }
 });
 
@@ -53,7 +58,8 @@ const icons: Record<string, () => ReactElement> = {
 };
 
 // A feature folder holds its Usage tab (index.md) and its Spec tab (spec.md). The sidebar shows the feature as one
-// entry, its Usage page; routes/docs.tsx shows the two tabs.
+// entry, its Usage page; routes/docs.tsx shows the two tabs. A feature whose Usage page is not written yet shows as
+// one entry too, its Spec page.
 function collapseFeatures(nodes: Node[]): Node[] {
   return nodes.map((node) => {
     if (node.type !== 'folder') return node;
@@ -66,6 +72,14 @@ function collapseFeatures(nodes: Node[]): Node[] {
     );
     if (usage && spec && others.length === 0)
       return { ...usage, name: node.name, icon: node.icon ?? usage.icon };
+    const [only] = node.children;
+    if (
+      !usage &&
+      node.children.length === 1 &&
+      only.type === 'page' &&
+      only.url.endsWith('/spec')
+    )
+      return { ...only, name: node.name, icon: node.icon ?? only.icon };
     return { ...node, children: collapseFeatures(node.children) };
   });
 }
