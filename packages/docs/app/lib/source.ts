@@ -21,6 +21,7 @@ import {
 import { createElement, type ReactElement } from 'react';
 import remarkDirective from 'remark-directive';
 import { rehypeLangTabs } from './rehype-lang-tabs';
+import { pageHref } from './page-href';
 
 // The guide sits in funcd's mirrored layout (scripts/sync-content.ts). Its
 // ::include lines are directives, which remark parses only with
@@ -105,6 +106,28 @@ export const source = loader({
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 export const markdownUrl = (url: string) => `${base}${url}.md`;
 
+// A markdown copy links another page by the absolute URL of that page's copy,
+// as llms.txt does: the source links a file relative to the page (spec.md,
+// ../platform/kv.md), which resolves wrongly from the copy's own URL. Code
+// blocks keep their text.
+const fence = /^(`{3,}|~{3,})[^\n]*\n[\s\S]*?\n\1$/gm;
+const absoluteLinks = (markdown: string, pagePath: string) => {
+  const relink = (text: string) =>
+    text.replace(/\]\(<?([^)\s<>]+)>?\)/g, (whole, href: string) => {
+      const resolved = pageHref(href, pagePath);
+      if (resolved === href) return whole;
+      const [url, hash] = resolved.split('#');
+      return `](${markdownUrl(url)}${hash ? `#${hash}` : ''})`;
+    });
+  let out = '';
+  let last = 0;
+  for (const block of markdown.matchAll(fence)) {
+    out += relink(markdown.slice(last, block.index)) + block[0];
+    last = block.index + block[0].length;
+  }
+  return out + relink(markdown.slice(last));
+};
+
 // llms.txt lists every page, the Spec tabs included: it reads the tree before the sidebar folds each feature.
 export const docsLlms = llms(loader(options), {
   renderUrl: (node) => markdownUrl(node.url),
@@ -113,7 +136,7 @@ export const docsLlms = llms(loader(options), {
       `# ${page.data.title}`,
       `URL: ${base}${page.url}`,
       page.data.description ?? '',
-      await page.data.getText('processed')
+      absoluteLinks(await page.data.getText('processed'), page.path)
     ]
       .filter(Boolean)
       .join('\n\n')

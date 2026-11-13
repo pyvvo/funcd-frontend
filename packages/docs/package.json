@@ -6,7 +6,7 @@
   "scripts": {
     "sync": "tsx scripts/sync-content.ts",
     "dev": "yarn sync && react-router dev",
-    "build": "yarn sync && rm -rf build && react-router build && tsx scripts/pages-layout.ts && tsx scripts/check-includes.ts && tsx scripts/check-lang-tabs.ts",
+    "build": "yarn sync && rm -rf build && react-router build && tsx scripts/pages-layout.ts && tsx scripts/check-includes.ts && tsx scripts/check-lang-tabs.ts && tsx scripts/check-md-links.ts",
     "generate:icons": "tsx scripts/generate-icons.tsx"
   },
   "dependencies": {
