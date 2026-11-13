@@ -20,16 +20,21 @@ import {
 } from 'lucide-react';
 import { createElement, type ReactElement } from 'react';
 import remarkDirective from 'remark-directive';
+import { rehypeLangTabs } from './rehype-lang-tabs';
 
 // The guide sits in funcd's mirrored layout (scripts/sync-content.ts). Its
 // ::include lines are directives, which remark parses only with
-// remark-directive (funcd ADR-0325).
+// remark-directive (funcd ADR-0325). Its TypeScript and Python sections
+// become tabs (rehype-lang-tabs.ts).
 export const docs = defineDocs({
   dir: 'content/funcd/docs/guide',
   docs: {
     async: true,
     postprocess: { includeProcessedMarkdown: true },
-    mdxOptions: applyMdxPreset({ remarkPlugins: [remarkDirective] })
+    mdxOptions: applyMdxPreset({
+      remarkPlugins: [remarkDirective],
+      rehypePlugins: [rehypeLangTabs]
+    })
   }
 });
 

@@ -12,6 +12,7 @@ import {
   SimpleGrid,
   StatCard
 } from './funcd-ui';
+import { LangTab, LangTabs } from './lang-tabs';
 import { PlatformDiagram } from './platform-diagram/platform-diagram';
 
 // The components a page may use without importing them: Fumadocs' first, the
@@ -27,6 +28,8 @@ export const getMDXComponents = (components?: MDXComponents): MDXComponents =>
     Steps,
     Tab,
     Tabs,
+    LangTab,
+    LangTabs,
     PlatformDiagram,
     Button,
     FuncdUI,
