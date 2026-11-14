@@ -1,6 +1,7 @@
 import { FuncdLogo } from '@funcd-dev/ui/logo';
 import type { Node } from 'fumadocs-core/page-tree';
 import { llms, loader } from 'fumadocs-core/source';
+import { rehypeCodeDefaultOptions } from 'fumadocs-core/mdx-plugins';
 import { applyMdxPreset } from 'fumadocs-mdx/config';
 import { defineDocs } from 'fumadocs-mdx/macro';
 import {
@@ -21,12 +22,14 @@ import {
 import { createElement, type ReactElement } from 'react';
 import remarkDirective from 'remark-directive';
 import { rehypeLangTabs } from './rehype-lang-tabs';
+import { cedarGrammar } from './cedar-grammar';
 import { pageHref } from './page-href';
 
 // The guide sits in funcd's mirrored layout (scripts/sync-content.ts). Its
 // ::include lines are directives, which remark parses only with
 // remark-directive (funcd ADR-0325). Its TypeScript and Python sections
-// become tabs (rehype-lang-tabs.ts).
+// become tabs (rehype-lang-tabs.ts). A cedar block is highlighted with
+// cedar-grammar.ts, since Shiki ships no Cedar grammar.
 export const docs = defineDocs({
   dir: 'content/funcd/docs/guide',
   docs: {
@@ -34,7 +37,8 @@ export const docs = defineDocs({
     postprocess: { includeProcessedMarkdown: true },
     mdxOptions: applyMdxPreset({
       remarkPlugins: [remarkDirective],
-      rehypePlugins: [rehypeLangTabs]
+      rehypePlugins: [rehypeLangTabs],
+      rehypeCodeOptions: { ...rehypeCodeDefaultOptions, langs: [cedarGrammar] }
     })
   }
 });
