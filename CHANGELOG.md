@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.7.0](https://github.com/pyvvo/funcd-frontend/compare/v0.6.0...v0.7.0) (2026-11-14)
+
+
+### Features
+
+* **docs:** a docs site for funcd, built with Fumadocs on React Router ([#34](https://github.com/pyvvo/funcd-frontend/issues/34)) ([689e384](https://github.com/pyvvo/funcd-frontend/commit/689e384c73889fd595973e6d7eaafccffef7ceaa))
+* **docs:** an observability column in the platform diagram, and two sidebar icons ([fd88998](https://github.com/pyvvo/funcd-frontend/commit/fd889987f7f871f4c044a9448d269e08557a4016))
+* **docs:** cedar code blocks are highlighted with a Cedar grammar ([#42](https://github.com/pyvvo/funcd-frontend/issues/42)) ([93e5ae4](https://github.com/pyvvo/funcd-frontend/commit/93e5ae47a750760c2ac48c50a100327e6c770d0e))
+* **docs:** feature pages show Usage and Spec tabs, and the site serves llms.txt and each page's markdown ([5472be5](https://github.com/pyvvo/funcd-frontend/commit/5472be5e5b64b8466fb193883bccda139414343b))
+* **docs:** pages include example files, and the build checks each include ([#39](https://github.com/pyvvo/funcd-frontend/issues/39)) ([c8501a1](https://github.com/pyvvo/funcd-frontend/commit/c8501a1c8e9e54bf80bc83c37be46d0e8a394c8b))
+* **docs:** the home page shows funcd's building blocks for the world of tomorrow ([fd88998](https://github.com/pyvvo/funcd-frontend/commit/fd889987f7f871f4c044a9448d269e08557a4016))
+* **docs:** the home page's top bar links to the docs ([fd88998](https://github.com/pyvvo/funcd-frontend/commit/fd889987f7f871f4c044a9448d269e08557a4016))
+* **docs:** the platform overview's animated diagram, the sidebar icons and a light card for diagrams in dark mode ([fd88998](https://github.com/pyvvo/funcd-frontend/commit/fd889987f7f871f4c044a9448d269e08557a4016))
+* **docs:** the sidebar names the release that funcd's release PR wrote ([fd88998](https://github.com/pyvvo/funcd-frontend/commit/fd889987f7f871f4c044a9448d269e08557a4016))
+* **docs:** TypeScript and Python sections show as language tabs, one choice for the whole site ([#40](https://github.com/pyvvo/funcd-frontend/issues/40)) ([e0f62c5](https://github.com/pyvvo/funcd-frontend/commit/e0f62c5c27e42522e728ba6c30b8d91db03f8d45))
+
+
+### Bug Fixes
+
+* **docs:** a page's markdown copy links other pages by absolute URL ([#41](https://github.com/pyvvo/funcd-frontend/issues/41)) ([36abd01](https://github.com/pyvvo/funcd-frontend/commit/36abd0139490e91b494b8dc90af1b5610dc18a2a))
+* **docs:** the landing page links to the Events and Workflow pages at their new places ([41324f7](https://github.com/pyvvo/funcd-frontend/commit/41324f79fb345a100c38782fac7927872cfec158))
+
 ## [0.6.0](https://github.com/pyvvo/funcd-frontend/compare/v0.5.1...v0.6.0) (2026-11-08)
 
 
