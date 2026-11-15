@@ -102,7 +102,12 @@ function withRoots(nodes: Node[]): Node[] {
 
 // The site's search indexes a page's structured data. fumadocs-openapi's holds
 // an operation's description only, so a page of the API reference adds its
-// summary and the texts of each case, under its Answers table's heading.
+// summary and the texts of each case, under its Answers table's heading. A
+// case's when and what to do are two entries: joined, the what to do that
+// many cases share hid what sets their when texts apart, and the search, which
+// also matches a word as the start of a longer one, ranked 78 pages of "The
+// namespace or the name in the path is not a DNS-1123 label." above the three
+// that answer "The name in the path is not a DNS-1123 label.".
 const withCases = (data: OpenAPIPageData): OpenAPIPageData => {
   const { operation } = operationOf(data);
   return {
@@ -115,10 +120,10 @@ const withCases = (data: OpenAPIPageData): OpenAPIPageData => {
       contents: [
         { heading: undefined, content: operation.summary ?? '' },
         ...data.structuredData.contents,
-        ...casesOf(operation).map(({ when, fix }) => ({
-          heading: 'answers',
-          content: `${when} ${fix}`
-        }))
+        ...casesOf(operation).flatMap(({ when, fix }) => [
+          { heading: 'answers', content: when },
+          { heading: 'answers', content: fix }
+        ])
       ]
     }
   };
