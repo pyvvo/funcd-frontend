@@ -15,6 +15,7 @@ import { includesOf } from './includes';
 
 // The site takes from funcd what changes with the code: its pages
 // (docs/guide), the example manifests and the go.mod that pages include from,
+// the OpenAPI spec and the paths of its reference's pages (funcd ADR-0331),
 // and the install script it serves as /install.sh. It mirrors funcd's layout
 // under content/funcd, so that a page's relative include path resolves as in
 // funcd (funcd ADR-0325). It copies them from a funcd checkout when FUNCD_DIR
@@ -29,6 +30,14 @@ const copies = [
     optional: true
   },
   { from: 'go.mod', to: join(mirror, 'go.mod') },
+  {
+    from: 'api/openapi/funcd.v1alpha1.yaml',
+    to: join(mirror, 'api/openapi/funcd.v1alpha1.yaml')
+  },
+  {
+    from: 'api/openapi/reference-paths.json',
+    to: join(mirror, 'api/openapi/reference-paths.json')
+  },
   {
     from: 'scripts/install-funcdctl.sh',
     to: fileURLToPath(new URL('../public/install.sh', import.meta.url))

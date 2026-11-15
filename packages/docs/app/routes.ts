@@ -7,6 +7,7 @@ export default [
   route('llms-full.txt', 'routes/llms-full.ts'),
   route('llms.mdx/*', 'routes/llms-page.ts'),
   route('api/search', 'routes/search.ts'),
+  route('openapi.json', 'routes/openapi-json.ts'),
   route('favicon.svg', 'routes/favicon.tsx'),
   route('*', 'routes/not-found.tsx')
 ] satisfies RouteConfig;

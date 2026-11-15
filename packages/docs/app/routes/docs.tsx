@@ -7,18 +7,39 @@ import {
   DocsPage,
   DocsTitle
 } from 'fumadocs-ui/layouts/docs/page';
-import { use } from 'react';
+import { type ComponentProps, use } from 'react';
 import { Link } from 'react-router';
+import { ApiPage } from '../components/api-page';
 import LatestRelease from '../components/latest-release';
 import { pageLink, useMDXComponents } from '../components/mdx';
+import { docs, markdownUrl } from '../lib/collections';
 import { baseOptions } from '../lib/layout.shared';
-import { docs, markdownUrl, source } from '../lib/source';
+import { answersOf, operationOf } from '../lib/openapi';
+import { source } from '../lib/source';
 import type { Route } from './+types/docs';
 
 export async function loader({ params }: Route.LoaderArgs) {
   const slugs = params['*'].split('/').filter((v) => v.length > 0);
   const page = source.getPage(slugs);
   if (!page) throw new Response('Not found', { status: 404 });
+
+  // A page of the API reference gets the rows of its Answers table, not the
+  // spec, which the page loads once (funcd ADR-0331).
+  if (page.type === 'openapi')
+    return {
+      path: page.path,
+      url: page.url,
+      feature: undefined,
+      api: {
+        title: page.data.title ?? '',
+        description: page.data.description,
+        page: {
+          ...page.data.getOpenAPIPageProps(),
+          answers: answersOf(operationOf(page.data).operation)
+        }
+      },
+      pageTree: await source.serializePageTree(source.getPageTree())
+    };
 
   const feature = featureOf(slugs);
   const [usage, spec] = feature?.tabs ?? [];
@@ -27,6 +48,7 @@ export async function loader({ params }: Route.LoaderArgs) {
     path: page.path,
     url: page.url,
     feature,
+    api: undefined,
     pageTree: await source.serializePageTree(
       spec?.active ? pointAt(tree, usage.url, spec.url) : tree
     )
@@ -34,7 +56,9 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 // On a Spec tab, the sidebar still marks the feature and keeps its section open: the feature's entry points at the
-// open tab, since the sidebar shows a feature as one entry.
+// open tab, since the sidebar shows a feature as one entry. That tree gets an $id of its own: after a move, the sidebar
+// keeps the tree it holds while the next page's has the same $id, so a move between the tabs would look the page up in
+// the other tab's tree, find no root, and show both roots as folders.
 function pointAt(tree: Root, from: string, to: string): Root {
   const walk = (nodes: Node[]): Node[] =>
     nodes.map((node) => {
@@ -44,7 +68,7 @@ function pointAt(tree: Root, from: string, to: string): Root {
         return { ...node, children: walk(node.children) };
       return node;
     });
-  return { ...tree, children: walk(tree.children) };
+  return { ...tree, $id: `${tree.$id}:${to}`, children: walk(tree.children) };
 }
 
 // A feature's Usage page (<feature>/index.md) and Spec page (<feature>/spec.md) show as two tabs under the feature's
@@ -66,6 +90,32 @@ function featureOf(slugs: string[]) {
 }
 
 type Feature = NonNullable<ReturnType<typeof featureOf>>;
+
+// A feature's tabs, and the link to the page's markdown copy.
+const PageTabs = ({ url, feature }: { url: string; feature?: Feature }) => (
+  <nav
+    className="-mt-4 mb-4 flex items-end gap-5 border-b text-sm"
+    aria-label="Page tabs">
+    {feature?.tabs.map((t) => (
+      <Link
+        key={t.label}
+        to={t.url}
+        aria-current={t.active ? 'page' : undefined}
+        className={`-mb-px border-b-2 pb-2 font-medium ${
+          t.active
+            ? 'border-fd-primary text-fd-foreground'
+            : 'border-transparent text-fd-muted-foreground hover:text-fd-foreground'
+        }`}>
+        {t.label}
+      </Link>
+    ))}
+    <a
+      href={markdownUrl(url)}
+      className="ml-auto pb-2 text-fd-muted-foreground hover:text-fd-foreground">
+      Markdown
+    </a>
+  </nav>
+);
 
 const Content = ({
   path,
@@ -91,28 +141,7 @@ const Content = ({
       <DocsDescription>
         {feature?.description ?? page.description}
       </DocsDescription>
-      <nav
-        className="-mt-4 mb-4 flex items-end gap-5 border-b text-sm"
-        aria-label="Page tabs">
-        {feature?.tabs.map((t) => (
-          <Link
-            key={t.label}
-            to={t.url}
-            aria-current={t.active ? 'page' : undefined}
-            className={`-mb-px border-b-2 pb-2 font-medium ${
-              t.active
-                ? 'border-fd-primary text-fd-foreground'
-                : 'border-transparent text-fd-muted-foreground hover:text-fd-foreground'
-            }`}>
-            {t.label}
-          </Link>
-        ))}
-        <a
-          href={markdownUrl(url)}
-          className="ml-auto pb-2 text-fd-muted-foreground hover:text-fd-foreground">
-          Markdown
-        </a>
-      </nav>
+      <PageTabs url={url} feature={feature} />
       <DocsBody>
         <Mdx components={useMDXComponents({ a: pageLink(path) })} />
       </DocsBody>
@@ -120,15 +149,44 @@ const Content = ({
   );
 };
 
+// A page of the API reference: one operation of funcd's control plane API, as
+// fumadocs-openapi renders it from the spec, which shows its description, then
+// its answers.
+const ApiContent = ({
+  url,
+  title,
+  description,
+  page
+}: {
+  url: string;
+  title: string;
+  description?: string;
+  page: ComponentProps<typeof ApiPage>;
+}) => (
+  <DocsPage full>
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <DocsTitle>{title}</DocsTitle>
+    <PageTabs url={url} />
+    <DocsBody>
+      <ApiPage {...page} />
+    </DocsBody>
+  </DocsPage>
+);
+
 export default function Page({ loaderData }: Route.ComponentProps) {
-  const { pageTree, path, url, feature } = useFumadocsLoader(loaderData);
+  const { pageTree, path, url, feature, api } = useFumadocsLoader(loaderData);
 
   return (
     <DocsLayout
       {...baseOptions()}
       tree={pageTree}
       sidebar={{ banner: <LatestRelease /> }}>
-      <Content path={path} url={url} feature={feature} />
+      {api ? (
+        <ApiContent url={url} {...api} />
+      ) : (
+        <Content path={path} url={url} feature={feature} />
+      )}
     </DocsLayout>
   );
 }
