@@ -10,7 +10,8 @@ import { createOpenAPI } from 'fumadocs-openapi/server';
 // funcd's reference-paths.json, and the answers of the spec that the sync
 // mirrors, a row per case and per status with no case. fumadocs-openapi reads
 // that spec here, apart from app/lib/openapi.ts, so that a fault in the
-// site's own loading cannot change the expected answers with the pages.
+// site's own loading cannot change the expected answers with the pages, and
+// the spec check holds the cases it yields against the file's own lines.
 const content = fileURLToPath(new URL('../content/funcd', import.meta.url));
 const client = fileURLToPath(new URL('../build/client', import.meta.url));
 const read = (path: string) => readFileSync(path, 'utf8');
@@ -165,6 +166,27 @@ const check = async (
   const detail = await run((problem) => problems.push(`${name}: ${problem}`));
   if (problems.length === before) passed.push(`${name}: ${detail}`);
 };
+
+// The pages read the spec with the same loader. Were it to drop the cases,
+// both sides would lose them, and every check would pass on none. So the
+// loader must yield some, as many as a count of the file's own lines: funcd
+// writes each case as an item of x-funcd-cases whose when: holds its one-line
+// text, and no other line starts with when: and a text.
+await check('spec', (fail) => {
+  const listed = read(mirrored).match(/^ *(- )?when: \S/gm)?.length ?? 0;
+  const yielded = Object.values(spec.paths)
+    .flatMap((item) => Object.values(item))
+    .flatMap((operation) => Object.values(operation.responses ?? {}))
+    .reduce(
+      (sum, response) => sum + (response['x-funcd-cases']?.length ?? 0),
+      0
+    );
+  if (yielded === 0 || yielded !== listed)
+    fail(
+      `fumadocs-openapi yields ${yielded} cases from content/funcd/api/openapi/funcd.v1alpha1.yaml, whose lines list ${listed}`
+    );
+  return `fumadocs-openapi yields ${yielded} cases from the mirrored spec, as many as its lines list`;
+});
 
 await check('reference-shows-an-operation', (fail) => {
   const built = readdirSync(join(client, 'docs/api'), {
