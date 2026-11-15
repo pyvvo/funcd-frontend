@@ -1,6 +1,8 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { searchPath } from 'fumadocs-core/breadcrumb';
+import type { Node } from 'fumadocs-core/page-tree';
 import { staticClient } from 'fumadocs-core/search/client/orama-static';
 import { createOpenAPI } from 'fumadocs-openapi/server';
 
@@ -32,6 +34,7 @@ type Operation = {
 };
 type Spec = { paths: Record<string, Record<string, Operation>> };
 type TreeNode = {
+  $id?: string;
   type: string;
   name?: string;
   url?: string;
@@ -129,7 +132,7 @@ const loaderDataOf = (html: string) => {
   return loaderData['routes/docs'];
 };
 const treeOf = (html: string) =>
-  loaderDataOf(html).pageTree.data as { children: TreeNode[] };
+  loaderDataOf(html).pageTree.data as { $id?: string; children: TreeNode[] };
 const nameOf = (node: TreeNode) => unescape(node.name ?? '').trim();
 const urlsOf = (node: TreeNode): string[] => [
   ...(node.index?.url ? [node.index.url] : []),
@@ -364,6 +367,57 @@ await check('reference-has-its-own-sidebar', (fail) => {
       );
   }
   return `${operations.length + 1} pages read the Documentation and ${reference.title} roots, and list ${sections.length} sections`;
+});
+
+// After a move to another page, the sidebar keeps the page tree it holds while
+// the next page's tree has the same $id, and shows the root in which it finds
+// the open page (fumadocs-ui's TreeContextProvider). A Spec tab's tree points
+// its feature at the tab, so a move to a tab or away from it must find the
+// page in the tree that the sidebar keeps: otherwise the sidebar shows both
+// roots as folders, with no switcher.
+const trees = new Map<string, ReturnType<typeof treeOf>>();
+const treeAt = (url: string) => {
+  const tree = trees.get(url) ?? treeOf(pageOf(url));
+  trees.set(url, tree);
+  return tree;
+};
+const rootAfterMove = (from: string, to: string) => {
+  const held = treeAt(from);
+  const next = treeAt(to);
+  const kept = held.$id === next.$id ? held : next;
+  const path = searchPath(kept.children as unknown as Node[], to) ?? [];
+  return (path as unknown as TreeNode[]).findLast(
+    (node) => node.type === 'folder' && node.root
+  );
+};
+
+await check('sidebar-root-after-a-move', (fail) => {
+  const features = readdirSync(join(client, 'docs'), {
+    recursive: true,
+    encoding: 'utf8'
+  })
+    .filter((file) => file.endsWith('/spec/index.html'))
+    .map((file) => `/docs/${file.slice(0, -'/spec/index.html'.length)}`)
+    .filter((usage) => existsSync(join(client, usage, 'index.html')));
+  const operation = operations[0]?.url ?? '/docs/api';
+  const moves = features.flatMap((usage) => {
+    const spec = `${usage}/spec`;
+    return [
+      [usage, spec],
+      [spec, usage],
+      [operation, spec],
+      [spec, operation]
+    ];
+  });
+  for (const [from, to] of moves) {
+    const root = rootAfterMove(from, to);
+    const wanted = inReference(to) ? reference.title : 'Documentation';
+    if (root === undefined || nameOf(root) !== wanted)
+      fail(
+        `a move from ${from} to ${to} shows ${root ? nameOf(root) : 'no root'} in the sidebar, not ${wanted}`
+      );
+  }
+  return `${moves.length} moves to and from the Spec tabs of ${features.length} features show the open page's root`;
 });
 
 // A broken spec makes thousands of lines, which process.exit() would cut where

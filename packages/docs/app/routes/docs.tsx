@@ -56,7 +56,9 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 // On a Spec tab, the sidebar still marks the feature and keeps its section open: the feature's entry points at the
-// open tab, since the sidebar shows a feature as one entry.
+// open tab, since the sidebar shows a feature as one entry. That tree gets an $id of its own: after a move, the sidebar
+// keeps the tree it holds while the next page's has the same $id, so a move between the tabs would look the page up in
+// the other tab's tree, find no root, and show both roots as folders.
 function pointAt(tree: Root, from: string, to: string): Root {
   const walk = (nodes: Node[]): Node[] =>
     nodes.map((node) => {
@@ -66,7 +68,7 @@ function pointAt(tree: Root, from: string, to: string): Root {
         return { ...node, children: walk(node.children) };
       return node;
     });
-  return { ...tree, children: walk(tree.children) };
+  return { ...tree, $id: `${tree.$id}:${to}`, children: walk(tree.children) };
 }
 
 // A feature's Usage page (<feature>/index.md) and Spec page (<feature>/spec.md) show as two tabs under the feature's
