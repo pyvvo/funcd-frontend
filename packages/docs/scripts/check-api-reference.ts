@@ -1,13 +1,16 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { staticClient } from 'fumadocs-core/search/client/orama-static';
+import { createOpenAPI } from 'fumadocs-openapi/server';
 
 // After the build, the API reference does what each scenario of the site in
 // funcd ADR-0331 says, one named check each, read from the built pages, their
 // Markdown copies and the search index. It expects a page for each entry of
-// funcd's reference-paths.json, and the answers of the spec that the site
-// serves at /openapi.json, a row per case and per status with no case, which
-// it reads itself rather than through app/lib/openapi.ts.
+// funcd's reference-paths.json, and the answers of the spec that the sync
+// mirrors, a row per case and per status with no case. fumadocs-openapi reads
+// that spec here, apart from app/lib/openapi.ts, so that a fault in the
+// site's own loading cannot change the expected answers with the pages.
 const content = fileURLToPath(new URL('../content/funcd', import.meta.url));
 const client = fileURLToPath(new URL('../build/client', import.meta.url));
 const read = (path: string) => readFileSync(path, 'utf8');
@@ -26,6 +29,7 @@ type Operation = {
     { description?: string; 'x-funcd-cases'?: Case[] }
   >;
 };
+type Spec = { paths: Record<string, Record<string, Operation>> };
 type TreeNode = {
   type: string;
   name?: string;
@@ -38,9 +42,10 @@ type TreeNode = {
 const paths: Record<string, string> = JSON.parse(
   read(join(content, 'api/openapi/reference-paths.json'))
 );
-const spec: { paths: Record<string, Record<string, Operation>> } = JSON.parse(
-  read(join(client, 'openapi.json'))
-);
+const mirrored = join(content, 'api/openapi/funcd.v1alpha1.yaml');
+const spec = (await createOpenAPI({ input: [mirrored] }).getSchema(mirrored))
+  .bundled as unknown as Spec;
+const served: Spec = JSON.parse(read(join(client, 'openapi.json')));
 const operations = Object.entries(spec.paths).flatMap(([path, item]) =>
   Object.entries(item).flatMap(([method, operation]) => {
     const page = paths[operation.operationId ?? ''];
@@ -55,6 +60,12 @@ const rowsOf = (operation: Operation) =>
       return [[status, '', response.description ?? '', '']];
     return cases.map((c) => [status, c.type ?? c.body ?? '', c.when, c.fix]);
   });
+const casesIn = (document: Spec, path: string, method: string) =>
+  JSON.stringify(
+    Object.entries(document.paths[path]?.[method]?.responses ?? {}).map(
+      ([status, response]) => [status, response['x-funcd-cases'] ?? []]
+    )
+  );
 
 const unescape = (html: string) =>
   html
@@ -146,16 +157,16 @@ const sections = reference.pages.filter((page) => page !== 'index');
 
 const problems: string[] = [];
 const passed: string[] = [];
-const check = (
+const check = async (
   name: string,
-  run: (fail: (problem: string) => void) => string
+  run: (fail: (problem: string) => void) => string | Promise<string>
 ) => {
   const before = problems.length;
-  const detail = run((problem) => problems.push(`${name}: ${problem}`));
+  const detail = await run((problem) => problems.push(`${name}: ${problem}`));
   if (problems.length === before) passed.push(`${name}: ${detail}`);
 };
 
-check('reference-shows-an-operation', (fail) => {
+await check('reference-shows-an-operation', (fail) => {
   const built = readdirSync(join(client, 'docs/api'), {
     recursive: true,
     encoding: 'utf8'
@@ -184,19 +195,26 @@ check('reference-shows-an-operation', (fail) => {
     if (operation.security?.some((way) => Object.keys(way).length > 0))
       if (!html.includes('id="authorization"'))
         fail(`${url} shows no authentication`);
-    const rows = answersOf(html);
+    const rows = answersOf(html) ?? [];
     const wantedRows = rowsOf(operation);
-    if (JSON.stringify(rows) !== JSON.stringify(wantedRows))
+    const at = [...Array(Math.max(rows.length, wantedRows.length)).keys()].find(
+      (i) => JSON.stringify(rows[i]) !== JSON.stringify(wantedRows[i])
+    );
+    const show = (row?: string[]) =>
+      row?.join(' | ').replace(/\s+/g, ' ') ?? 'no row';
+    if (at !== undefined)
       fail(
-        `${url}'s Answers table has ${rows?.length ?? 'no'} rows, not the ${wantedRows.length} of its cases and statuses with no case`
+        `${url}'s Answers table shows ${show(rows[at])} at row ${at + 1}, not ${show(wantedRows[at])}`
       );
     if ('bundled' in (loaderDataOf(pageOf(url)).api.page.payload ?? {}))
       fail(`${url} holds the spec instead of loading /openapi.json`);
+    if (casesIn(served, path, method) !== casesIn(spec, path, method))
+      fail(`/openapi.json holds other cases than the spec for ${url}`);
   }
   return `${operations.length} pages show their method and path, parameters, body, authentication and Answers table`;
 });
 
-check('function-call-in-reference', (fail) => {
+await check('function-call-in-reference', (fail) => {
   const call = operations.find(
     ({ operation }) => operation.operationId === 'invokeFunction'
   );
@@ -224,28 +242,39 @@ check('function-call-in-reference', (fail) => {
   return `${wantedTrail.slice(1).join(' › ')} answers in ${rows.length} rows`;
 });
 
-check('search-finds-a-case', (fail) => {
-  const index = JSON.parse(read(join(client, 'api/search'))) as {
-    docs: { docs: Record<string, { page_id: string; content: string }> };
-  };
-  const entries = Object.values(index.docs.docs);
+// The site's search dialog runs this client on the index that the build
+// exports, which it fetches; here the client reads the built file. A search
+// finds a case when it returns the case's text on a page that answers it: a
+// page found by other words of the text does not show the case.
+await check('search-finds-a-case', async (fail) => {
+  const index = readFileSync(join(client, 'api/search')).toString('base64');
+  const { search } = staticClient({
+    from: `data:application/json;base64,${index}`
+  });
   const answering = new Map<string, Set<string>>();
   for (const { operation, url } of operations)
     for (const response of Object.values(operation.responses ?? {}))
       for (const { when } of response['x-funcd-cases'] ?? [])
         answering.set(when, (answering.get(when) ?? new Set()).add(url));
-  for (const [when, pages] of answering)
-    if (
-      !entries.some(
-        (entry) => pages.has(entry.page_id) && entry.content.includes(when)
-      )
-    )
-      fail(`no page that answers it is found by "${when}"`);
-  return `each of ${answering.size} case texts finds a page that answers it`;
+  for (const [when, pages] of answering) {
+    const results = await search(when);
+    const shown = results.filter(
+      ({ type, url, content }) =>
+        type !== 'page' &&
+        pages.has(url.split('#')[0]) &&
+        String(content).includes(when)
+    );
+    if (shown.length === 0)
+      fail(
+        `a search for "${when}" shows it on no page that answers it, but on ${[...new Set(results.map(({ url }) => url.split('#')[0]))].slice(0, 3).join(', ')}`
+      );
+  }
+  return `a search for each of ${answering.size} case texts shows it on a page that answers it`;
 });
 
-check('agent-reads-an-operation', (fail) => {
-  const cell = (text: string) => text.replace(/\|/g, '\\|');
+await check('agent-reads-an-operation', (fail) => {
+  const cell = (text: string) =>
+    text.replace(/\s*\n\s*/g, ' ').replace(/\|/g, '\\|');
   for (const { path, method, operation, url } of operations) {
     const file = join(client, `${url}.md`);
     if (!existsSync(file)) {
@@ -280,7 +309,7 @@ check('agent-reads-an-operation', (fail) => {
   return `${operations.length} Markdown copies hold the method and path, summary, authentication, parameters, body and Answers rows`;
 });
 
-check('reference-has-its-own-sidebar', (fail) => {
+await check('reference-has-its-own-sidebar', (fail) => {
   for (const url of ['/docs/api', ...operations.map(({ url }) => url)]) {
     if (!existsSync(join(client, url, 'index.html'))) continue;
     const top = treeOf(pageOf(url)).children;
@@ -315,10 +344,13 @@ check('reference-has-its-own-sidebar', (fail) => {
   return `${operations.length + 1} pages read the Documentation and ${reference.title} roots, and list ${sections.length} sections`;
 });
 
+// A broken spec makes thousands of lines, which process.exit() would cut where
+// the output is a pipe, so the script sets its exit code and ends.
 if (problems.length > 0) {
   console.error(
     `api-reference: ${problems.length} problem(s)\n${problems.join('\n')}`
   );
-  process.exit(1);
+  process.exitCode = 1;
+} else {
+  console.log(passed.map((line) => `api-reference: ${line}`).join('\n'));
 }
-console.log(passed.map((line) => `api-reference: ${line}`).join('\n'));
