@@ -19,6 +19,15 @@ export interface IChartSeries<TRow extends JSONData = JSONData> {
   name: string;
   /** Theme palette of the series; by default the chart theme picks one */
   color?: PyColorsType;
+  /**
+   * Number format of the values in the tooltip and on the value axis, in the
+   * browser's locale: `{ style: 'currency', currency: 'EUR' }`, or
+   * `{ style: 'unit', unit: 'percent' }` for values from 0 to 100. The value
+   * axis takes the first series' format, in compact notation (€1.5K) unless
+   * the format sets its own `notation`. A format that `Intl.NumberFormat`
+   * rejects shows an error card instead of the chart.
+   */
+  format?: Intl.NumberFormatOptions;
 }
 
 export type CommonChartProps<TChartProps extends JSONData> = {

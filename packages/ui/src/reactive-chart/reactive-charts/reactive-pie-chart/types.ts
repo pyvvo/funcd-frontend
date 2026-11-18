@@ -10,4 +10,11 @@ export type PieChartCustomProps<TRow extends JSONData = JSONData> = {
   donut?: boolean;
   /** Theme palette per slice name, for slices that mean a status; by default the chart theme picks one */
   colors?: Record<string, PyColorsType>;
+  /**
+   * Number format of the slice values in the tooltip and of the donut's
+   * total, in the browser's locale: `{ style: 'currency', currency: 'EUR' }`.
+   * A format that `Intl.NumberFormat` rejects shows an error card instead of
+   * the chart.
+   */
+  format?: Intl.NumberFormatOptions;
 };

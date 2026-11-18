@@ -12,6 +12,9 @@ import { IReactiveChart } from '../types';
 import {
   ChartContainer,
   getChartAxisType,
+  getFormatError,
+  getValueAxisLabel,
+  getValueFormatter,
   mergeChartOptions,
   useChartRows
 } from '../utils';
@@ -35,8 +38,12 @@ const ReactiveLineChart: FC<IReactiveChart<LineChartCustomProps>> = (props) => {
   const theme = useMantineTheme();
   const colorScheme = useComputedColorScheme('light');
   const { rows, flatRows } = useChartRows({ data, dataKey });
+  const error = getFormatError(series.map(({ format }) => format));
 
   const option = useMemo(() => {
+    // The error card replaces the chart.
+    if (error) return {};
+    const valueFormat = series[0]?.format;
     const chartOption: ECOption = {
       dataset: {
         source: flatRows,
@@ -53,9 +60,12 @@ const ReactiveLineChart: FC<IReactiveChart<LineChartCustomProps>> = (props) => {
         left: 16
       },
       xAxis: { type: getChartAxisType(flatRows, xKey) },
-      yAxis: { type: 'value' },
+      yAxis: {
+        type: 'value',
+        ...(valueFormat && { axisLabel: getValueAxisLabel(valueFormat) })
+      },
       series: series.map(
-        ({ key, name, color }): LineSeriesOption => ({
+        ({ key, name, color, format }): LineSeriesOption => ({
           type: 'line',
           name,
           smooth,
@@ -72,13 +82,26 @@ const ReactiveLineChart: FC<IReactiveChart<LineChartCustomProps>> = (props) => {
             ...(color && { color: getPaletteColor(theme, color, colorScheme) }),
             borderColor: getSurfaceColor(theme, colorScheme),
             borderWidth: 2
-          }
+          },
+          ...(format && {
+            tooltip: { valueFormatter: getValueFormatter(format) }
+          })
         })
       )
     };
 
     return mergeChartOptions(chartOption, options);
-  }, [flatRows, xKey, series, smooth, area, options, theme, colorScheme]);
+  }, [
+    error,
+    flatRows,
+    xKey,
+    series,
+    smooth,
+    area,
+    options,
+    theme,
+    colorScheme
+  ]);
 
   const handleClick = useCallback(
     (event: ECElementEvent) => {
@@ -95,7 +118,8 @@ const ReactiveLineChart: FC<IReactiveChart<LineChartCustomProps>> = (props) => {
       title={title}
       hidden={hidden}
       loading={loading}
-      isEmpty={flatRows.length === 0}>
+      isEmpty={flatRows.length === 0}
+      error={error}>
       <HMChart
         option={option}
         loading={loading}
