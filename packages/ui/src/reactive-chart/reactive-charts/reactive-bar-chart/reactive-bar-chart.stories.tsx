@@ -66,6 +66,63 @@ export const Horizontal: Story = {
   }
 };
 
+export const Currency: Story = {
+  args: {
+    chartKey: 'sales-per-day',
+    dataKey: 'dailySales',
+    title: 'Sales per day',
+    customProps: {
+      xKey: 'day',
+      series: [
+        {
+          key: 'revenue',
+          name: 'Revenue',
+          format: { style: 'currency', currency: 'EUR' }
+        }
+      ]
+    }
+  }
+};
+
+const months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
+];
+
+// Rows in long form, one per month and category, draw one series per
+// category. March keeps its slot without a row, and the expenses without a
+// category draw the "Other" series.
+export const SplitBy: Story = {
+  args: {
+    chartKey: 'expenses-per-month',
+    dataKey: 'monthlyExpenses',
+    title: 'Expenses per month',
+    customProps: {
+      xKey: 'month',
+      splitBy: 'category',
+      xValues: months,
+      stacked: true,
+      series: [
+        {
+          key: 'amount',
+          name: 'Other',
+          format: { style: 'currency', currency: 'EUR' }
+        }
+      ]
+    }
+  }
+};
+
 export const Empty: Story = {
   play: async ({ canvasElement, args: { chartKey } }) => {
     const { chartRef } = getChartRef(canvasElement, chartKey);

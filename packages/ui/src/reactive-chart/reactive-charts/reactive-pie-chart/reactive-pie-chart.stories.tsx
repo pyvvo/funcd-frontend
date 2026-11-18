@@ -51,3 +51,17 @@ export const Donut: Story = {
     }
   }
 };
+
+export const Currency: Story = {
+  args: {
+    chartKey: 'expenses-donut',
+    dataKey: 'expensesByCategory',
+    title: 'Expenses by category',
+    customProps: {
+      nameKey: 'category',
+      valueKey: 'amount',
+      donut: true,
+      format: { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }
+    }
+  }
+};

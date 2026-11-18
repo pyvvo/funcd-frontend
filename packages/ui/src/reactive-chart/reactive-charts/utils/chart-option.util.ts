@@ -54,3 +54,47 @@ export const mergeChartOptions = <TOption extends JSONData>(
 
   return merged as TOption;
 };
+
+/**
+ * A chart value as a number, read the way ECharts reads data values: a
+ * numeric string such as a SQL decimal is a number, and an empty value is NaN
+ */
+export const getChartNumber = (value: unknown) =>
+  value === null || value === undefined || value === '' ? NaN : Number(value);
+
+/**
+ * Formats chart values with `format`, in the browser's locale. A value that
+ * isn't a number shows as a dash, as in ECharts' own tooltip.
+ */
+export const getValueFormatter = (format?: Intl.NumberFormatOptions) => {
+  const numberFormat = new Intl.NumberFormat(undefined, format);
+  return (value: unknown) => {
+    const number = getChartNumber(value);
+    return Number.isNaN(number) ? '-' : numberFormat.format(number);
+  };
+};
+
+/**
+ * Value axis labels in a series' `format`, compact like the labels without
+ * a format (€1.5K) unless the format sets its own `notation`
+ */
+export const getValueAxisLabel = (format: Intl.NumberFormatOptions) => ({
+  formatter: getValueFormatter({ notation: 'compact', ...format })
+});
+
+/**
+ * Message of the error card for the first format that `Intl.NumberFormat`
+ * rejects, such as a currency code that isn't three letters
+ */
+export const getFormatError = (
+  formats: (Intl.NumberFormatOptions | undefined)[]
+) => {
+  try {
+    formats.forEach(
+      (format) => format && new Intl.NumberFormat(undefined, format)
+    );
+  } catch (error) {
+    return `Invalid format: ${(error as Error).message}`;
+  }
+  return undefined;
+};

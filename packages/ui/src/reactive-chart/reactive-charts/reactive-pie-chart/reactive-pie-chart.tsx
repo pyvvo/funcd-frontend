@@ -10,7 +10,13 @@ import * as echarts from 'echarts/core';
 import { ECElementEvent } from 'echarts/core';
 import { FC, useCallback, useMemo } from 'react';
 import { IReactiveChart } from '../types';
-import { ChartContainer, mergeChartOptions, useChartRows } from '../utils';
+import {
+  ChartContainer,
+  getFormatError,
+  getValueFormatter,
+  mergeChartOptions,
+  useChartRows
+} from '../utils';
 import { PieChartCustomProps } from './types';
 
 echarts.use([PieChart]);
@@ -27,13 +33,18 @@ const ReactivePieChart: FC<IReactiveChart<PieChartCustomProps>> = (props) => {
     customProps
   } = props;
 
-  const { hidden, nameKey, valueKey, donut, colors } = customProps;
+  const { hidden, nameKey, valueKey, donut, colors, format } = customProps;
   const theme = useMantineTheme();
   const colorScheme = useComputedColorScheme('light');
   const { rows, flatRows } = useChartRows({ data, dataKey });
+  const error = getFormatError([format]);
 
   const option = useMemo(() => {
+    // The error card replaces the chart.
+    if (error) return {};
     const seriesColors = getSeriesColors(theme, colorScheme);
+    // Without a format, the same as the total's toLocaleString().
+    const formatValue = getValueFormatter(format);
     const total = flatRows.reduce(
       (sum, row) => sum + (Number(row[valueKey]) || 0),
       0
@@ -45,7 +56,7 @@ const ReactivePieChart: FC<IReactiveChart<PieChartCustomProps>> = (props) => {
       // A donut shows its total in the middle.
       title: donut
         ? {
-            text: total.toLocaleString(),
+            text: formatValue(total),
             left: '50%',
             top: '55%',
             textAlign: 'center',
@@ -79,13 +90,25 @@ const ReactivePieChart: FC<IReactiveChart<PieChartCustomProps>> = (props) => {
                   : seriesColors[dataIndex % seriesColors.length]
             })
           },
-          encode: { itemName: nameKey, value: valueKey }
+          encode: { itemName: nameKey, value: valueKey },
+          ...(format && { tooltip: { valueFormatter: formatValue } })
         }
       ]
     };
 
     return mergeChartOptions(chartOption, options);
-  }, [flatRows, nameKey, valueKey, donut, colors, options, theme, colorScheme]);
+  }, [
+    error,
+    flatRows,
+    nameKey,
+    valueKey,
+    donut,
+    colors,
+    format,
+    options,
+    theme,
+    colorScheme
+  ]);
 
   const handleClick = useCallback(
     (event: ECElementEvent) => {
@@ -102,7 +125,8 @@ const ReactivePieChart: FC<IReactiveChart<PieChartCustomProps>> = (props) => {
       title={title}
       hidden={hidden}
       loading={loading}
-      isEmpty={flatRows.length === 0}>
+      isEmpty={flatRows.length === 0}
+      error={error}>
       <HMChart
         option={option}
         loading={loading}

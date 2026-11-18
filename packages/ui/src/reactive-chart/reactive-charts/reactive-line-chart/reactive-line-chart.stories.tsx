@@ -66,3 +66,22 @@ export const MultipleSeries: Story = {
     }
   }
 };
+
+export const Formatted: Story = {
+  args: {
+    chartKey: 'duration-formatted',
+    dataKey: 'dailyRuns',
+    title: 'Average duration',
+    customProps: {
+      xKey: 'day',
+      area: true,
+      series: [
+        {
+          key: 'duration',
+          name: 'Average duration',
+          format: { style: 'unit', unit: 'second', maximumFractionDigits: 1 }
+        }
+      ]
+    }
+  }
+};
