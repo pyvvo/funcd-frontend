@@ -34,7 +34,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 3002",
-    "build": "tsc && vp build && tsc -p tsconfig.build.json",
+    "build": "tsc && vp build && tsc -p tsconfig.build.json && tsx scripts/resolve-dts-aliases.ts",
     "generate:logo": "tsx scripts/generate-logo.tsx",
     "serve": "vp preview",
     "test": "vp test",
