@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1](https://github.com/pyvvo/funcd-frontend/compare/v0.10.0...v0.10.1) (2026-11-19)
+
+
+### Bug Fixes
+
+* **ui:** resolve the internal @/ alias in the published type declarations ([#55](https://github.com/pyvvo/funcd-frontend/issues/55)) ([3791bfd](https://github.com/pyvvo/funcd-frontend/commit/3791bfdc656b48a21e00c3ab3a4c75ba1ee7f77e))
+
 ## [0.10.0](https://github.com/pyvvo/funcd-frontend/compare/v0.9.1...v0.10.0) (2026-11-19)
 
 
