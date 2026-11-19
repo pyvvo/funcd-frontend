@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/pyvvo/funcd-frontend/compare/v0.7.0...v0.8.0) (2026-11-19)
+
+
+### Features
+
+* **ui:** add a range-slider reactive field ([#46](https://github.com/pyvvo/funcd-frontend/issues/46)) ([08291f1](https://github.com/pyvvo/funcd-frontend/commit/08291f18a172e43a07dd6205a0c92bb83bee3e82))
+
 ## [0.7.0](https://github.com/pyvvo/funcd-frontend/compare/v0.6.0...v0.7.0) (2026-11-18)
 
 
