@@ -6,6 +6,7 @@ export * from './reactive-password-field';
 export * from './reactive-radio';
 export * from './reactive-range';
 export * from './reactive-range-slider';
+export * from './reactive-period';
 export * from './reactive-select';
 export * from './reactive-switch';
 export * from './reactive-text-field';

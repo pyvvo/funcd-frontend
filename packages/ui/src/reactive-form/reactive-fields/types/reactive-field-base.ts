@@ -15,6 +15,7 @@ export type InputType =
   | 'radio'
   | 'range'
   | 'range-slider'
+  | 'period'
   | 'autocomplete'
   | 'list';
 

@@ -5,6 +5,7 @@ import {
   ReactiveMultiSelect,
   ReactiveNumberField,
   ReactivePasswordField,
+  ReactivePeriod,
   ReactiveRadio,
   ReactiveRange,
   ReactiveRangeSlider,
@@ -41,4 +42,5 @@ FormBuilder.defineWidget({
   name: 'range-slider',
   component: ReactiveRangeSlider
 });
+FormBuilder.defineWidget({ name: 'period', component: ReactivePeriod });
 FormBuilder.defineWidget({ name: 'select', component: ReactiveSelect });

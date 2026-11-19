@@ -1,0 +1,14 @@
+/* The filter bar: on the page itself, with no surface of its own, its left edge on the chart cards'. Its fields sit
+   side by side, lined up on their controls, their labels above. */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--mantine-spacing-md) var(--mantine-spacing-xl);
+}
+
+/* A field takes its control's width, and a field that fills its line, such as a select, at least this one. */
+.filter {
+  flex: 0 1 auto;
+  min-width: 200px;
+}
