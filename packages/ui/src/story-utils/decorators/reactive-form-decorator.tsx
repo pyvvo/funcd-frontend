@@ -25,6 +25,7 @@ import {
   ReactivePasswordField,
   ReactiveRadio,
   ReactiveRange,
+  ReactiveRangeSlider,
   ReactiveSelect,
   ReactiveSwitch,
   ReactiveTextareaField,
@@ -56,6 +57,10 @@ FormBuilder.defineWidget({
 });
 FormBuilder.defineWidget({ name: 'radio', component: ReactiveRadio });
 FormBuilder.defineWidget({ name: 'range', component: ReactiveRange });
+FormBuilder.defineWidget({
+  name: 'range-slider',
+  component: ReactiveRangeSlider
+});
 FormBuilder.defineWidget({ name: 'select', component: ReactiveSelect });
 
 FormBuilder.defineWidget({ name: 'list', component: ReactiveListField });

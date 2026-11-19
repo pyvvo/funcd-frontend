@@ -14,6 +14,7 @@ export type InputType =
   | 'multi-select'
   | 'radio'
   | 'range'
+  | 'range-slider'
   | 'autocomplete'
   | 'list';
 
