@@ -83,6 +83,21 @@ export const getValueAxisLabel = (format: Intl.NumberFormatOptions) => ({
 });
 
 /**
+ * One id per series, from its name in `names`, a repeated name getting a
+ * suffix. HMChart replaces the series on each update, and ECharts keeps a
+ * series whose id it already draws: the series then moves to its new values
+ * instead of being drawn anew from zero.
+ */
+export const getSeriesIds = (names: string[]) => {
+  const counts = new Map<string, number>();
+  return names.map((name) => {
+    const count = counts.get(name) ?? 0;
+    counts.set(name, count + 1);
+    return count ? `${name}-${count}` : name;
+  });
+};
+
+/**
  * Message of the error card for the first format that `Intl.NumberFormat`
  * rejects, such as a currency code that isn't three letters
  */
