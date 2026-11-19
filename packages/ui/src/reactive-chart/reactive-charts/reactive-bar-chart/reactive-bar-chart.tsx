@@ -13,6 +13,7 @@ import {
   ChartContainer,
   getChartAxisType,
   getFormatError,
+  getSeriesIds,
   getValueAxisLabel,
   getValueFormatter,
   mergeChartOptions,
@@ -72,6 +73,11 @@ const ReactiveBarChart: FC<IReactiveChart<BarChartCustomProps>> = (props) => {
     const dataEnd = horizontal ? [0, 4, 4, 0] : [4, 4, 0, 0];
     const surface = getSurfaceColor(theme, colorScheme);
     const barSeries: IChartSeries[] = pivot ?? series;
+    // A split series is named after its split value, the others after their
+    // column.
+    const seriesIds = getSeriesIds(
+      barSeries.map(({ key, name }) => (splitBy ? name : key))
+    );
     const chartOption: ECOption = {
       // A pivot's series carry their own [x value, sum] pairs, and the axis
       // collects its categories from them. Categories set on the axis would
@@ -105,6 +111,7 @@ const ReactiveBarChart: FC<IReactiveChart<BarChartCustomProps>> = (props) => {
       series: barSeries.map(
         ({ key, name, color, format }, index): BarSeriesOption => ({
           type: 'bar',
+          id: seriesIds[index],
           name,
           stack: stacked ? 'total' : undefined,
           barMaxWidth: 24,
@@ -138,6 +145,7 @@ const ReactiveBarChart: FC<IReactiveChart<BarChartCustomProps>> = (props) => {
     xKey,
     xValues,
     series,
+    splitBy,
     stacked,
     horizontal,
     options,

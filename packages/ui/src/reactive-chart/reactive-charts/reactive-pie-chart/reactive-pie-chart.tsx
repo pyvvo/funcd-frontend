@@ -67,6 +67,9 @@ const ReactivePieChart: FC<IReactiveChart<PieChartCustomProps>> = (props) => {
       series: [
         {
           type: 'pie',
+          // The one series keeps its id across updates, so the slices move to
+          // their new values (see getSeriesIds).
+          id: 'slices',
           center: ['50%', '55%'],
           radius: donut ? ['50%', '75%'] : '75%',
           // The legend and the tooltip already name each slice.

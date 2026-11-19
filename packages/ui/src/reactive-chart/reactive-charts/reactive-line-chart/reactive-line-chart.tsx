@@ -13,6 +13,7 @@ import {
   ChartContainer,
   getChartAxisType,
   getFormatError,
+  getSeriesIds,
   getValueAxisLabel,
   getValueFormatter,
   mergeChartOptions,
@@ -44,6 +45,7 @@ const ReactiveLineChart: FC<IReactiveChart<LineChartCustomProps>> = (props) => {
     // The error card replaces the chart.
     if (error) return {};
     const valueFormat = series[0]?.format;
+    const seriesIds = getSeriesIds(series.map(({ key }) => key));
     const chartOption: ECOption = {
       dataset: {
         source: flatRows,
@@ -65,8 +67,9 @@ const ReactiveLineChart: FC<IReactiveChart<LineChartCustomProps>> = (props) => {
         ...(valueFormat && { axisLabel: getValueAxisLabel(valueFormat) })
       },
       series: series.map(
-        ({ key, name, color, format }): LineSeriesOption => ({
+        ({ key, name, color, format }, index): LineSeriesOption => ({
           type: 'line',
+          id: seriesIds[index],
           name,
           smooth,
           // Points show on hover only, as 8px dots with a ring in the card's
