@@ -28,8 +28,9 @@ export type RequireAtLeastOne<
 // ############ Flatten
 type Entry = { key: string; value: any; optional: boolean };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-type _Explode<T> = T extends Date
+// A Date or an array is a value, not an object to flatten: flattenObj keeps it
+// whole, under its own key.
+type Explode<T> = T extends Date | readonly any[]
   ? { key: ''; value: T; optional: false }
   : T extends object
     ? {
@@ -50,8 +51,6 @@ type _Explode<T> = T extends Date
           : never;
       }[keyof T]
     : { key: ''; value: T; optional: false };
-
-type Explode<T> = _Explode<T extends readonly any[] ? { '0': T[number] } : T>;
 
 // oxlint-disable-next-line @typescript-eslint/no-redeclare
 type Collapse<T extends Entry> = {
