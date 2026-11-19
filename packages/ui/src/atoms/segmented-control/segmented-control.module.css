@@ -1,8 +1,9 @@
 /* The tab list's pills (molecules/navigation/tabs): a white pill that holds round segments, the active one tinted
-   with the primary color. Its height is an input's, so it lines up with the fields beside it. */
+   with the primary color. Its height is a small input's, so it lines up with the fields beside it: Mantine sets
+   --input-height-sm only inside a field's wrapper, so a control on its own falls back to the same 36px. */
 .root {
   --sc-padding: 0 14px;
-  min-height: var(--input-height-sm);
+  min-height: var(--input-height-sm, rem(36px));
   padding: 4px;
   background-color: white;
   border-radius: var(--mantine-radius-xl);
