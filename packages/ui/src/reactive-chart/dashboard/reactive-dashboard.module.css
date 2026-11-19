@@ -1,18 +1,10 @@
-/* The filter bar: the chart cards' surface (reactive-charts/utils/chart-container.module.css), with its fields side
-   by side and lined up on their controls, their labels above. */
+/* The filter bar: on the page itself, with no surface of its own, its left edge on the chart cards'. Its fields sit
+   side by side, lined up on their controls, their labels above. */
 .filters {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   gap: var(--mantine-spacing-md) var(--mantine-spacing-xl);
-  padding: var(--mantine-spacing-md) var(--mantine-spacing-lg);
-  background-color: white;
-  border-radius: var(--mantine-card-border-radius);
-  box-shadow: -1px 1px 10px -1px rgba(0, 0, 0, 0.103);
-
-  @mixin dark {
-    background-color: var(--mantine-color-dark-7);
-  }
 }
 
 /* A field takes its control's width, and a field that fills its line, such as a select, at least this one. */
