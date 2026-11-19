@@ -6,11 +6,13 @@ import {
   MantineColorsTuple,
   MantineThemeOverride,
   rem,
+  SegmentedControl,
   Tabs
 } from '@mantine/core';
 import CustomActionIcon from '../../ui/src/atoms/action-icon/action-icon.module.css';
 import CustomTabs from '../../ui/src/molecules/navigation/tabs/tabs.module.css';
 import CustomButton from './atoms/button/Button.module.css';
+import CustomSegmentedControl from './atoms/segmented-control/segmented-control.module.css';
 import breakpoints from './breakpoints.json';
 
 export type PyColorsType =
@@ -257,6 +259,13 @@ const theme: MantineThemeOverride = createTheme({
       classNames: CustomTabs,
       defaultProps: {
         variant: 'pills'
+      }
+    }),
+    SegmentedControl: SegmentedControl.extend({
+      classNames: CustomSegmentedControl,
+      defaultProps: {
+        radius: 'xl',
+        withItemsBorders: false
       }
     })
   }

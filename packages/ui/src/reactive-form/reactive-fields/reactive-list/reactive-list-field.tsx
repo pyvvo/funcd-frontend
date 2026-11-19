@@ -27,7 +27,8 @@ const emptyValueMap = {
   radio: null,
   'multi-select': [],
   range: 0,
-  'range-slider': [0, 100]
+  'range-slider': [0, 100],
+  period: null
 } satisfies Record<Exclude<InputType, 'list'>, unknown>;
 
 const ReactiveListField = <TFormValues extends JSONData>(

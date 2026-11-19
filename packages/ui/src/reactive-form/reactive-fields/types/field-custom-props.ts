@@ -7,6 +7,7 @@ import { PasswordFieldCustomProps } from '../reactive-password-field';
 import { RadioCustomProps } from '../reactive-radio';
 import { RangeCustomProps } from '../reactive-range';
 import { RangeSliderCustomProps } from '../reactive-range-slider';
+import { PeriodCustomProps } from '../reactive-period';
 import { SelectCustomProps } from '../reactive-select';
 import { SwitchCustomProps } from '../reactive-switch';
 import { TextFieldCustomProps } from '../reactive-text-field';
@@ -28,6 +29,7 @@ export interface ICustomProps<TFormValues extends JSONData> {
   radio: CommonProps<RadioCustomProps, TFormValues>;
   range: CommonProps<RangeCustomProps, TFormValues>;
   'range-slider': CommonProps<RangeSliderCustomProps, TFormValues>;
+  period: CommonProps<PeriodCustomProps, TFormValues>;
   'multi-select': CommonProps<MultiSelectCustomProps, TFormValues>;
   list: CommonProps<ListFieldCustomProps<TFormValues>, TFormValues>;
   // range: never;

@@ -1,0 +1,49 @@
+/* The tab list's pills (molecules/navigation/tabs): a white pill that holds round segments, the active one tinted
+   with the primary color. Its height is an input's, so it lines up with the fields beside it. */
+.root {
+  --sc-padding: 0 14px;
+  min-height: var(--input-height-sm);
+  padding: 4px;
+  background-color: white;
+  border-radius: var(--mantine-radius-xl);
+  box-shadow: -4px 2px 15px -2px var(--mantine-color-gray-3);
+
+  @mixin dark {
+    background-color: var(--mantine-color-stone-cold-13);
+    box-shadow: -1px 0px 28px -12px var(--mantine-color-dark-7);
+  }
+}
+
+.control {
+  display: flex;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--mantine-color-gray-7);
+
+  &[data-active] {
+    color: var(--mantine-color-primary-9);
+  }
+
+  @mixin dark {
+    color: var(--mantine-color-stone-cold-6);
+
+    &[data-active] {
+      color: var(--mantine-color-primary-1);
+    }
+  }
+}
+
+.indicator {
+  border-radius: var(--mantine-radius-xl);
+  background-color: lighten(var(--mantine-color-primary-1), 0.6);
+  box-shadow: none;
+
+  @mixin dark {
+    background-color: var(--mantine-color-primary-9);
+  }
+}
