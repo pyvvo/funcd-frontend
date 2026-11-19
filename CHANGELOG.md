@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.1](https://github.com/pyvvo/funcd-frontend/compare/v0.9.0...v0.9.1) (2026-11-19)
+
+
+### Bug Fixes
+
+* **ui:** keep a chart's series across updates ([#50](https://github.com/pyvvo/funcd-frontend/issues/50)) ([534f7bb](https://github.com/pyvvo/funcd-frontend/commit/534f7bbda2611f4c98f86d9ca15225c333dcdc2b))
+* **ui:** keep the segmented control at its input height on its own ([#52](https://github.com/pyvvo/funcd-frontend/issues/52)) ([f7ade06](https://github.com/pyvvo/funcd-frontend/commit/f7ade06bdb84c21ed34f54a7294523b84089f16e))
+
 ## [0.9.0](https://github.com/pyvvo/funcd-frontend/compare/v0.8.0...v0.9.0) (2026-11-19)
 
 
