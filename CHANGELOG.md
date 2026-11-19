@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/pyvvo/funcd-frontend/compare/v0.8.0...v0.9.0) (2026-11-19)
+
+
+### Features
+
+* **ui:** add a filter bar to the dashboard and a period field ([#48](https://github.com/pyvvo/funcd-frontend/issues/48)) ([f0f7cf6](https://github.com/pyvvo/funcd-frontend/commit/f0f7cf65207a6a0f275d27e3d7d9cadc51e9138c))
+
 ## [0.8.0](https://github.com/pyvvo/funcd-frontend/compare/v0.7.0...v0.8.0) (2026-11-19)
 
 
