@@ -35,7 +35,8 @@ export const reactDataGridParser = <TRow extends Record<string, any>>(
   const renderCell = (column: IColumn<Flatten<TRow>>) => {
     const dataGridRenderCell = (fProps: RenderCellProps<Flatten<TRow>>) =>
       column.render!({
-        row: fProps.row,
+        // The row is flat already: flattening it again changes nothing.
+        row: fProps.row as Flatten<Flatten<TRow>>,
         rowIndex: fProps.rowIdx
       });
 

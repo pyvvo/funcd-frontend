@@ -16,7 +16,8 @@ export interface ICellRenderProps<TRow extends TRowBase> {
   row: Flatten<TRow>;
 }
 
-export interface IColumn<TRow extends TRowBase> {
+/** A column that shows a field of the row, named by its key */
+interface IFieldColumn<TRow extends TRowBase> {
   /** The name of the column. By default it will be displayed in the header cell
    * @see  {mantine-data-grid} https://github.com/Kuechlin/mantine-data-grid/blob/18b1fcc5b2b40f6af6ad9e82d3ee49ccb2111642/docs/pages/examples/AsyncExample.tsx#L72
    * @see  {react-data-grid} https://github.com/Kuechlin/mantine-data-grid/blob/18b1fcc5b2b40f6af6ad9e82d3ee49ccb2111642/docs/pages/examples/AsyncExample.tsx#L78
@@ -86,6 +87,20 @@ export interface IColumn<TRow extends TRowBase> {
   //   HeaderRendererProps<TRow, TSummaryRow>
   // > | null;
 }
+
+/** A column that draws its own cells, such as a column of buttons: its key
+ * only has to be unique among the columns, and names no field of the row */
+interface IRenderColumn<TRow extends TRowBase> extends Omit<
+  IFieldColumn<TRow>,
+  'key' | 'render'
+> {
+  key: string;
+  render: (props: ICellRenderProps<TRow>) => JSX.Element;
+}
+
+export type IColumn<TRow extends TRowBase> =
+  | IFieldColumn<TRow>
+  | IRenderColumn<TRow>;
 
 type SortDirection = 'ASC' | 'DESC';
 

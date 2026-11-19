@@ -338,6 +338,33 @@ export const Empty: Story = {
   )
 };
 
+// A column that draws its own cells, here a button, takes a key of its own:
+// `remove` names no field of the row.
+const buttonColumns: IColumn<ICollector>[] = [
+  ...columns,
+  {
+    key: 'remove',
+    name: '',
+    width: 140,
+    render: ({ row }) => (
+      <Button
+        variant="subtle"
+        size="compact-sm"
+        mod={{ color: 'alert' }}
+        leftSection={<IconTrash size={14} />}
+        onClick={() => action('remove')(row.id)}>
+        Remove
+      </Button>
+    )
+  }
+];
+
+export const ButtonColumn: Story = {
+  render: () => (
+    <HMDG rowKeyGetter={(row) => row.id} columns={buttonColumns} rows={_rows} />
+  )
+};
+
 // What the grid can build, one table per section.
 export const Showcase: Story = {
   name: 'Showcase',

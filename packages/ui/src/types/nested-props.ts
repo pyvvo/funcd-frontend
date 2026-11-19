@@ -16,9 +16,12 @@
 //     : `${Key}`;
 // }[keyof dynamicValue & (string | number)];
 
+// An array or a Date is a key of its own, as flattenObj keeps it whole; another
+// object gives the keys inside it.
 export type NestedKeyOf<DynamicValue extends object> = {
-  [Key in keyof DynamicValue &
-    (string | number)]: DynamicValue[Key] extends any[]
+  [Key in keyof DynamicValue & (string | number)]: DynamicValue[Key] extends
+    | any[]
+    | Date
     ? `${Key}`
     : DynamicValue[Key] extends object
       ? `${Key}.${NestedKeyOf2<DynamicValue[Key]>}`
@@ -26,8 +29,9 @@ export type NestedKeyOf<DynamicValue extends object> = {
 }[keyof DynamicValue & (string | number)];
 
 type NestedKeyOf2<DynamicValue extends object> = {
-  [Key in keyof DynamicValue &
-    (string | number)]: DynamicValue[Key] extends any[]
+  [Key in keyof DynamicValue & (string | number)]: DynamicValue[Key] extends
+    | any[]
+    | Date
     ? `${Key}`
     : DynamicValue[Key] extends object
       ? `${Key}.${NestedKeyOf3<DynamicValue[Key]>}`
@@ -35,8 +39,9 @@ type NestedKeyOf2<DynamicValue extends object> = {
 }[keyof DynamicValue & (string | number)];
 
 type NestedKeyOf3<DynamicValue extends object> = {
-  [Key in keyof DynamicValue &
-    (string | number)]: DynamicValue[Key] extends any[]
+  [Key in keyof DynamicValue & (string | number)]: DynamicValue[Key] extends
+    | any[]
+    | Date
     ? `${Key}`
     : DynamicValue[Key] extends object
       ? `${Key}.${NestedKeyOf4<DynamicValue[Key]>}`
@@ -44,8 +49,9 @@ type NestedKeyOf3<DynamicValue extends object> = {
 }[keyof DynamicValue & (string | number)];
 
 type NestedKeyOf4<DynamicValue extends object> = {
-  [Key in keyof DynamicValue &
-    (string | number)]: DynamicValue[Key] extends any[]
+  [Key in keyof DynamicValue & (string | number)]: DynamicValue[Key] extends
+    | any[]
+    | Date
     ? `${Key}`
     : DynamicValue[Key] extends object
       ? `${Key}.${NestedKeyOf5<DynamicValue[Key]>}`
