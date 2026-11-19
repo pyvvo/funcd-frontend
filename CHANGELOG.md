@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.2](https://github.com/pyvvo/funcd-frontend/compare/v0.10.1...v0.10.2) (2026-11-19)
+
+
+### Bug Fixes
+
+* **ui:** type data-grid rows as the grid passes them, and let a render column take any key ([#57](https://github.com/pyvvo/funcd-frontend/issues/57)) ([1b66602](https://github.com/pyvvo/funcd-frontend/commit/1b666025f0dc41e190e7a4d8990b50501f76c238))
+
 ## [0.10.1](https://github.com/pyvvo/funcd-frontend/compare/v0.10.0...v0.10.1) (2026-11-19)
 
 
