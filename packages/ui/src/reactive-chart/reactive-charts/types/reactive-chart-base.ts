@@ -1,9 +1,9 @@
 import { PyColorsType } from '@/mantine.theme';
 import { ECOption } from '@/molecules/hm-chart';
-import { JSONData, NestedKeyOf } from '@/types';
+import { FormProps, JSONData, NestedKeyOf } from '@/types';
 import { ECElementEvent } from 'echarts/core';
 
-export type ChartType = 'bar' | 'line' | 'pie';
+export type ChartType = 'bar' | 'line' | 'pie' | 'card';
 
 export interface IChartClickParams {
   chartKey: string;
@@ -48,6 +48,11 @@ export interface IReactiveChart<
   options?: ECOption;
   data: TChartData;
   loading?: boolean;
+  /**
+   * The form of the dashboard's filter bar, whose values a card's callbacks
+   * receive
+   */
+  filtersForm?: FormProps<JSONData>;
   onChartClick?: (params: IChartClickParams) => void;
   customProps: CommonChartProps<TChartProps>;
 }
@@ -55,4 +60,7 @@ export interface IReactiveChart<
 export type ReactiveChartStoryType<
   TChartProps extends JSONData,
   TChartData extends JSONData = JSONData
-> = Omit<IReactiveChart<TChartProps, TChartData>, 'data' | 'onChartClick'>;
+> = Omit<
+  IReactiveChart<TChartProps, TChartData>,
+  'data' | 'filtersForm' | 'onChartClick'
+>;

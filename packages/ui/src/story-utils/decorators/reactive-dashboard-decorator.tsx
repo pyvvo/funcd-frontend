@@ -4,6 +4,7 @@ import {
   IReactiveChartMeta,
   IReactiveDashboard,
   ReactiveBarChart,
+  ReactiveCard,
   ReactiveLineChart,
   ReactivePieChart
 } from '@/reactive-chart';
@@ -22,6 +23,7 @@ import { IDecoratorParams } from './common';
 ChartBuilder.defineWidget({ name: 'bar', component: ReactiveBarChart });
 ChartBuilder.defineWidget({ name: 'line', component: ReactiveLineChart });
 ChartBuilder.defineWidget({ name: 'pie', component: ReactivePieChart });
+ChartBuilder.defineWidget({ name: 'card', component: ReactiveCard });
 
 type ReactiveDashboardChildren = ReactElement<IReactiveDashboard<JSONData>>;
 

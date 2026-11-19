@@ -1,0 +1,12 @@
+/* The card fills its place in the dashboard's grid, so cards of one row line up with each other and with the charts. */
+.root {
+  height: 100%;
+
+  & > * {
+    height: 100%;
+  }
+
+  &[data-hidden] {
+    display: none;
+  }
+}

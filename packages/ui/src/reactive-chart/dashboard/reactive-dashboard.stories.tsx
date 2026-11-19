@@ -1,5 +1,6 @@
 import {
   IReactiveFieldMeta,
+  PeriodPresetType,
   PeriodValueType,
   resolvePeriod
 } from '@/reactive-form';
@@ -209,16 +210,58 @@ const filterMeta: IReactiveFieldMeta<FilterValues>[] = [
   }
 ];
 
+// The period's words, which the cards' hints take from the filter bar.
+const presetLabels = {
+  '7d': 'Last 7 days',
+  '1M': 'Last month',
+  '3M': 'Last 3 months',
+  '6M': 'Last 6 months',
+  YTD: 'Year to date',
+  '1Y': 'Last year',
+  all: 'All time'
+} satisfies Record<PeriodPresetType, string>;
+
+const periodLabel = (period?: PeriodValueType | null) => {
+  if (!period) return 'All time';
+  return 'preset' in period
+    ? presetLabels[period.preset]
+    : `${period.from} – ${period.to}`;
+};
+
 const filteredMeta: IReactiveChartMeta<FilteredData>[] = [
   {
     groupKey: 'runs',
     charts: [
       {
+        chartKey: 'runs-total',
+        type: 'card',
+        dataKey: 'runs',
+        title: 'Runs',
+        layout: { x: 0, y: 0, w: 6, h: 1 },
+        customProps: {
+          value: ({ rows }) => rows.reduce((sum, row) => sum + row.runs, 0),
+          hint: ({ filters }) =>
+            periodLabel(filters.period as PeriodValueType | null)
+        }
+      },
+      {
+        chartKey: 'runs-days',
+        type: 'card',
+        dataKey: 'runs',
+        title: 'Days',
+        layout: { x: 6, y: 0, w: 6, h: 1 },
+        customProps: {
+          value: ({ rows }) => new Set(rows.map((row) => row.day)).size,
+          hint: ({ filters }) =>
+            filters.env ? `in ${String(filters.env)}` : 'in every environment'
+        }
+      },
+      {
         chartKey: 'runs-per-day',
         type: 'bar',
         dataKey: 'runs',
         title: 'Runs per day',
-        layout: { x: 0, y: 0, w: 8, h: 2 },
+        layout: { x: 0, y: 1, w: 8, h: 2 },
         customProps: {
           xKey: 'day',
           splitBy: 'env',
@@ -231,7 +274,7 @@ const filteredMeta: IReactiveChartMeta<FilteredData>[] = [
         type: 'pie',
         dataKey: 'byEnv',
         title: 'Runs by environment',
-        layout: { x: 8, y: 0, w: 4, h: 2 },
+        layout: { x: 8, y: 1, w: 4, h: 2 },
         customProps: { nameKey: 'env', valueKey: 'runs', donut: true }
       }
     ]
@@ -277,7 +320,7 @@ const FilteredDashboard = () => {
 };
 
 // A bar of filters above the charts: every chart follows the period and the
-// environment that the bar holds.
+// environment that the bar holds, and the cards' hints read the bar's values.
 export const WithFilters: Story = {
   render: () => <FilteredDashboard />,
   play: async ({ canvasElement }) => {
@@ -289,6 +332,10 @@ export const WithFilters: Story = {
       to: latestDay,
       days: 92
     });
+    await expect(canvas.getByTestId('runs-total')).toHaveTextContent(
+      'Last 3 months'
+    );
+    await expect(canvas.getByTestId('runs-days')).toHaveTextContent('92');
     await userEvent.click(canvas.getByText('7d'));
     await waitFor(async () => {
       await expect(result()).toEqual({
@@ -296,6 +343,10 @@ export const WithFilters: Story = {
         to: latestDay,
         days: 7
       });
+      await expect(canvas.getByTestId('runs-total')).toHaveTextContent(
+        'Last 7 days'
+      );
+      await expect(canvas.getByTestId('runs-days')).toHaveTextContent('7');
     });
   }
 };
