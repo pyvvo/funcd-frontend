@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/pyvvo/funcd-frontend/compare/v0.9.1...v0.10.0) (2026-11-19)
+
+
+### Features
+
+* **ui:** add a card to the dashboard, set by values or callbacks ([#53](https://github.com/pyvvo/funcd-frontend/issues/53)) ([30c199c](https://github.com/pyvvo/funcd-frontend/commit/30c199c84cbab83f2aa1c5b6652269d1233d0e46))
+
 ## [0.9.1](https://github.com/pyvvo/funcd-frontend/compare/v0.9.0...v0.9.1) (2026-11-19)
 
 
