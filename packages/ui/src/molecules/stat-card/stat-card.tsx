@@ -8,11 +8,22 @@ interface IStatCard {
   hint?: string;
   color?: MantineColor;
   icon?: ReactNode;
+  /** Drawn under the label instead of the value and the hint */
+  children?: ReactNode;
 }
 
-// A number tile: its label, the value, and an optional hint under it.
+// A number tile: its label, the value, and an optional hint under it, or its
+// own body under the label.
 const StatCard: FC<IStatCard> = (props) => {
-  const { label, value, hint, color = 'primary', icon, ...rest } = props;
+  const {
+    label,
+    value,
+    hint,
+    color = 'primary',
+    icon,
+    children,
+    ...rest
+  } = props;
 
   return (
     <Box p="md" className={styles.root} {...rest}>
@@ -26,13 +37,17 @@ const StatCard: FC<IStatCard> = (props) => {
           </ThemeIcon>
         )}
       </Group>
-      <Text className={styles.value} fw={700}>
-        {value}
-      </Text>
-      {hint && (
-        <Text c="dimmed" size="sm">
-          {hint}
-        </Text>
+      {children ?? (
+        <>
+          <Text className={styles.value} fw={700}>
+            {value}
+          </Text>
+          {hint && (
+            <Text c="dimmed" size="sm">
+              {hint}
+            </Text>
+          )}
+        </>
       )}
     </Box>
   );

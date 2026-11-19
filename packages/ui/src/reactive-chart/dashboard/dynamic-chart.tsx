@@ -1,4 +1,4 @@
-import { JSONData } from '@/types';
+import { FormProps, JSONData } from '@/types';
 import { getValuePath } from '@/utils';
 import { FC, useMemo } from 'react';
 import ChartBuilder from '../chart-builder';
@@ -10,11 +10,13 @@ interface IDynamicChart {
   chart: IDynamicChartMeta;
   data: JSONData;
   loading?: boolean;
+  /** The form of the dashboard's filter bar, for a card's callbacks */
+  filtersForm?: FormProps<JSONData>;
   onChartClick?: (params: IChartClickParams) => void;
 }
 
 const DynamicChart: FC<IDynamicChart> = (props) => {
-  const { chart, data, loading, onChartClick } = props;
+  const { chart, data, loading, filtersForm, onChartClick } = props;
   const { chartKey, dataKey, title, type, options, customProps } = chart;
   const RenderChart = useMemo(() => ChartBuilder.getChart(type), [type]);
 
@@ -44,6 +46,7 @@ const DynamicChart: FC<IDynamicChart> = (props) => {
       options={options}
       data={data}
       loading={loading}
+      filtersForm={filtersForm}
       onChartClick={onChartClick}
       customProps={customProps}
     />

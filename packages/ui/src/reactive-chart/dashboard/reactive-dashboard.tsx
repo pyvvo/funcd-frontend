@@ -70,6 +70,7 @@ const ReactiveDashboard = <
                 chart={chart}
                 data={data}
                 loading={loading}
+                filtersForm={filters?.form as FormProps<JSONData> | undefined}
                 onChartClick={onChartClick}
               />
             </LayoutGridItem>
