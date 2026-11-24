@@ -53,8 +53,9 @@ const icons: Record<string, () => ReactElement> = {
 };
 
 // A feature folder holds its Usage tab (index.md) and its Spec tab (spec.md). The sidebar shows the feature as one
-// entry, its Usage page; routes/docs.tsx shows the two tabs. A feature whose Usage page is not written yet shows as
-// one entry too, its Spec page.
+// entry, its Usage page; routes/docs.tsx shows the two tabs. A feature with other pages, such as Build an add-on, is a
+// folder that opens its Usage page and lists only those. A feature whose Usage page is not written yet shows as one
+// entry too, its Spec page.
 function collapseFeatures(nodes: Node[]): Node[] {
   return nodes.map((node) => {
     if (node.type !== 'folder') return node;
@@ -67,6 +68,8 @@ function collapseFeatures(nodes: Node[]): Node[] {
     );
     if (usage && spec && others.length === 0)
       return { ...usage, name: node.name, icon: node.icon ?? usage.icon };
+    if (usage && spec)
+      return { ...node, index: usage, children: collapseFeatures(others) };
     const [only] = node.children;
     if (
       !usage &&
