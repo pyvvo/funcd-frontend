@@ -391,14 +391,32 @@ const rootAfterMove = (from: string, to: string) => {
   );
 };
 
+// The features with a Usage page and a Spec page, by the URL of their Usage page.
+const features = readdirSync(join(client, 'docs'), {
+  recursive: true,
+  encoding: 'utf8'
+})
+  .filter((file) => file.endsWith('/spec/index.html'))
+  .map((file) => `/docs/${file.slice(0, -'/spec/index.html'.length)}`)
+  .filter((usage) => existsSync(join(client, usage, 'index.html')));
+
+await check('sidebar-shows-a-feature-once', (fail) => {
+  for (const usage of features) {
+    const tabs = [usage, `${usage}/spec`];
+    for (const open of tabs) {
+      const shown = treeAt(open)
+        .children.flatMap(urlsOf)
+        .filter((url) => tabs.includes(url));
+      if (shown.join(', ') !== open)
+        fail(
+          `the sidebar of ${open} lists ${shown.join(', ') || 'neither tab'}, not ${open} alone`
+        );
+    }
+  }
+  return `each of ${features.length} features is one entry, which points at its open tab`;
+});
+
 await check('sidebar-root-after-a-move', (fail) => {
-  const features = readdirSync(join(client, 'docs'), {
-    recursive: true,
-    encoding: 'utf8'
-  })
-    .filter((file) => file.endsWith('/spec/index.html'))
-    .map((file) => `/docs/${file.slice(0, -'/spec/index.html'.length)}`)
-    .filter((usage) => existsSync(join(client, usage, 'index.html')));
   const operation = operations[0]?.url ?? '/docs/api';
   const moves = features.flatMap((usage) => {
     const spec = `${usage}/spec`;

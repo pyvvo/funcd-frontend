@@ -65,7 +65,12 @@ function pointAt(tree: Root, from: string, to: string): Root {
       if (node.type === 'page' && node.url === from)
         return { ...node, url: to };
       if (node.type === 'folder')
-        return { ...node, children: walk(node.children) };
+        return {
+          ...node,
+          index:
+            node.index?.url === from ? { ...node.index, url: to } : node.index,
+          children: walk(node.children)
+        };
       return node;
     });
   return { ...tree, $id: `${tree.$id}:${to}`, children: walk(tree.children) };
