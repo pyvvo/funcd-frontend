@@ -1,7 +1,7 @@
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 
-const command = 'curl -fsSL https://pyvvo.github.io/funcd/install.sh | sh';
+const command = 'curl -fsSL https://funcd.dev/install.sh | sh';
 
 const InstallCommand = ({ className = '' }: { className?: string }) => {
   const [copied, setCopied] = useState(false);

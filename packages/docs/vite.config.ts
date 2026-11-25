@@ -5,7 +5,6 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
-  base: '/funcd/',
   plugins: [fumadocsMdx(), tailwindcss(), reactRouter()],
   resolve: {
     alias: [

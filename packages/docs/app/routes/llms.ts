@@ -1,7 +1,7 @@
 import { docsLlms } from '../lib/source';
 
-// The site's host: react-router.config.ts serves the site at pyvvo.github.io/funcd/, its basename.
-const origin = 'https://pyvvo.github.io';
+// The site's address.
+const origin = 'https://funcd.dev';
 
 // llmstxt.org asks for the project's name as the H1 and a blockquote that sums it up; fumadocs titles the index "Docs".
 const header = [
