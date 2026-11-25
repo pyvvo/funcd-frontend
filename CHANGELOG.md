@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.11.0](https://github.com/pyvvo/funcd-frontend/compare/v0.10.2...v0.11.0) (2026-11-25)
+
+
+### Features
+
+* **docs:** the site is served at funcd.dev ([#61](https://github.com/pyvvo/funcd-frontend/issues/61)) ([20bac48](https://github.com/pyvvo/funcd-frontend/commit/20bac480b9e6eab9586f1512a2c1b482cdc51581))
+
+
+### Bug Fixes
+
+* **docs:** a feature with more pages shows once in the sidebar ([#59](https://github.com/pyvvo/funcd-frontend/issues/59)) ([5a3ccd3](https://github.com/pyvvo/funcd-frontend/commit/5a3ccd33a1c54970dd6a5159edf1948cfc002f61))
+
 ## [0.10.2](https://github.com/pyvvo/funcd-frontend/compare/v0.10.1...v0.10.2) (2026-11-19)
 
 
