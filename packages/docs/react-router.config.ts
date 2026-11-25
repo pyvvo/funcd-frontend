@@ -7,9 +7,8 @@ const getUrl = createGetUrl('/docs');
 
 // GitHub Pages serves files only, so every page is pre-rendered at build time:
 // the guide's, the API reference's and each one's markdown copy. The site is
-// funcd's Pages site, at pyvvo.github.io/funcd/.
+// funcd's Pages site, at funcd.dev.
 export default {
-  basename: '/funcd/',
   ssr: false,
   async prerender({ getStaticPaths }) {
     const paths = [...getStaticPaths(), '/llms.txt', '/llms-full.txt'];

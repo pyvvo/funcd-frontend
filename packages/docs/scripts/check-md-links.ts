@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 const client = fileURLToPath(new URL('../build/client', import.meta.url));
 const fence = /^(`{3,}|~{3,})[^\n]*\n[\s\S]*?\n\1$/gm;
 const relative = /\]\(<?(?![a-z][a-z+.-]*:|\/|#)([^)\s<>]+)>?\)/gi;
-const copy = /\]\(\/[^/)\s]+\/(docs\/[^)#\s]+\.md)(?:#[^)\s]*)?\)/g;
+const copy = /\]\(\/(docs\/[^)#\s]+\.md)(?:#[^)\s]*)?\)/g;
 const problems: string[] = [];
 let copies = 0;
 
